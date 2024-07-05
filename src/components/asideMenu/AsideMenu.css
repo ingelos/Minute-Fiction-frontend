@@ -1,0 +1,42 @@
+.aside-menu {
+    flex-basis: 300px;
+    padding: 2.5em 0 0 3em;
+}
+
+.aside-card {
+    border-top: 1px solid var(--color-primary);
+    padding-top: 0.6em;
+}
+
+.aside-title {
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.register-menu {
+    padding: 20px 0;
+}
+
+.register-menu h4 {
+    margin-bottom: 5px;
+}
+
+.link-to-register {
+    border: 1px solid var(--color-primary);
+    border-radius: 25px;
+    padding: 0.3em 1em;
+    margin: 1em 0;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.theme-aside-nav {
+    margin-top: 2em;
+}
+
+.theme-aside-nav li {
+    list-style: none;
+    margin-bottom: 0.3em;
+}

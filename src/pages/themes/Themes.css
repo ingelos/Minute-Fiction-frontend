@@ -1,0 +1,9 @@
+.themes-nav {
+    margin-top: 2em;
+}
+
+.themes-nav li {
+    text-transform: uppercase;
+    list-style: none;
+    margin-bottom: 0.5em;
+}
