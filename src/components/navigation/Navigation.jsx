@@ -4,7 +4,7 @@ import NavigationLink from "../navigationLink/NavigationLink.jsx";
 function Navigation() {
     return (
         <nav className="main-navigation outer-content-container">
-            <div className="main-navigation inner-content-container">
+            <div className="navigation inner-content-container">
                 <ul className="main-navigation-links">
                     <NavigationLink
                         navId="main-nav-link"
