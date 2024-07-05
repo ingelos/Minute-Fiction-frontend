@@ -1,11 +1,11 @@
 .aside-menu {
     flex-basis: 300px;
-    padding: 2em 0 0 2.5em;
+    padding: 2.5em 0 0 3em;
 }
 
 .aside-card {
     border-top: 1px solid var(--color-primary);
-    padding-top: 0.8em;
+    padding-top: 0.6em;
 }
 
 .aside-title {
@@ -21,6 +21,15 @@
 
 .register-menu h4 {
     margin-bottom: 5px;
+}
+
+.link-to-register {
+    border: 1px solid var(--color-primary);
+    border-radius: 25px;
+    padding: 0.3em 1em;
+    margin: 1em 0;
+    width: fit-content;
+    cursor: pointer;
 }
 
 .theme-aside-nav {
