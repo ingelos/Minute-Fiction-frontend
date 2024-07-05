@@ -1,0 +1,20 @@
+.header {
+    background-color: var(--color-primary);
+}
+
+.header-container {
+    width: 100%;
+    margin: 20px 40px;
+}
+
+.header-title {
+    color: var(--color-secundary);
+    display: flex;
+    flex-direction: column;
+}
+
+.header-title h2 {
+    /*font-family: 'Ariel', sans-serif;*/
+    text-transform: uppercase;
+    font-size: 0.8em;
+}

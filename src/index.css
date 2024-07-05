@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Smooch&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 :root {
   font-family: 'Oswald', Helvetica, Arial, sans-serif;
@@ -19,9 +26,6 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -29,7 +33,7 @@ body {
 h1 {
   font-family: 'Smooch', sans-serif;;
   font-size: 4.5em;
-  line-height: 1.1;
+  /*line-height: 1.1;*/
 }
 
 h2, h2, h4 {
@@ -67,11 +71,11 @@ button {
   transition: border-color 0.25s;
 }
 
-button:hover {
-}
+/*button:hover {*/
+/*}*/
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+/*button:focus,*/
+/*button:focus-visible {*/
+/*  outline: 4px auto -webkit-focus-ring-color;*/
+/*}*/
 
