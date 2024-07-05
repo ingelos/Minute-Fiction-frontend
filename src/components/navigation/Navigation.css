@@ -1,0 +1,24 @@
+.main-navigation {
+    display: flex;
+    flex-direction: row;
+}
+
+.navigation {
+    margin: 15px 40px;
+    border-bottom: 3px solid black;
+}
+
+.main-navigation-links {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    font-family: 'Oswald', sans-serif;
+}
+
+#main-nav-link {
+    list-style: none;
+    padding: 0 40px 10px 20px;
+    text-transform: uppercase;
+    font-weight: 350;
+    font-size: 1.1em;
+}

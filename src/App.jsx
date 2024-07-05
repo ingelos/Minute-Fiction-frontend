@@ -9,12 +9,18 @@ import Submit from "./pages/submit/Submit.jsx";
 import Subscribe from "./pages/subscribe/Subscribe.jsx";
 import StoryDetail from "./pages/storyDetail/StoryDetail.jsx";
 import NotFound from "./pages/notFound/NotFound.jsx";
+import Header from "./components/header/Header.jsx";
+import Navigation from "./components/navigation/Navigation.jsx";
+import Footer from "./components/footer/Footer.jsx";
 
 function App() {
 
 
   return (
     <>
+      <Header />
+      <Navigation />
+      <main>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/register" element={<Register/>}/>
@@ -25,6 +31,8 @@ function App() {
         <Route path="/:storyId" element={<StoryDetail/>}/>
         <Route path="*" element={<NotFound/>}/>
       </Routes>
+      </main>
+      <Footer />
     </>
   )
 }
