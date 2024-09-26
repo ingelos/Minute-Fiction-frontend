@@ -1,0 +1,9 @@
+.story-detail-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.story-author-name {
+    display: flex;
+    flex-direction: row;
+}
