@@ -1,16 +1,26 @@
 import './AsideMenu.css'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import ThemesMenu from "../themesMenu/ThemesMenu.jsx";
 import Input from "../input/Input.jsx";
 import {useForm} from "react-hook-form";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
+
 
 
 function AsideMenu() {
 
     const {register, handleSubmit, formState: {errors}} = useForm();
     const [error, setError] = useState(false);
+    // const { login } = useContext(AuthContext);
+    const controller = new AbortController();
+
+
+    // useEffect(() => {
+    //     return function cleanup() {
+    //         controller.abort();
+    //     }
+    // })
 
     async function handleFormSubmit(data) {
         setError(false);
@@ -19,8 +29,11 @@ function AsideMenu() {
             const response = await axios.post('http://localhost:8080/login', {
                 username: data.username,
                 password: data.password,
+                // signal: controller.signal,
             });
-            console.log(response);
+            console.log(response.data);
+            // login(response.data.accessToken);
+
         } catch (error) {
             console.error(error.message);
             setError(true);
@@ -65,6 +78,7 @@ function AsideMenu() {
                     >
                         Login
                     </button>
+                    {error && <p className="error-message">Something went wrong while trying to log in. Please try again.</p>}
                 </form>
             </div>
             <div className="register aside-card">

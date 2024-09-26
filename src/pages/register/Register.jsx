@@ -2,13 +2,24 @@ import "./Register.css"
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {useForm} from "react-hook-form";
 import Input from "../../components/input/Input.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 function Register() {
 
     const {register, handleSubmit, formState: {errors}} = useForm();
     const [error, setError] = useState(false);
+    const navigate = useNavigate();
+
+
+    const controller = new AbortController();
+
+    useEffect(() => {
+        return function cleanup() {
+            controller.abort();
+        }
+    })
 
     async function handleFormSubmit(data) {
         setError(false);
@@ -17,11 +28,21 @@ function Register() {
             const response = await axios.post('http://localhost:8080/register', {
                 username: data.username,
                 password: data.password,
+                email: data.email,
+                subscription: data.subscription,
+                signal: controller.signal,
             });
             console.log(response);
+            navigate("/authenticate");
         } catch (error) {
-            console.error(error.message);
-            setError(true);
+            if(error.response && error.response.status === 400) {
+                const errorMessage = error.response.data.message || 'Username already in use';
+                console.error('Authentication failed:', errorMessage);
+                setError(true);
+            } else {
+                console.error('Error: ', error.message);
+                setError(true);
+            }
         }
     }
 
@@ -65,13 +86,33 @@ function Register() {
                                 register={register}
                                 errors={errors}
                             />
+                            <Input
+                                type='email'
+                                inputName='email'
+                                labelInput='email-field'
+                                labelText='Email: *'
+                                validationRules={{
+                                    required: 'Email is required',
+                                    pattern: {
+                                        value: /^\S+@\S+$/i,
+                                        message: 'Please enter a valid email address',
+                                    }
+                                }}
+                                register={register}
+                                errors={errors}
+                            />
                             <p>* required</p>
+                            <div className='checkbox-container'>
+                                <input type="checkbox" id="subscription" name="mailing"/>
+                            <label htmlFor="mailing">I want to receive the mailing</label>
+                            </div>
                             <button
                                 type='submit'
                                 className='register-button'
                             >
                                 Create account
                             </button>
+                            {error && <p className="error-message">Something went wrong. Please try again.</p>}
                         </form>
 
                     </div>
