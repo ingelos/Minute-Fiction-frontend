@@ -5,7 +5,7 @@ import axios from "axios";
 import Input from "../../components/input/Input.jsx";
 import {Link} from "react-router-dom";
 
-function AccountSettings() {
+function AccountSettingsPage() {
 
     const {register, handleSubmit, formState: {errors}, watch} = useForm()
     const [error, setError] = useState(false);
@@ -112,4 +112,4 @@ function AccountSettings() {
     )
 }
 
-export default AccountSettings;
+export default AccountSettingsPage;

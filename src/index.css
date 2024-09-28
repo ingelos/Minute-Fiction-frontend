@@ -67,6 +67,10 @@ button {
   cursor: pointer;
 }
 
+.error-message {
+  padding: 20px 0;
+}
+
 /*button:hover {*/
 /*}*/
 

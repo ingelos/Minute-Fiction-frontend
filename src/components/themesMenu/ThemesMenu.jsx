@@ -1,50 +1,28 @@
-import NavigationLink from "../navigationLink/NavigationLink.jsx";
+import {Link} from "react-router-dom";
+import useThemes from "../useThemes/UseThemes.jsx";
 
-function ThemesMenu({ themeNavId }) {
+function ThemesMenu() {
+    const {themes, loading, error} = useThemes({isOpen: false});
+
     return (
-        <ul className={themeNavId}>
-            <NavigationLink
-                direct="Fantasy"
-                navDirect={'/themes/fantasy'}
-            />
-            <NavigationLink
-                direct="Romance"
-                navDirect={'/themes/romance'}
-            />
-            <NavigationLink
-                direct="Humor"
-                navDirect={'/themes/humor'}
-            />
-            <NavigationLink
-                direct="Literary"
-                navDirect={'/themes/literary'}
-            />
-            <NavigationLink
-                direct="Mystery"
-                navDirect={'/themes/mystery'}
-            />
-            <NavigationLink
-                direct="Historical"
-                navDirect={'/themes/historical'}
-            />
-            <NavigationLink
-                direct="Poetry"
-                navDirect={'/themes/poetry'}
-            />
-            <NavigationLink
-                direct="Thriller"
-                navDirect={'/themes/thriller'}
-            />
-            <NavigationLink
-                direct="Magic"
-                navDirect={'/themes/magic'}
-            />
-            <NavigationLink
-                direct="Miscellaneous"
-                navDirect={'/themes/miscellaneous'}
-            />
-        </ul>
-    )
+
+        <div className="themes-menu-component">
+            {loading && <p>Loading...</p>}
+            {error && <p>{error.message}</p>}
+
+            {themes.length > 0 ? (
+                themes.map((theme) => (
+                    <div className="themes-container" key={theme.id}>
+                        <Link to={`/published/themes/${themeName}`}>
+                            <h2>{theme.themeName}</h2>
+                        </Link>
+                    </div>
+                ))
+            ) :
+                <p>No themes at this moment</p>
+            })
+        </div>
+    );
 }
 
 export default ThemesMenu;

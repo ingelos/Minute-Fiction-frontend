@@ -1,0 +1,8 @@
+.open-theme-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.open-theme-card h2 {
+    font-size: 20px;
+}
