@@ -1,4 +1,4 @@
-import "./Register.css"
+import "./RegisterPage.css"
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {useForm} from "react-hook-form";
 import Input from "../../components/input/Input.jsx";
@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-function Register() {
+function RegisterPage() {
 
     const {register, handleSubmit, formState: {errors}} = useForm();
     const [error, setError] = useState(false);
@@ -33,7 +33,7 @@ function Register() {
                 signal: controller.signal,
             });
             console.log(response);
-            navigate("/authenticate");
+            navigate("/authenticatePage");
         } catch (error) {
             if(error.response && error.response.status === 400) {
                 const errorMessage = error.response.data.message || 'Username already in use';
@@ -59,7 +59,7 @@ function Register() {
                             <Input
                                 type='text'
                                 inputName='username'
-                                labelInput='username-field'
+                                labelInput='register-username-field'
                                 labelText='Username: *'
                                 validationRules={{
                                     required: 'Username is required',
@@ -74,7 +74,7 @@ function Register() {
                             <Input
                                 type='password'
                                 inputName='password'
-                                labelInput='password-field'
+                                labelInput='register-password-field'
                                 labelText='Password: *'
                                 validationRules={{
                                     required: 'Password is required',
@@ -89,7 +89,7 @@ function Register() {
                             <Input
                                 type='email'
                                 inputName='email'
-                                labelInput='email-field'
+                                labelInput='register-email-field'
                                 labelText='Email: *'
                                 validationRules={{
                                     required: 'Email is required',
@@ -123,4 +123,4 @@ function Register() {
     )
 }
 
-export default Register;
+export default RegisterPage;

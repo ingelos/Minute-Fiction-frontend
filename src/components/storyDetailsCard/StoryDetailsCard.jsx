@@ -1,4 +1,4 @@
-function StoryDetails({title, authorFirstname, authorLastname, storyContent, themeName, publishDate}) {
+function StoryDetailsCard({title, authorFirstname, authorLastname, storyContent, themeName, publishDate}) {
 
     return (
         <div className="story-detail-container">

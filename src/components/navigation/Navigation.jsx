@@ -13,16 +13,16 @@ function Navigation() {
               <div className="navigation-container">
                 <ul className="main-navigation-links">
                     <NavigationLink
-                        direct="Home"
+                        direct="HomePage"
                         navDirect={'/'}
                     />
                     <NavigationLink
-                        direct="Themes"
-                        navDirect={'/themes'}
+                        direct="ThemesPage"
+                        navDirect={'/themesPage'}
                     />
                     <NavigationLink
-                        direct="Submit"
-                        navDirect={'/submit'}
+                        direct="SubmitPage"
+                        navDirect={'/submitPage'}
                     />
                     <NavigationLink
                         direct="Subscribe"
@@ -33,7 +33,7 @@ function Navigation() {
                   {/*  <ul className="main-navigation-links">*/}
                   {/*      <NavigationLink*/}
                   {/*          direct="Profile"*/}
-                  {/*          navDirect={'/authorProfile'}*/}
+                  {/*          navDirect={'/authorProfilePage'}*/}
                   {/*          />*/}
                   {/*      <div>*/}
                   {/*          <button*/}

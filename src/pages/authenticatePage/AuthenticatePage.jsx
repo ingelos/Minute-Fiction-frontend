@@ -6,7 +6,7 @@ import {AuthContext} from "../../context/AuthContext.jsx";
 import Input from "../../components/input/Input.jsx";
 import {Link} from "react-router-dom";
 
-function Authenticate() {
+function AuthenticatePage() {
 
     const {register, handleSubmit, formState: {errors}} = useForm();
     const {login} = useContext(AuthContext);
@@ -102,4 +102,4 @@ function Authenticate() {
     )
 }
 
-export default Authenticate;
+export default AuthenticatePage;

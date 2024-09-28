@@ -1,4 +1,4 @@
-function Comment({commentOwner, commentCreated, content}) {
+function CommentCard({commentOwner, commentCreated, content}) {
 
     return (
         <div className="comment-container">
@@ -14,4 +14,4 @@ function Comment({commentOwner, commentCreated, content}) {
     )
 }
 
-export default Comment;
+export default CommentCard;

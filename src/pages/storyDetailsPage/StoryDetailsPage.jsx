@@ -1,11 +1,11 @@
-import "./StoryDetail.css"
+import "./StoryDetailsPage.css"
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import Comment from "../../components/comment/Comment.jsx";
+import CommentCard from "../../components/commentCard/CommentCard.jsx";
 
-function StoryDetail() {
+function StoryDetailsPage() {
 
     const [story, setStory] = useState({});
     const [comments, setComments] = useState({})
@@ -77,7 +77,7 @@ function StoryDetail() {
                         {error && <p>{error}</p>}
                         <div className="story-card">
                             {Object.keys(story).length > 0 &&
-                                <StoryDetails
+                                <StoryDetailsCard
                                     title={story.title}
                                     storyContent={story.content}
                                     authorFirstname={story.authorFirstname}
@@ -88,20 +88,21 @@ function StoryDetail() {
                             }
                         </div>
                         <div className="comments-section">
-                            {comments?.map((comment) => (
-                                <div className="comment-list-container" key={comment.key}>
-                                    <Comment
-                                        content={comment.content}
-                                        commentCreated={comment.created}
-                                        commentOwner={comment.username}
-                                    />
-                                </div>
-
-                            ))}
+                            {comments.length > 0 && (
+                                comments?.map((comment) => (
+                                    <div className="comment-list-container" key={comment.key}>
+                                        <CommentCard
+                                            content={comment.content}
+                                            commentCreated={comment.created}
+                                            commentOwner={comment.username}
+                                        />
+                                    </div>
+                                ))
+                            // ): (
+                            //         <p></p>
+                            )}
                         </div>
                     </div>
-
-
                     <AsideMenu/>
                 </div>
             </div>
@@ -109,4 +110,4 @@ function StoryDetail() {
     )
 }
 
-export default StoryDetail;
+export default StoryDetailsPage;
