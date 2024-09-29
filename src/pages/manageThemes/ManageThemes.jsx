@@ -39,7 +39,7 @@ function ManageThemes() {
                                                     <p>{theme.openDate}</p>
                                                     <p>{theme.closingDate}</p>
                                                 </div>
-                                                <div className="themes-edit-links">
+                                                <div className="themes-edit">
                                                     <Link to={`/editor/themes/edit/${themeId}`}>{theme.themeName}</Link>
                                                     <button onClick={() => handleDeleteTheme(theme.id)}>Delete</button>
                                                 </div>

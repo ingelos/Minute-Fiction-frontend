@@ -1,16 +1,15 @@
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import axios from "axios";
 import ThemeForm from "../../components/themeForm/ThemeForm.jsx";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
 
 
 function CreateTheme() {
-    const {themeId} = useParams();
 
     async function handleCreateTheme(themeData) {
         try {
-            const {data} = await axios.post(`http://localhost:8080/themes/${themeId}`, themeData);
+            const {data} = await axios.post(`http://localhost:8080/themes`, themeData);
             console.log('Theme created:', data);
         } catch (error) {
             console.error('Error creating theme:', error);

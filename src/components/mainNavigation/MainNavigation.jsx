@@ -1,8 +1,8 @@
-import "./Navigation.css"
+import "./MainNavigation.css"
 import NavigationLink from "../navigationLink/NavigationLink.jsx";
 
 
-function Navigation() {
+function MainNavigation() {
 
     // const {isAuth, logout} = useContext(AuthContext);
 
@@ -30,7 +30,7 @@ function Navigation() {
                     />
                 </ul>
                   {/*{isAuth ?*/}
-                  {/*  <ul className="main-navigation-links">*/}
+                  {/*  <ul className="main-mainNavigation-links">*/}
                   {/*      <NavigationLink*/}
                   {/*          direct="Profile"*/}
                   {/*          navDirect={'/authorProfile'}*/}
@@ -51,4 +51,4 @@ function Navigation() {
     )
 }
 
-export default Navigation;
+export default MainNavigation;
