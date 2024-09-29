@@ -13,27 +13,27 @@ function Navigation() {
               <div className="navigation-container">
                 <ul className="main-navigation-links">
                     <NavigationLink
-                        direct="HomePage"
+                        direct="Home"
                         navDirect={'/'}
                     />
                     <NavigationLink
-                        direct="ThemesPage"
-                        navDirect={'/themesPage'}
+                        direct="Themes"
+                        navDirect={'/themes'}
                     />
                     <NavigationLink
-                        direct="SubmitPage"
-                        navDirect={'/submitPage'}
+                        direct="Authors"
+                        navDirect={'/authors'}
                     />
                     <NavigationLink
-                        direct="Subscribe"
-                        navDirect={'/subscribe'}
+                        direct="Submit"
+                        navDirect={'/submit'}
                     />
                 </ul>
                   {/*{isAuth ?*/}
                   {/*  <ul className="main-navigation-links">*/}
                   {/*      <NavigationLink*/}
                   {/*          direct="Profile"*/}
-                  {/*          navDirect={'/authorProfilePage'}*/}
+                  {/*          navDirect={'/authorProfile'}*/}
                   {/*          />*/}
                   {/*      <div>*/}
                   {/*          <button*/}

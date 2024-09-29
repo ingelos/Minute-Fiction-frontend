@@ -1,21 +1,21 @@
 
-import OpenThemeCard from "../openThemeCard/OpenThemeCard.jsx";
+import ThemeCard from "../themeCard/ThemeCard.jsx";
 import {Link} from "react-router-dom";
-import UseThemes from "../useThemes/UseThemes.jsx";
+import UseOpenThemes from "../useOpenThemes/UseOpenThemes.jsx";
 
 
 function OpenThemes({showSubmitButton}) {
-    const { themes: openThemes, loading, error} = UseThemes({isOpen: true});
+    const { themes, loading, error} = UseOpenThemes();
 
 
     return (
         <div>
             {loading && <p>Loading...</p>}
             {error && <p></p>}
-            {openThemes.length > 0 ? (
-                openThemes.map((theme) => (
+            {themes.length > 0 ? (
+                themes.map((theme) => (
                     <div className="themes-container" key={theme.id}>
-                        <OpenThemeCard
+                        <ThemeCard
                             themeName={theme.themeName}
                             description={showSubmitButton ? theme.description : null}
                             openDate={theme.openDate}

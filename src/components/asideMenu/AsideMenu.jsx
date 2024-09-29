@@ -1,6 +1,6 @@
 import './AsideMenu.css'
 import {Link} from "react-router-dom";
-import ThemesMenu from "../themesMenu/ThemesMenu.jsx";
+import ThemesOverview from "../themesOverview/ThemesOverview.jsx";
 import OpenThemes from "../openThemes/OpenThemes.jsx";
 
 
@@ -22,7 +22,7 @@ function AsideMenu() {
             </div>
             <div className="aside-nav aside-card">
                 <h3 className="aside-title">Themes</h3>
-                <ThemesMenu
+                <ThemesOverview
                     themeNavId="theme-aside-nav"
                 />
             </div>
