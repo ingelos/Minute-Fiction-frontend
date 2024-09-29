@@ -11,3 +11,5 @@ function AuthorProfileCard({firstname, lastname, bio, dob}) {
         </div>
     )
 }
+
+export default AuthorProfileCard;

@@ -1,8 +1,8 @@
+import axios from "axios";
 import {useEffect, useState} from "react";
 
-import axios from "axios";
 
-function UseThemes() {
+function UseOpenThemes() {
     const [themes, setThemes] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -12,14 +12,15 @@ function UseThemes() {
         const controller = new AbortController();
         const {signal} = controller;
 
-        async function fetchThemes() {
+        async function fetchOpenThemes() {
             setError(false);
 
             try {
                 setLoading(true);
-               const {data}  = await axios.get(`http://localhost:8080/themes`, {
+               const {data} = await axios.get(`http://localhost:8080/themes/open`, {
                         signal: signal,
                     });
+
                 setThemes(data);
             } catch (error) {
                 setError(error);
@@ -28,7 +29,7 @@ function UseThemes() {
             }
         }
 
-        fetchThemes();
+        fetchOpenThemes();
 
         return function cleanup() {
             controller.abort();
@@ -38,4 +39,4 @@ function UseThemes() {
     return { themes, loading, error};
 }
 
-export default UseThemes;
+export default UseOpenThemes;
