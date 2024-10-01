@@ -22,9 +22,11 @@ function AsideMenu() {
             </div>
             <div className="aside-nav aside-card">
                 <h3 className="aside-title">Themes</h3>
+                <div className="theme-menu-aside">
                 <ThemesOverview
                     themeNavId="theme-aside-nav"
                 />
+                </div>
             </div>
         </aside>
     )

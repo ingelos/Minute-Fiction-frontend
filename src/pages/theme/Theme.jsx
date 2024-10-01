@@ -52,7 +52,7 @@ function Theme() {
             <div className="theme-section inner-content-container">
                 <div className="main-container">
                     <article className="featured-section">
-                        <h2 id="theme-title">{themeName} stories</h2>
+                        <h2 className="themes-title titles">{themeName} stories</h2>
                         <div className="stories-container">
                             {error && <p>Error...</p>}
                             {loading ? <p>Loading...</p> : (

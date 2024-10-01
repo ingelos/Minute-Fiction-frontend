@@ -11,8 +11,8 @@ function OpenThemes({showSubmitButton}) {
     return (
         <div>
             {loading && <p>Loading...</p>}
-            {error && <p></p>}
-            {themes.length > 0 ? (
+            {error && <p className="no-themes">No open themes available at this moment.</p>}
+            {themes.length > 0 && (
                 themes.map((theme) => (
                     <div className="themes-container" key={theme.id}>
                         <ThemeCard
@@ -27,10 +27,7 @@ function OpenThemes({showSubmitButton}) {
                             </Link>
                         )}
                     </div>
-                ))
-            ) : (
-                <p className="no-themes">No open themes</p>
-            )}
+                )))}
         </div>
     )
 

@@ -10,8 +10,8 @@ function Submit() {
             <div className='submit-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
-                        <div className="open-themes-submit">
-                            <h3 className="aside-title">Open themes</h3>
+                        <div className="submit-container container">
+                            <h2 className="submit-title titles">Open themes</h2>
                             <OpenThemes showSubmitButton={true} />
                         </div>
                     </div>

@@ -1,7 +1,6 @@
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {Link} from "react-router-dom";
 import axios from "axios";
-import ThemeForm from "../../components/themeForm/ThemeForm.jsx";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
 
 
@@ -25,7 +24,7 @@ function CreateMailing() {
                             <h2 className="mailing-titles">Manage themes</h2>
                             <Link to="/editor/mailing">Go back to overview page</Link>
                             <EditorCheck>
-                                <ThemeForm onSubmit={handleCreateMailing} isEditing={false}/>
+                                <MailingForm onSubmit={handleCreateMailing} isEditing={false}/>
                             </EditorCheck>
                         </div>
                     </div>

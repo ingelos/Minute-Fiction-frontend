@@ -1,6 +1,6 @@
+import Input from "../input/Input.jsx";
 import {useForm} from "react-hook-form";
 import {useEffect} from "react";
-import Input from "./input/Input.jsx";
 
 
 function MailingForm({onSubmit, initialData, isEditing}) {
@@ -22,7 +22,7 @@ function MailingForm({onSubmit, initialData, isEditing}) {
         <form className='subit-form' onSubmit={handleSubmit(handleUpdatingMailing)}>
             <Input
                 inputType='text'
-                inputName='mailingTitle'
+                inputName='mailing-title'
                 inputId='title-field'
                 inputLabel='Title:'
                 validationRules={{

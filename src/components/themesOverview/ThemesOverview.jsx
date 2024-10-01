@@ -9,18 +9,19 @@ function ThemesOverview() {
 
         <div className="themes-menu-component">
             {loading && <p>Loading...</p>}
-            {error && <p>{error.message}</p>}
-            {themes.length > 0 ? (
+            {error && <p>No themes available at this moment.</p>}
+            {themes.length > 0 && (
                 themes.map((theme) => (
                     <div className="themes-container" key={theme.id}>
                         <Link to={`/published/themes/${themeName}`}>
                             <h2>{theme.themeName}</h2>
                         </Link>
                     </div>
-                ))
-            ) :
-                <p>No themes at this moment</p>
-            })
+                )))
+            }
+            {/*// ) :*/}
+            {/*//     <p>No themes at this moment</p>*/}
+            {/*// })*/}
         </div>
     );
 }

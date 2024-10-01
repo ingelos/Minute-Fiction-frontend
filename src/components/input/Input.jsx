@@ -1,12 +1,12 @@
 import './Input.css';
 
-function Input({labelInput, labelText, type, inputName, validationRules, register, errors}) {
+function Input({inputId, inputLabel, inputType, inputName, validationRules, register, errors}) {
     return (
         <>
-            <label htmlFor={labelInput}>{labelText}
+            <label htmlFor={inputId}>{inputLabel}
                 <input
-                    type={type}
-                    id={labelInput}
+                    type={inputType}
+                    id={inputId}
                     {...register(inputName, validationRules)}
                 />
             </label>

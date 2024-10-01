@@ -17,9 +17,10 @@ function ReviewStories() {
 
         async function fetchStories() {
             setError(false);
+            setLoading(true);
 
             try {
-                setLoading(true);
+
                 const {data} = await axios.get(`http://localhost:8080/stories/submitted`, {
                     signal: signal,
                 });

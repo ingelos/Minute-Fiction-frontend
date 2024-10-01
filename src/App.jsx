@@ -21,6 +21,9 @@ import EditTheme from "./pages/editTheme/EditTheme.jsx";
 import ManageMailings from "./pages/manageMailings/ManageMailings.jsx";
 import CreateMailing from "./pages/createMailing/CreateMailing.jsx";
 import EditMailing from "./pages/editMailing/EditMailing.jsx";
+import ReviewStories from "./pages/reviewStories/ReviewStories.jsx";
+import PublishStories from "./pages/publishStories/PublishStories.jsx";
+import EditorDashboard from "./pages/editorDashboard/EditorDashboard.jsx";
 
 
 function App() {
@@ -41,6 +44,7 @@ function App() {
                     <Route path="/editor/themes/new" element={<CreateTheme/>}/>
                     <Route path="/editor/themes/edit/:themeId" element={<EditTheme/>}/>
 
+                    <Route path="/editor/dashboard" element={<EditorDashboard/>}/>
                     <Route path="/editor/submitted" element={<ReviewStories/>}/>
                     <Route path="/editor/publish" element={<PublishStories/>}/>
 
@@ -48,7 +52,7 @@ function App() {
                     <Route path="/editor/mailings/new" element={<CreateMailing/>}/>
                     <Route path="/editor/mailings/edit/:mailingId" element={<EditMailing/>}/>
 
-                    <Route path="/authorprofiles" element={<AuthorOverview/>}/>
+                    <Route path="/authors" element={<AuthorOverview/>}/>
                     <Route path="/authorprofiles/:authorId" element={<AuthorProfile/>}/>
 
                     <Route path="/themes" element={<Themes/>}/>

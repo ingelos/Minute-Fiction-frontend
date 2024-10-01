@@ -10,10 +10,9 @@ function Themes() {
             <div className='themes-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
-                        <div className='themes-container'>
-                        <h2 className="themes-titles">All themes</h2>
-
-                            <ThemesOverview />
+                        <div className='themes-container container'>
+                            <h2 className="themes-title titles">All themes</h2>
+                            <ThemesOverview/>
                         </div>
                     </div>
                     <AsideMenu/>

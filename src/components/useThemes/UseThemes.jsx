@@ -22,6 +22,7 @@ function UseThemes() {
                     });
                 setThemes(data);
             } catch (error) {
+                console.error("No themes available at this moment", error)
                 setError(error);
             } finally {
                 setLoading(false);

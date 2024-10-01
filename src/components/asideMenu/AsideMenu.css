@@ -15,10 +15,8 @@
     justify-content: center;
 }
 
-.themes-container {
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0;
+.theme-menu-aside {
+    padding: 20px 0;
 }
 
 .no-themes {
