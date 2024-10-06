@@ -1,5 +1,5 @@
 
-function StoryList({ stories, onAccept, onDecline, onPublish, onBulkPublish, mode}) {
+function StoryList({ stories }) {
 
     return (
         <ul>
@@ -7,26 +7,15 @@ function StoryList({ stories, onAccept, onDecline, onPublish, onBulkPublish, mod
             {stories.map((story) => (
                 <li className="story-container" key={story.id}>
                     <div className="story-list">
-                        <h2>{story.title}</h2>
-                        <p>{story.content}</p>
+                        <h2>Title: {story.title}</h2>
+                        <p>Content: {story.content}</p>
+                        <p>Theme: {story.themeName}</p>
                         <div className="story-author-name">
-                            <p>{story.authorFirstname}</p>
-                            <p>{story.authorLastname}</p>
+                            <p>Author: {story.authorFirstname} {story.authorLastname}</p>
                         </div>
-                    </div>
-
-                    <div className="stories-edit-status">
-                        {mode === 'review' && (
-                            <>
-                            <button onClick={() => onAccept(story.id)}>Accept story</button>
-                            <button onClick={() => onDecline(story.id)}>Decline story</button>
-                            </>
-                        )}
-                        {mode === 'publish' && (
-                            <>
-                                <button onClick={() => onPublish(story.id)}>Publish story</button>
-                                <button onClick={onBulkPublish}>Decline story</button>
-                            </>
+                        <p>Status: {story.status}</p>
+                        {story.status === 'published' && (
+                            <p>Published on: {story.publishDate}</p>
                         )}
                     </div>
                 </li>

@@ -1,6 +1,5 @@
 import "./MainNavigation.css"
 import NavigationLink from "../navigationLink/NavigationLink.jsx";
-import EditorCheck from "../editorCheck/EditorCheck.jsx";
 
 
 
@@ -32,12 +31,10 @@ function MainNavigation() {
                             />
                         </div>
                         <div className="main-navigation-links right-div">
-                            <EditorCheck>
-                                <NavigationLink
-                                    direct="Editor Dashboard"
+                            <NavigationLink
+                                    direct="Editor"
                                     navDirect={'/editor/dashboard'}
                                 />
-                            </EditorCheck>
                             <NavigationLink
                                 direct="Login"
                                 navDirect={'/authenticate'}

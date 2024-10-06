@@ -1,15 +1,21 @@
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import MailingForm from "../../components/mailingForm/MailingForm.jsx";
+import {useState} from "react";
+import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 
 
 function CreateMailing() {
+    const [createdSuccess, setCreatedSuccess] = useState(false);
+    const {mailingId} = useParams();
 
     async function handleCreateMailing(mailingData) {
         try {
             const {data} = await axios.post(`http://localhost:8080/mailings`, mailingData);
             console.log('Mailing created:', data);
+            setCreatedSuccess(data);
         } catch (error) {
             console.error('Error creating mailing:', error);
         }
@@ -20,15 +26,18 @@ function CreateMailing() {
             <div className='editor-mailing-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
+                        <h2 className="mailing-title titles">Create Mailing</h2>
+                        <p className="back-link">Go <Link to="/editor/mailings"><strong>back</strong></Link> to overview page</p>
                         <div className='mailing-container'>
-                            <h2 className="mailing-titles">Manage themes</h2>
-                            <Link to="/editor/mailing">Go back to overview page</Link>
                             <EditorCheck>
                                 <MailingForm onSubmit={handleCreateMailing} isEditing={false}/>
+                                {createdSuccess && (
+                                    <p><Link to={`/editor/mailings/view/${mailingId}`}>View</Link> created mailing and send to subscribers</p>
+                                )}
                             </EditorCheck>
                         </div>
                     </div>
-                    <AsideMenu/>
+                    <AsideEditorMenu/>
                 </div>
             </div>
         </section>

@@ -1,8 +1,8 @@
-import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import useThemes from "../../components/useThemes/UseThemes.jsx";
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 
 
 function ManageThemes() {
@@ -23,9 +23,10 @@ function ManageThemes() {
             <div className='editor-themes-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
+                        <h2 className="themes-title titles">Manage themes</h2>
                         <div className='themes-container'>
-                            <h2 className="themes-titles">Manage themes</h2>
-                            <Link to="/editor/themes/new">Create New Theme</Link>
+                            <h4><Link to="/editor/themes/new">Create New Theme</Link></h4>
+                            <h3>All Themes</h3>
                             <EditorCheck>
                                 <ul>
                                     {loading && <p>Loading...</p>}
@@ -40,7 +41,7 @@ function ManageThemes() {
                                                     <p>{theme.closingDate}</p>
                                                 </div>
                                                 <div className="themes-edit">
-                                                    <Link to={`/editor/themes/edit/${themeId}`}>{theme.themeName}</Link>
+                                                    <Link to={`/editor/themes/edit/${themeId}`}>Edit theme</Link>
                                                     <button onClick={() => handleDeleteTheme(theme.id)}>Delete</button>
                                                 </div>
                                             </li>
@@ -51,7 +52,7 @@ function ManageThemes() {
                             </EditorCheck>
                         </div>
                     </div>
-                    <AsideMenu/>
+                    <AsideEditorMenu/>
                 </div>
             </div>
         </section>

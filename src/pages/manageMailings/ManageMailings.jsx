@@ -1,22 +1,20 @@
-import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
 import {useEffect, useState} from "react";
+import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 
 
 function ManageThemes() {
-    const {mailingId} = useParams();
     const [mailings, setMailings] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-
+    const {mailingId} = useParams();
 
     useEffect(() => {
         const controller = new AbortController();
         const {signal} = controller;
 
-        async function fetchMailings() {
+        async function fetchAllMailings() {
             setError(false);
 
             try {
@@ -32,7 +30,7 @@ function ManageThemes() {
             }
         }
 
-        fetchMailings();
+        fetchAllMailings();
 
         return function cleanup() {
             controller.abort();
@@ -54,34 +52,35 @@ function ManageThemes() {
             <div className='editor-mailings-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
+                        <h2 className="mailings-title titles">Manage Mailings</h2>
+                        <h3><Link to="/editor/mailing/new">Create New Mailing</Link></h3>
                         <div className='mailings-container'>
-                            <h2 className="mailings-title">Manage Mailings</h2>
-                            <h3><Link to="/editor/mailing/new">Create New Mailing</Link></h3>
-                            <EditorCheck>
-                                <ul>
-                                    {loading && <p>Loading...</p>}
-                                    {error && <p>{error.message}</p>}
-                                    {mailings.length > 0 && (
-                                        mailings.map((mailing) => (
-                                            <li className="mailings-container" key={mailing.id}>
-                                                <div className="mailings-list">
-                                                    <h2>{mailing.title}</h2>
-                                                    <p>{mailing.content}</p>
-                                                </div>
+                            {/*<EditorCheck>*/}
+                            <p>Previous mailings</p>
+                            <ul>
+                                {loading && <p>Loading...</p>}
+                                {error && <p>{error.message}. Please try to reload the page.</p>}
+                                {mailings.length > 0 && (
+                                    mailings.map((mailing) => (
+                                        <li className="mailings-container" key={mailing.id}>
+                                            <div className="mailings-list">
+                                                <span>{mailing.subject} -- {mailing.date}</span>
                                                 <div className="mailing-edit">
-                                                    <Link to={`/editor/mailings/edit/${mailingId}`}>{mailing.id}</Link>
-                                                    <button onClick={() => handleDeleteMailing(mailing.id)}>Delete
+                                                    <Link to={`/editor/mailings/edit/${mailingId}`}>Edit</Link>
+                                                    <Link to={`/editor/mailings/send/${mailingId}`}>Send</Link>
+                                                    <button onClick={() => handleDeleteMailing(mailingId)}>Delete
                                                     </button>
                                                 </div>
-                                            </li>
-                                        ))
-                                    )
-                                    })
-                                </ul>
-                            </EditorCheck>
+                                            </div>
+                                        </li>
+                                    ))
+                                )
+                                }
+                            </ul>
+                            {/*</EditorCheck>*/}
                         </div>
                     </div>
-                    <AsideMenu/>
+                    <AsideEditorMenu/>
                 </div>
             </div>
         </section>

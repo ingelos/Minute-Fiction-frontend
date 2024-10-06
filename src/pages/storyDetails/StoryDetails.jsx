@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import CommentCard from "../../components/commentCard/CommentCard.jsx";
+import StoryDetailsCard from "../../components/storyDetailsCard/StoryDetailsCard.jsx";
 
 function StoryDetails() {
 

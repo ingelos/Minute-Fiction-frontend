@@ -1,96 +1,57 @@
-import {useEffect, useState} from "react";
-import axios from "axios";
-import EditorNavigation from "../../components/editorNavigation/EditorNavigation.jsx";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
-import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
-
+import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
+import {Link} from "react-router-dom";
+import "./EditorDashboard.css";
 
 function EditorDashboard() {
-    const [themes, setThemes] = useState([]);
-    const [stories, setStories] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [selectedTheme, setSelectedTheme] = useState('');
 
-
-    useEffect(() => {
-        async function fetchThemes() {
-            try {
-                const {data} = await axios.get(`http://localhost:8080/themes`);
-                setThemes(data);
-            } catch (error) {
-                console.error('Error fetching themes:', error);
-                setError(true);
-            }
-        }
-
-        fetchThemes();
-    }, []);
-
-    useEffect(() => {
-        if (selectedTheme) {
-            fetchStoriesByTheme(selectedTheme);
-        }
-    }, [selectedTheme]);
-
-    async function fetchStoriesByTheme(themeId) {
-        setLoading(true);
-        setError(false);
-
-        try {
-            const {data} = await axios.get(`http://localhost:8080/stories/themes/${themeId}`);
-            setStories(data);
-        } catch (error) {
-            console.error('Error fetching stories', error)
-            setError(true);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    async function handleThemeChange(themeId) {
-        setSelectedTheme(themeId);
-    }
 
     return (
         <section className='editor-stories-section outer-content-container'>
             <div className='editor-stories-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
-                        <EditorCheck>
-                            <h2>Editor Dashboard</h2>
-                            <EditorNavigation/>
-                            <div>
-                                <select id="themeSelect" onChange={handleThemeChange}>
-                                    <option value="">Select a Theme</option>
-                                    {themes.map((theme) => (
-                                        <option key={theme.id} value={theme.id}>
-                                            {theme.themeName}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                        <h2 className="section-title titles">Editor Dashboard</h2>
+                        <p>Welcome! Manage stories, themes and mailings here.</p>
+                        {/*<EditorCheck>*/}
+                    <div className="section-container">
 
-                            {loading && <p>Loading stories...</p>}
-                            {error && <p>There was an error loading the stories</p>}
-                            {selectedTheme && stories.length > 0 && (
-                                <div>
-                                    {stories.map((story) => (
-                                        <li key={story.id} className="story-item">
-                                            <h3>{story.title}</h3>
-                                            <p>{story.status}</p>
-                                        </li>
-                                    ))}
+                        <div className="section-overview">
+                            <div className="stories-section dashboard-section">
+                                <h2>Manage Stories</h2>
+                                <p>Review stories by theme, accept/decline and publish accepted stories</p>
+                                <div className="dashboard-nav-links">
+                                    <Link to={'/editor/review-stories'}><h4>Review Stories</h4></Link>
+                                    <Link to={'/editor/publish-stories'}><h4>Publish Stories</h4></Link>
                                 </div>
-                            )}
+                            </div>
+                            <div className="themes-section dashboard-section">
+                                <h2>Manage Themes</h2>
+                                <p>Create and edit themes for categorizing stories.</p>
+                                <div className="dashboard-nav-links">
+                                    <Link to={'/editor/themes'}><h4>Manage Themes</h4></Link>
+                                    <Link to={'/editor/themes/new'}><h4>Create Themes</h4></Link>
+                                    <Link to={'/editor/themes/edit/:themeId'}><h4>Edit Themes</h4></Link>
+                                </div>
+                            </div>
+                            <div className="mailings-section dashboard-section">
+                                <h2>Manage Mailings</h2>
+                                <p>Create, edit and send mailings to subscribed readers.</p>
+                                <div className="dashboard-nav-links"></div>
+                                <Link to={'/editor/mailings/send'}><h4>Manage Mailings</h4></Link>
+                                <Link to={'/editor/mailings/new'}><h4>Create Mailings</h4></Link>
+                                {/*<Link to={'/editor/mailings/edit/:mailingId'}><h4>Edit Mailings</h4></Link>*/}
+                            </div>
+                        </div>
 
-                        </EditorCheck>
+                    {/*</EditorCheck>*/}
                     </div>
-                    <AsideMenu/>
                 </div>
+                {/*<AsideMenu/>*/}
+                <AsideEditorMenu/>
             </div>
-        </section>
-    )
+        </div>
+</section>
+)
 }
 
 export default EditorDashboard;

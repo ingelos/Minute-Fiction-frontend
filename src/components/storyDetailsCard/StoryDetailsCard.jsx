@@ -16,3 +16,5 @@ function StoryDetailsCard({title, authorFirstname, authorLastname, storyContent,
         </div>
     )
 }
+
+export default StoryDetailsCard;

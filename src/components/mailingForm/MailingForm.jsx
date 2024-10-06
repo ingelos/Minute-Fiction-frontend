@@ -42,6 +42,19 @@ function MailingForm({onSubmit, initialData, isEditing}) {
                 register={register}
                 errors={errors}
             />
+            <Input
+                inputType='date'
+                inputName='mailing-date'
+                inputId='mailing-date-field'
+                inputLabel='Date:'
+                validationRules={{
+                    required: 'Date is required'
+                }}
+                register={register}
+                errors={errors}
+            />
+
+
             <button type='submit' className='update-mailing-button'>
                 {isEditing ? 'Update Mailing' : 'Create Mailing'}
             </button>

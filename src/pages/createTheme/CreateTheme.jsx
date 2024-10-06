@@ -1,8 +1,8 @@
-import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import ThemeForm from "../../components/themeForm/ThemeForm.jsx";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 
 
 function CreateTheme() {
@@ -22,14 +22,14 @@ function CreateTheme() {
                 <div className='main-container'>
                     <div className="featured-section">
                         <div className='themes-container'>
-                            <h2 className="themes-titles">Manage themes</h2>
-                            <Link to="/editor/themes">Go back to overview page</Link>
+                            <h2 className="themes-title titles">Create theme</h2>
+                            <p>Go <Link to="/editor/themes"><strong>back</strong></Link> to Manage Themes page</p>
                             <EditorCheck>
                                 <ThemeForm onSubmit={handleCreateTheme} isEditing={false}/>
                             </EditorCheck>
                         </div>
                     </div>
-                    <AsideMenu/>
+                    <AsideEditorMenu/>
                 </div>
             </div>
         </section>

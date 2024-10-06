@@ -37,7 +37,7 @@
 }
 
 .titles {
-  margin-bottom: 20px;
+  margin: 15px 0 20px;
 }
 
 form {
@@ -53,6 +53,9 @@ label {
   flex-direction: column;
 }
 
+.back-link {
+  padding-bottom: 20px;
+}
 
 .active-menu-link {
   text-decoration: underline;

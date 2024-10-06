@@ -1,17 +1,20 @@
-import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import ThemeForm from "../../components/themeForm/ThemeForm.jsx";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 
 
 function EditMailing() {
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [mailingData, setMailingData] = useState(null);
     const {mailingId} = useParams();
 
     useEffect(() => {
+        setLoading(true);
+
         async function fetchMailing() {
             try {
                 const {data} = await axios.get(`http://localhost:8080/mailings/${mailingId}`);
@@ -42,20 +45,21 @@ function EditMailing() {
             <div className='editor-themes-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
-                        <div className='themes-container'>
-                            <h2 className="themes-titles">Manage themes</h2>
-                            <Link to="/editor/themes">Go back to overview page</Link>
+                        <div className='mailings-container'>
+                            <h2 className="mailings-title titles">Edit mailing</h2>
+                            <p>Go <Link to="/editor/mailings"><strong>back</strong></Link>  to mailings overview page</p>
                             <EditorCheck>
-                                {mailingData ? (
-                                    <ThemeForm onSubmit={handleUpdatingMailing} initialData={mailingData} isEditing={true}/>
-                                ) : (
-                                    <p>Loading theme...</p>
-                                )}
+                            <div>
                                 {error && <p>{error.message}</p>}
+                                {loading && <p>Loading mailing...</p>}
+                                {mailingData && (
+                                    <ThemeForm onSubmit={handleUpdatingMailing} initialData={mailingData} isEditing={true}/>
+                                )}
+                            </div>
                             </EditorCheck>
                         </div>
                     </div>
-                    <AsideMenu/>
+                    <AsideEditorMenu/>
                 </div>
             </div>
         </section>

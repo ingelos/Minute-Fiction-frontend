@@ -5,17 +5,24 @@ function EditorNavigation() {
         <div className="dashboard-navigation">
             <ul className="editor-navigation">
                 <NavigationLink
-                    direct="Review Submitted Stories"
-                    navDirect={'/editor/review-stories'}
-                />
-                <NavigationLink
-                    direct="Publish Accepted Stories"
-                    navDirect={'/editor/publish-stories'}
-                />
-                <NavigationLink
-                    direct="Filter and View All Stories"
+                    direct="Editor Dashboard"
                     navDirect={'/editor/editor-dashboard'}
                 />
+
+                <div>
+                    <NavigationLink
+                        direct="Review Stories"
+                        navDirect={'/editor/review-stories'}
+                    />
+                    <NavigationLink
+                        direct="Publish Stories"
+                        navDirect={'/editor/publish-stories'}
+                    />
+                    <NavigationLink
+                        direct="Manage Mailings"
+                        navDirect={'/editor/mailings'}
+                    />
+                </div>
             </ul>
         </div>
     )
