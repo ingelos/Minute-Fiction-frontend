@@ -1,9 +1,9 @@
-import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import ThemeForm from "../../components/themeForm/ThemeForm.jsx";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 
 
 function EditTheme() {
@@ -43,8 +43,8 @@ function EditTheme() {
                 <div className='main-container'>
                     <div className="featured-section">
                         <div className='themes-container'>
-                            <h2 className="themes-titles">Manage themes</h2>
-                            <Link to="/editor/themes">Go back to overview page</Link>
+                            <h2 className="themes-title titles">Edit Theme</h2>
+                            <p className="back-link">Go <Link to="/editor/themes"><strong>back</strong></Link> to Manage Themes page</p>
                             <EditorCheck>
                                 {themeData ? (
                                     <ThemeForm onSubmit={handleUpdatingTheme} initialData={themeData} isEditing={true}/>
@@ -55,7 +55,7 @@ function EditTheme() {
                             </EditorCheck>
                         </div>
                     </div>
-                    <AsideMenu/>
+                    <AsideEditorMenu/>
                 </div>
             </div>
         </section>

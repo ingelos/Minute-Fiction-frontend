@@ -31,8 +31,13 @@
   flex-basis: 700px;
   flex-shrink: 1;
   flex-grow: 0;
-  padding: 2em 3em 0 0;
+  padding: 1em 3em 0 0;
+  /*border: 2px solid blue;*/
   /*text-align: justify;*/
+}
+
+.titles {
+  margin: 15px 0 20px;
 }
 
 form {
@@ -48,6 +53,9 @@ label {
   flex-direction: column;
 }
 
+.back-link {
+  padding-bottom: 20px;
+}
 
 .active-menu-link {
   text-decoration: underline;

@@ -12,22 +12,21 @@ function AuthorOverview() {
             <div className='author-overview-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
-                        <article className="author-overview-article">
-                            {loading && <p>Loading...</p>}
-                            {error && <p>{error.message}</p>}
-
-                            {authors.length > 0 ? (
-                                    authors.map((author) => (
-                                        <div className="themes-container" key={author.id}>
-                                            <Link to={`/authorprofiles/${username}`}>
-                                                <h2>`{author.firstname} {author.lastname}`</h2>
-                                            </Link>
-                                        </div>
-                                    ))
-                                ) :
-                                <p>No themes at this moment</p>
-                            })
-                        </article>
+                        <div className='author-container container'>
+                            <h2 className="author-title titles">All Authors</h2>
+                            <div className="author-overview">
+                                {loading && <p>Loading...</p>}
+                                {error && <p>No authors available at this moment</p>}
+                                {authors.length > 0 && (
+                                        authors.map((author) => (
+                                            <div className="themes-container" key={author.id}>
+                                                <Link to={`/authorprofiles/${username}`}>
+                                                    <h2>`{author.firstname} {author.lastname}`</h2>
+                                                </Link>
+                                            </div>
+                                        )))}
+                            </div>
+                        </div>
                     </div>
                     <AsideMenu />
                 </div>

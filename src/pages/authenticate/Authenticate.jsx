@@ -52,10 +52,10 @@ function Authenticate() {
             <div className='authenticate-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
-                        {error && <p>Error...</p>}
+                        <h2 className='login-title'>Login</h2>
+                        {error && <p>Something went wrong authenticating, please try a</p>}
                         {!loginSucces ?
                             <form className='login-form' onSubmit={handleSubmit(handleFormSubmit)}>
-                                <h3 className='login-title'>Login</h3>
                                 <Input
                                     inputType='text'
                                     inputName='username'
