@@ -17,8 +17,8 @@ function AsideEditorMenu() {
                 <h3 className="aside-title">Stories</h3>
                     <div className="sub-links">
                         <NavLink to={'/editor/stories'}><p>Manage Stories</p></NavLink>
-                        <NavLink to={'/editor/submitted'}><p>Review</p></NavLink>
-                        <NavLink to={'/editor/publish'}><p>Publish</p></NavLink>
+                        <NavLink to={'/editor/stories/review'}><p>Review</p></NavLink>
+                        <NavLink to={'/editor/stories/publish'}>Publish</NavLink>
                     </div>
 
             </div>
@@ -27,7 +27,6 @@ function AsideEditorMenu() {
                     <div className="sub-links">
                         <NavLink to={'/editor/themes'}><p>Manage Themes</p></NavLink>
                         <NavLink to={'/editor/themes/new'}><p>Create</p></NavLink>
-                        {/*<NavLink to={'/editor/themes/edit/:themeId'}><p>Edit</p></NavLink>*/}
                     </div>
             </div>
             <div className="manage-mailings editor-card">
@@ -35,8 +34,7 @@ function AsideEditorMenu() {
                     <div className="sub-links">
                         <Link to={'/editor/mailings'}><p>Manage Mailings</p></Link>
                         <Link to={'/editor/mailings/new'}><p>Create</p></Link>
-                        {/*<Link to={'/editor/mailings/edit/:mailingId'}><p>Edit</p></Link>*/}
-                        {/*<Link to={'/editor/mailings/send'}><p>Send</p></Link>*/}
+
                     </div>
             </div>
         </aside>

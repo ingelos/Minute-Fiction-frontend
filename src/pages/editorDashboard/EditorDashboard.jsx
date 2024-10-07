@@ -20,8 +20,9 @@ function EditorDashboard() {
                                 <h2>Manage Stories</h2>
                                 <p>Review stories by theme, accept/decline and publish accepted stories</p>
                                 <div className="dashboard-nav-links">
-                                    <Link to={'/editor/review-stories'}><h4>Review Stories</h4></Link>
-                                    <Link to={'/editor/publish-stories'}><h4>Publish Stories</h4></Link>
+                                    <Link to={'/editor/stories'}><h4>Manage stories</h4></Link>
+                                    <Link to={'/editor/stories/review'}><h4>Review Stories</h4></Link>
+                                    <Link to={'/editor/stories/publish'}><h4>Publish Stories</h4></Link>
                                 </div>
                             </div>
                             <div className="themes-section dashboard-section">

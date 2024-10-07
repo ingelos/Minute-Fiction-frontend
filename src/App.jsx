@@ -12,7 +12,7 @@ import MainNavigation from "./components/mainNavigation/MainNavigation.jsx";
 import Footer from "./components/footer/Footer.jsx";
 import AuthorProfile from "./pages/authorProfile/AuthorProfile.jsx";
 import Authenticate from "./pages/authenticate/Authenticate.jsx";
-import AccountSettings from "./pages/accountSettings/AccountSettings.jsx";
+import EditAccountDetails from "./pages/editAccountDetails/EditAccountDetails.jsx";
 import SubmitToTheme from "./pages/submitToTheme/SubmitToTheme.jsx";
 import AuthorOverview from "./pages/authorsOverview/AuthorOverview.jsx";
 import CreateTheme from "./pages/createTheme/CreateTheme.jsx";
@@ -27,6 +27,9 @@ import EditorDashboard from "./pages/editorDashboard/EditorDashboard.jsx";
 import SendMailing from "./pages/sendMailing/SendMailing.jsx";
 import EditStory from "./pages/editStory/EditStory.jsx";
 import ManageStories from "./pages/manageStories/ManageStories.jsx";
+import UserAccount from "./pages/userAccount/UserAccount.jsx";
+import ChangePassword from "./pages/changePassword/ChangePassword.jsx";
+import DeleteAccount from "./pages/deleteAccount/DeleteAccount.jsx";
 
 
 function App() {
@@ -41,14 +44,20 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/authenticate" element={<Authenticate/>}/>
-                    <Route path="/account-settings" element={<AccountSettings/>}/>
 
+                    <Route path="/user/account" element={<UserAccount/>}/>
+                    <Route path="/user/account/edit/:userId" element={<EditAccountDetails/>}/>
+                    <Route path="/user/account/change-password/:userId" element={<ChangePassword/>}/>
+                    <Route path="/user/account/delete/:userId" element={<DeleteAccount/>}/>
+
+                    <Route path="/authors" element={<AuthorOverview/>}/>
+                    <Route path="/authorprofiles/:authorId" element={<AuthorProfile/>}/>
 
                     <Route path="/editor/dashboard" element={<EditorDashboard/>}/>
-                    <Route path="/editor/manage" element={<ManageStories/>}/>
+                    <Route path="/editor/stories" element={<ManageStories/>}/>
                     <Route path="/editor/stories/edit/:storyId" element={<EditStory/>}/>
-                    <Route path="/editor/submitted" element={<ReviewStories/>}/>
-                    <Route path="/editor/publish" element={<PublishStories/>}/>
+                    <Route path="/editor/stories/review" element={<ReviewStories/>}/>
+                    <Route path="/editor/stories/publish" element={<PublishStories/>}/>
 
                     <Route path="/editor/themes" element={<ManageThemes/>}/>
                     <Route path="/editor/themes/new" element={<CreateTheme/>}/>
@@ -57,10 +66,9 @@ function App() {
                     <Route path="/editor/mailings" element={<ManageMailings/>}/>
                     <Route path="/editor/mailings/new" element={<CreateMailing/>}/>
                     <Route path="/editor/mailings/edit/:mailingId" element={<EditMailing/>}/>
-                    <Route path="/editor/mailings/send" element={<SendMailing/>}/>
+                    <Route path="/editor/mailings/send/:mailingId" element={<SendMailing/>}/>
 
-                    <Route path="/authors" element={<AuthorOverview/>}/>
-                    <Route path="/authorprofiles/:authorId" element={<AuthorProfile/>}/>
+
 
                     <Route path="/themes" element={<Themes/>}/>
                     <Route path="/themes/:themeId" element={<Theme/>}/>

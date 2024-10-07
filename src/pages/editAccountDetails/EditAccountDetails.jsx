@@ -4,12 +4,14 @@ import {AuthContext} from "../../context/AuthContext.jsx";
 import axios from "axios";
 import Input from "../../components/input/Input.jsx";
 import {Link} from "react-router-dom";
+import DeletionConfirmation from "../../components/deletionConfirmation/DeletionConfirmation.jsx";
 
-function AccountSettings() {
+function EditAccountDetails() {
 
     const {register, handleSubmit, formState: {errors}} = useForm()
     const [error, setError] = useState(false);
     const [submitSuccess, setSubmitSucces] = useState(null);
+    const [isModalOpen, setModalOpen] = useState(false);
     const {user} = useContext(AuthContext);
     const controller = new AbortController();
 
@@ -19,14 +21,15 @@ function AccountSettings() {
         }
     })
 
-    async function editAccountDetails(data) {
+    async function editAccountDetails(formData) {
         setError(false);
 
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.put(`https://localhost:8080/users/${user}`, {
-                email: data.email,
-                password: data.password,
+            const {data} = await axios.put(`https://localhost:8080/users/${user.username}`, {
+                email: formData.email,
+                password: formData.password,
+                subscription: formData.subscription,
                 signal: controller.signal,
             }, {
                 headers: {
@@ -35,14 +38,23 @@ function AccountSettings() {
                 }
             });
             setSubmitSucces(true)
-            console.log(response)
+            console.log(data)
         } catch (e) {
             console.error(e);
             setError(true);
         }
-        console.log(`Account successfully updated`)
+        console.log(`Account details successfully updated`)
     }
 
+
+    async function handleDeleteAccount(username) {
+            try {
+                await axios.delete(`http://localhost:8080/users/${username}`);
+                console.log('Account deleted.');
+            } catch (error) {
+                console.error('Error deleting this account', error);
+            }
+    }
 
     return (
         <>
@@ -97,14 +109,24 @@ function AccountSettings() {
                                     </div>
                                     <button type='submit'>Save information</button>
                                 </form>
-                                <p>Go back to <Link to={`/users/:userId`}><strong>Account</strong></Link></p>
+                                <p>Go back to <Link to={`/users/:username`}><strong>Account</strong></Link></p>
                             </div>
                             :
                             <div className='account-settings-succes'>
                                 <p>You have successfully updated your information!</p>
-                                <p>Go back to your account <Link to={`/users/:userId`}><strong>here.</strong></Link></p>
+                                <p>Go back to your account <Link to={`/users/:username`}><strong>here.</strong></Link></p>
                             </div>
                         }
+                        <button onClick={() => setModalOpen(true)} className="delete-account-button">
+                            Delete Your Account
+                        </button>
+                        <DeletionConfirmation
+                            isOpen={isModalOpen}
+                            onClose={() => setModalOpen(false)}
+                            onConfirm={handleDeleteAccount}
+                            title="Confirm Account Deletion"
+                            message="Are you sure you want to delete your account? Deletion cannot be undone."
+                        />
                     </div>
                 </div>
             </section>
@@ -112,4 +134,4 @@ function AccountSettings() {
     )
 }
 
-export default AccountSettings;
+export default EditAccountDetails;
