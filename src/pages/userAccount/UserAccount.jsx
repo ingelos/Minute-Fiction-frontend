@@ -17,9 +17,9 @@ function UserAccount({user}) {
                             <Link to={`/authorprofiles/${user.username}/create`}>Create Author Profile</Link>
                         )}
 
-                        <Link to={`/users/account/edit`}>Edit Account Details</Link>
-                        <Link to={'/users/account/change-password'}>Change Password</Link>
-                        <Link to={'/users/account/delete'}>Delete Your Account</Link>
+                        <Link to={`/users/account/edit/${user.username}`}>Edit Account Details</Link>
+                        <Link to={`/users/account/change-password/${user.username}`}>Change Password</Link>
+                        <Link to={`/users/account/delete/${user.username}`}>Delete Your Account</Link>
                     </div>
                 </div>
             </div>

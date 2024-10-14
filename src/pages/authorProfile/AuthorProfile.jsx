@@ -1,13 +1,13 @@
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import useAuthorProfile from "../../components/useAuthorProfile/UseAuthorProfile.jsx";
 import AuthorProfileCard from "../../components/authorProfileCard/AuthorProfileCard.jsx";
-
+import UserIcon from "../../assets/icons/user-circle.svg";
+import AuthorCheck from "../../components/authorCheck/AuthorCheck.jsx";
 
 function AuthorProfile() {
     const { username } = useParams();
     const { authorProfile, loading, error} = useAuthorProfile(username);
-
 
     return (
         <section className='profile-section outer-content-container'>
@@ -27,10 +27,19 @@ function AuthorProfile() {
                             }
                         </article>
                         <article className="profile-photo">
-
-
-
+                            {authorProfile?.profilePhoto?.photoUrl ? (
+                                <img src={authorProfile.profilePhoto.photoUrl}
+                                     alt='Profile Photo'
+                                     className='profile-photo'/>
+                            ) : (
+                                <img src={UserIcon}
+                                     alt='no profile photo'
+                                     className='profile-picture-empty'/>
+                            )}
                         </article>
+                        <AuthorCheck>
+                            <Link to={`/authorprofiles/${username}/edit`}>Edit Profile</Link>
+                        </AuthorCheck>
                     </div>
                     <AsideMenu />
                 </div>

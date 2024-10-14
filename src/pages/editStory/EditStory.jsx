@@ -49,14 +49,12 @@ function EditStory() {
 
 
     async function handleDeleteStory(storyId) {
-        if (window.confirm("Are you sure you want to delete this story? Deletion cannot be undone.")) {
             try {
                 await axios.delete(`http://localhost:8080/stories/${storyId}`);
                 console.log('Story deleted.');
             } catch (error) {
                 console.error('Error deleting the story', error);
             }
-        }
     }
 
     return (
@@ -102,7 +100,7 @@ function EditStory() {
 
                             {succes && <p>Story Updated Successfully!</p>}
 
-                            <button onClick={() => setModalOpen(true)} className="delete-story-button">
+                            <button onClick={() => setModalOpen(true)} className="delete-button">
                                 Delete Story
                             </button>
                             <DeletionConfirmation

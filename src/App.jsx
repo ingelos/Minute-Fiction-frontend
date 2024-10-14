@@ -30,6 +30,7 @@ import ManageStories from "./pages/manageStories/ManageStories.jsx";
 import UserAccount from "./pages/userAccount/UserAccount.jsx";
 import ChangePassword from "./pages/changePassword/ChangePassword.jsx";
 import DeleteAccount from "./pages/deleteAccount/DeleteAccount.jsx";
+import EditProfilePhoto from "./pages/editProfilePhoto/EditProfilePhoto.jsx";
 
 
 function App() {
@@ -46,35 +47,35 @@ function App() {
                     <Route path="/authenticate" element={<Authenticate/>}/>
 
                     <Route path="/user/account" element={<UserAccount/>}/>
-                    <Route path="/user/account/edit/:userId" element={<EditAccountDetails/>}/>
-                    <Route path="/user/account/change-password/:userId" element={<ChangePassword/>}/>
-                    <Route path="/user/account/delete/:userId" element={<DeleteAccount/>}/>
+                    <Route path="/user/account/:userId/edit" element={<EditAccountDetails/>}/>
+                    <Route path="/user/account/:userId/change-password" element={<ChangePassword/>}/>
+                    <Route path="/user/account/:userId/delete" element={<DeleteAccount/>}/>
 
                     <Route path="/authors" element={<AuthorOverview/>}/>
                     <Route path="/authorprofiles/:authorId" element={<AuthorProfile/>}/>
+                    <Route path="/authorprofiles/:authorId/edit" element={<AuthorProfile/>}/>
+                    <Route path="/authorprofiles/:authorId/photo" element={<EditProfilePhoto/>}/>
 
                     <Route path="/editor/dashboard" element={<EditorDashboard/>}/>
                     <Route path="/editor/stories" element={<ManageStories/>}/>
-                    <Route path="/editor/stories/edit/:storyId" element={<EditStory/>}/>
+                    <Route path="/editor/stories/:storyId/edit" element={<EditStory/>}/>
                     <Route path="/editor/stories/review" element={<ReviewStories/>}/>
                     <Route path="/editor/stories/publish" element={<PublishStories/>}/>
 
                     <Route path="/editor/themes" element={<ManageThemes/>}/>
                     <Route path="/editor/themes/new" element={<CreateTheme/>}/>
-                    <Route path="/editor/themes/edit/:themeId" element={<EditTheme/>}/>
+                    <Route path="/editor/themes/:themeId/edit" element={<EditTheme/>}/>
 
                     <Route path="/editor/mailings" element={<ManageMailings/>}/>
                     <Route path="/editor/mailings/new" element={<CreateMailing/>}/>
-                    <Route path="/editor/mailings/edit/:mailingId" element={<EditMailing/>}/>
-                    <Route path="/editor/mailings/send/:mailingId" element={<SendMailing/>}/>
-
-
+                    <Route path="/editor/mailings/:mailingId/edit" element={<EditMailing/>}/>
+                    <Route path="/editor/mailings/:mailingId/send" element={<SendMailing/>}/>
 
                     <Route path="/themes" element={<Themes/>}/>
                     <Route path="/themes/:themeId" element={<Theme/>}/>
                     <Route path="/submit" element={<Submit/>}/>
-                    <Route path="/stories/submit/:themeId" element={<SubmitToTheme/>}/>
-                    <Route path="/:storyId" element={<StoryDetails/>}/>
+                    <Route path="/submit/:themeId" element={<SubmitToTheme/>}/>
+                    <Route path="/stories/:storyId" element={<StoryDetails/>}/>
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
             </main>

@@ -31,7 +31,7 @@ function EditorDashboard() {
                                 <div className="dashboard-nav-links">
                                     <Link to={'/editor/themes'}><h4>Manage Themes</h4></Link>
                                     <Link to={'/editor/themes/new'}><h4>Create Themes</h4></Link>
-                                    <Link to={'/editor/themes/edit/:themeId'}><h4>Edit Themes</h4></Link>
+                                    <Link to={'/editor/themes/:themeId/edit'}><h4>Edit Themes</h4></Link>
                                 </div>
                             </div>
                             <div className="mailings-section dashboard-section">

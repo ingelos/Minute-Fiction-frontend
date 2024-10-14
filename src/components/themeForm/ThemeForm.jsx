@@ -3,7 +3,7 @@ import {useForm} from "react-hook-form";
 import {useEffect} from "react";
 
 
-function ThemeForm({onSubmit, initialData, isEditing}) {
+function ThemeForm({onSubmit, initialData, isEditing, error}) {
     const {register, handleSubmit, reset, formState: {errors}} = useForm();
 
     useEffect(() => {
@@ -51,6 +51,7 @@ function ThemeForm({onSubmit, initialData, isEditing}) {
                     required: 'Open date is required'
                 }}
                 register={register}
+                errors={errors}
             />
             <Input
                 inputType='date'
@@ -63,10 +64,10 @@ function ThemeForm({onSubmit, initialData, isEditing}) {
                 register={register}
                 errors={errors}
             />
-
             <button type='submit' className='update-theme-button'>
                 {isEditing ? 'Update Theme' : 'Create Theme'}
             </button>
+            {error && <p>Something went wrong submitting the form, please try again.</p>}
         </form>
     )
 }

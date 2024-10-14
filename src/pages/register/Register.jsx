@@ -63,8 +63,8 @@ function Register() {
                                 validationRules={{
                                     required: 'Username is required',
                                     minLength: {
-                                        value: 3,
-                                        message: 'Please enter a username that is at least 3 characters long'
+                                        value: 5,
+                                        message: 'Please enter a username that is at least 5 characters long'
                                     },
                                 }}
                                 register={register}

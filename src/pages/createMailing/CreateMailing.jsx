@@ -1,4 +1,3 @@
-import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
