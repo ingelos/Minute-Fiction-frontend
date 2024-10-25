@@ -1,0 +1,9 @@
+.submit-story-link {
+    flex-shrink: 0;
+}
+
+.themes-container {
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 15px 0;
+}

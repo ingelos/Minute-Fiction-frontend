@@ -1,5 +1,6 @@
 import {Link, useParams} from "react-router-dom";
 import useThemes from "../useThemes/UseThemes.jsx";
+import {TailSpin} from "react-loader-spinner";
 
 function ThemesOverview() {
     const {themes, loading, error} = useThemes();
@@ -8,19 +9,19 @@ function ThemesOverview() {
     return (
 
         <div className="themes-menu-component">
-            {loading && <p>Loading...</p>}
-            {error && <p>No themes available at this moment.</p>}
+            {loading && <TailSpin color="#000000" width={35} height={35}/>}
+            {error && <p>{error.message}</p>}
             {themes.length > 0 && (
                 themes.map((theme) => (
-                    <div className="themes-container" key={theme.id}>
-                        <Link to={`/published/themes/${themeName}`}>
-                            <h2>{theme.themeName}</h2>
+                    <div className="themes-list" key={theme.id}>
+                        <Link to={`/themes/${themeName}`}>
+                            <h5>{theme.name}</h5>
                         </Link>
                     </div>
                 )))
             }
             {/*// ) :*/}
-            {/*//     <p>No themes at this moment</p>*/}
+            {/*//     <p>No themesPage at this moment</p>*/}
             {/*// })*/}
         </div>
     );

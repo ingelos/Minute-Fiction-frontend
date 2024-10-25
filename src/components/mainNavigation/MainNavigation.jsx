@@ -29,6 +29,10 @@ function MainNavigation() {
                                 direct="Submit"
                                 navDirect={'/submit'}
                             />
+                            <NavigationLink
+                                direct="Subscribe"
+                                navDirect={'/register'}
+                            />
                         </div>
                         <div className="main-navigation-links right-div">
                             <NavigationLink
@@ -46,7 +50,7 @@ function MainNavigation() {
                     {/*  <ul className="main-mainNavigation-links">*/}
                     {/*      <NavigationLink*/}
                     {/*          direct="Profile"*/}
-                    {/*          navDirect={'/authorProfile'}*/}
+                    {/*          navDirect={'/authorProfilePage'}*/}
                     {/*          />*/}
                     {/*      <div>*/}
                     {/*          <button*/}

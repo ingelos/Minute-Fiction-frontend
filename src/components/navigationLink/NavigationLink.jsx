@@ -5,7 +5,8 @@ function NavigationLink({ navDirect, direct}) {
         <li>
             <NavLink
                 className={({isActive}) => isActive ? 'active-menu-link' : 'default-menu-link'}
-                to={navDirect}>{direct}
+                to={navDirect}>
+                {direct}
             </NavLink>
         </li>
     )

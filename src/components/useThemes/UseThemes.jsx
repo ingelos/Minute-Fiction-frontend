@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-
 import axios from "axios";
+
 
 function UseThemes() {
     const [themes, setThemes] = useState([]);
@@ -14,16 +14,17 @@ function UseThemes() {
 
         async function fetchThemes() {
             setError(false);
+            setLoading(true);
 
             try {
-                setLoading(true);
                const {data}  = await axios.get(`http://localhost:8080/themes`, {
                         signal: signal,
                     });
+               console.log(data);
                 setThemes(data);
             } catch (error) {
-                console.error("No themes available at this moment", error)
-                setError(error);
+                console.error("Error fetching themes", error)
+                setError(true);
             } finally {
                 setLoading(false);
             }

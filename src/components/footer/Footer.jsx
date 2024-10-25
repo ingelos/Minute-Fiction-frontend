@@ -1,5 +1,6 @@
 import "./Footer.css";
 import Copyright from "../../assets/icons/copyright.svg";
+import {Link} from "react-router-dom";
 
 function Footer() {
     return (
@@ -10,7 +11,7 @@ function Footer() {
                         <img src={Copyright} id='copyright-icon' alt='copyright-icon'/>
                         <p>2024 Minute Fiction. All Rights reserved.</p>
                     </div>
-                    <p>Design by Inge Los</p>
+                    <Link to={"/about"}><p className="about-link">About</p></Link>
                 </div>
             </div>
         </footer>

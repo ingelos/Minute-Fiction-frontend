@@ -1,9 +1,9 @@
-function FilterPanel({themes, filter, onFilterChange}) {
+function FilterPanel({themes, filter, handleFilterChange}) {
 
     return (
         <div className="filter-panel">
             <label>Status:</label>
-            <select onChange={(e) => onFilterChange('status', e.target.value)} value={filter.status}>
+            <select onChange={(e) => handleFilterChange('status', e.target.value)} value={filter.status}>
                 <option value="">All</option>
                 <option value="submitted">Submitted</option>
                 <option value="accepted">Accepted</option>
@@ -12,7 +12,7 @@ function FilterPanel({themes, filter, onFilterChange}) {
             </select>
 
             <label>Theme:</label>
-            <select onChange={(e) => onFilterChange('theme', e.target.value)} value={filter.theme}>
+            <select onChange={(e) => handleFilterChange('theme', e.target.value)} value={filter.theme}>
                 <option value="">All</option>
                 {themes.map((theme) => (
                     <option key={theme.id} value={theme.name}>
@@ -21,13 +21,13 @@ function FilterPanel({themes, filter, onFilterChange}) {
                 ))}
             </select>
 
-            <label>Author:</label>
-            <input
-                type="text"
-                placeholder="Search by author"
-                onChange={(e) => onFilterChange('author', e.target.value)}
-                value={filter.author}
-            />
+            {/*<label>Author:</label>*/}
+            {/*<input*/}
+            {/*    type="text"*/}
+            {/*    placeholder="Search by author"*/}
+            {/*    onChange={(e) => onFilterChange('author', e.target.value)}*/}
+            {/*    value={filter.author}*/}
+            {/*/>*/}
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import Input from "../input/Input.jsx";
 import {useForm} from "react-hook-form";
 import {useEffect} from "react";
+import Button from "../button/Button.jsx";
 
 
 function MailingForm({onSubmit, initialData, isEditing}) {
@@ -39,6 +40,7 @@ function MailingForm({onSubmit, initialData, isEditing}) {
                 validationRules={{
                     required: 'Content is required'
                 }}
+                rows={20}
                 register={register}
                 errors={errors}
             />
@@ -53,11 +55,15 @@ function MailingForm({onSubmit, initialData, isEditing}) {
                 register={register}
                 errors={errors}
             />
+            <Button
+                buttonType='submit'
+                className='update-mailing-form'
+                buttonText={isEditing ? 'Update Mailing' : 'Create Mailing'}
+            />
 
-
-            <button type='submit' className='update-mailing-button'>
-                {isEditing ? 'Update Mailing' : 'Create Mailing'}
-            </button>
+            {/*<button type='submitPage' className='update-mailing-button'>*/}
+            {/*    {isEditing ? 'Update Mailing' : 'Create Mailing'}*/}
+            {/*</button>*/}
         </form>
     )
 }

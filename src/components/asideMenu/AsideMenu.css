@@ -1,15 +1,17 @@
 .aside-menu {
-    flex-basis: 300px;
+    flex-basis: 15em;
     padding: 2.5em 0 0 3em;
+    text-align: center;
+    flex-shrink: 0;
 }
 
 .aside-card {
-    border-top: 1px solid var(--color-primary);
+    border-top: 2px solid var(--color-primary);
     padding-top: 0.6em;
 }
 
 .aside-title {
-    border-bottom: 2px solid var(--color-primary);
+    border-bottom: 1px solid var(--color-primary);
     padding-bottom: 10px;
     display: flex;
     justify-content: center;
@@ -26,6 +28,9 @@
 
 .register-menu {
     padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .register-menu h4 {
@@ -42,11 +47,21 @@
     background-color: #EFEEEE;
 }
 
-.theme-aside-nav {
-    margin-top: 2em;
+.open-themes-container {
+    margin: 10px 15px;
+    border: 1px solid var(--color-primary);
 }
 
-.theme-aside-nav li {
-    list-style: none;
-    margin-bottom: 0.3em;
+.aside-themes-nav {
+    border-bottom: 2px solid var(--color-primary);
 }
+
+/*.theme-aside-nav {*/
+/*    margin-top: 2em;*/
+/*}*/
+
+/*.theme-aside-nav li {*/
+/*    list-style: none;*/
+/*    margin-bottom: 0.3em;*/
+/*}*/
+

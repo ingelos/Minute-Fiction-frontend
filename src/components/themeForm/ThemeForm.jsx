@@ -1,6 +1,7 @@
 import Input from "../input/Input.jsx";
 import {useForm} from "react-hook-form";
 import {useEffect} from "react";
+import Button from "../button/Button.jsx";
 
 
 function ThemeForm({onSubmit, initialData, isEditing, error}) {
@@ -18,12 +19,11 @@ function ThemeForm({onSubmit, initialData, isEditing, error}) {
 
 
     return (
-
         <form className='subit-form' onSubmit={handleSubmit(handleUpdatingTheme)}>
             <Input
                 inputType='text'
                 inputName='themeName'
-                inputId='themename-field'
+                inputId='themeName-field'
                 inputLabel='Name:'
                 validationRules={{
                     required: 'Theme name is required'
@@ -64,9 +64,12 @@ function ThemeForm({onSubmit, initialData, isEditing, error}) {
                 register={register}
                 errors={errors}
             />
-            <button type='submit' className='update-theme-button'>
-                {isEditing ? 'Update Theme' : 'Create Theme'}
-            </button>
+            <Button
+                buttonType='submit'
+                className='update-theme-button'
+                buttonText={isEditing ? 'Update Mailing' : 'Create Mailing'}
+            />
+
             {error && <p>Something went wrong submitting the form, please try again.</p>}
         </form>
     )

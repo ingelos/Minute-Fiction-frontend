@@ -35,7 +35,7 @@ function EditorCheck({children}) {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error checking authority.</p>;
 
-    return isEditor ? children : <p>You are not authorized to access this resource</p>
+    return isEditor ? children : <h3 className="authority-check">This area is accessible only to editors of Minute Fiction.</h3>
 }
 
 export default EditorCheck;
