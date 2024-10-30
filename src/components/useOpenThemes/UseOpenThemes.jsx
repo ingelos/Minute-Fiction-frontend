@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 
 
 function UseOpenThemes() {
-    const [themes, setThemes] = useState([]);
+    const [openThemes, setOpenThemes] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -14,16 +14,17 @@ function UseOpenThemes() {
 
         async function fetchOpenThemes() {
             setError(false);
+            setLoading(true);
 
             try {
-                setLoading(true);
-               const {data} = await axios.get(`http://localhost:8080/themes/open`, {
+                const {data} = await axios.get(`http://localhost:8080/themes/open`, {
                         signal: signal,
                     });
-
-                setThemes(data);
+                console.log(data);
+                setOpenThemes(data);
             } catch (error) {
-                setError(error);
+                console.log('Error fetching open themes', error)
+                setError(true);
             } finally {
                 setLoading(false);
             }
@@ -36,7 +37,7 @@ function UseOpenThemes() {
         }
     }, []);
 
-    return { themes, loading, error};
+    return { openThemes, loading, error};
 }
 
 export default UseOpenThemes;

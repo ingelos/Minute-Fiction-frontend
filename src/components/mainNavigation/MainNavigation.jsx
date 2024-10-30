@@ -1,11 +1,12 @@
 import "./MainNavigation.css"
 import NavigationLink from "../navigationLink/NavigationLink.jsx";
-
+import {useContext} from "react";
+import {AuthContext} from "../../context/AuthContext.jsx";
+import Button from "../button/Button.jsx";
 
 
 function MainNavigation() {
-
-    // const {isAuth, logout} = useContext(AuthContext);
+    const {user, isAuth, logout} = useContext(AuthContext);
 
     return (
         <nav className="main-navigation outer-content-container">
@@ -29,35 +30,38 @@ function MainNavigation() {
                                 direct="Submit"
                                 navDirect={'/submit'}
                             />
+                            <NavigationLink
+                                direct="Subscribe"
+                                navDirect={'/register'}
+                            />
                         </div>
                         <div className="main-navigation-links right-div">
                             <NavigationLink
-                                    direct="Editor"
-                                    navDirect={'/editor/dashboard'}
-                                />
-                            <NavigationLink
-                                direct="Login"
-                                navDirect={'/authenticate'}
+                                direct="Editor"
+                                navDirect={'/editor/dashboard'}
                             />
+
+                            {isAuth ? (
+                                <>
+                                    <NavigationLink
+                                        direct="Account"
+                                        navDirect={`/user/${user.username}`}
+                                    />
+                                <Button
+                                    buttonType='button'
+                                    className='logout-button'
+                                    buttonText='Logout'
+                                    onClick={logout}
+                                />
+                                </>
+                            ) : (
+                                <NavigationLink
+                                    direct="Login"
+                                    navDirect={'/authenticate'}
+                                />
+                            )}
                         </div>
                     </ul>
-
-                    {/*{isAuth ?*/}
-                    {/*  <ul className="main-mainNavigation-links">*/}
-                    {/*      <NavigationLink*/}
-                    {/*          direct="Profile"*/}
-                    {/*          navDirect={'/authorProfile'}*/}
-                    {/*          />*/}
-                    {/*      <div>*/}
-                    {/*          <button*/}
-                    {/*              type="button"*/}
-                    {/*              onClick={logout}*/}
-                    {/*          >*/}
-                    {/*              Logout*/}
-                    {/*          </button>*/}
-                    {/*      </div>*/}
-                    {/*  </ul>*/}
-                    {/*    : <p></p> }*/}
                 </div>
             </div>
         </nav>

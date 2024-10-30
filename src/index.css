@@ -58,18 +58,19 @@ h5, p, ul {
   font-size: 0.9em;
 }
 
-button {
-  border-radius: 25px;
-  border: 1px solid var(--color-primary);
-  width: fit-content;
-  padding: 0.5em 1.2em;
-  margin: 0.5em 0 2.5em;
-  cursor: pointer;
+li {
+  list-style: none;
 }
 
 .error-message {
   padding: 20px 0;
 }
+
+.sub-titles {
+  margin-top: 20px;
+}
+
+
 
 /*button:hover {*/
 /*}*/

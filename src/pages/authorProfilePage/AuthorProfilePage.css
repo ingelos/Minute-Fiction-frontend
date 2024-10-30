@@ -1,0 +1,38 @@
+.author-stories {
+    margin: 40px 0;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--color-primary);
+    margin: 10px 0;
+    padding: 10px 0 80px;
+}
+
+.author-info-container {
+    flex-basis: 400px;
+    /*border: 2px solid red;*/
+}
+
+.published-title {
+    border-top: 1px solid var(--color-primary);
+    border-bottom: 1px solid var(--color-primary);
+    padding: 10px 0;
+}
+
+.profile-photo-container {
+    /*border: 2px solid pink;*/
+    flex-basis: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10px;
+}
+
+.profile-picture-empty {
+    height: 50px;
+    width: 50px;
+}

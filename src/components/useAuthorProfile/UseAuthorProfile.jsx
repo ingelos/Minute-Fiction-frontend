@@ -1,14 +1,12 @@
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
 import axios from "axios";
 
 
-function UseAuthorProfile() {
-
+function UseAuthorProfile(username) {
     const [authorProfile, setAuthorProfile] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-    const {username} = useParams();
+    // const {username} = useParams();
 
     useEffect(() => {
         const controller = new AbortController();

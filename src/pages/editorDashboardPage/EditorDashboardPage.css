@@ -1,0 +1,16 @@
+.section-title {
+    padding-bottom: 10px;
+}
+
+.dashboard-section {
+    padding: 40px 0 10px;
+}
+
+.dashboard-nav-links {
+    display: flex;
+    flex-direction: row;
+}
+
+.dashboard-nav-links h4 {
+    padding-right: 15px;
+}

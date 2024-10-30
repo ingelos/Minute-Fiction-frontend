@@ -1,14 +1,24 @@
 import './Input.css';
 
-function Input({inputId, inputLabel, inputType, inputName, validationRules, register, errors}) {
+function Input({inputId, inputLabel, inputType, inputName, validationRules, rows, register, errors}) {
     return (
         <>
             <label htmlFor={inputId}>{inputLabel}
-                <input
-                    type={inputType}
-                    id={inputId}
-                    {...register(inputName, validationRules)}
-                />
+                {inputType === 'textarea' ? (
+                    <textarea
+                        id={inputId}
+                        name={inputName}
+                        {...register(inputName, validationRules)}
+                        rows={rows}
+                        />
+                ) : (
+                    <input
+                        id={inputId}
+                        type={inputType}
+                        {...register(inputName, validationRules)}
+                    />
+                )}
+
             </label>
             {errors[inputName] && <p id="input-error-message">{errors[inputName].message}</p>}
         </>

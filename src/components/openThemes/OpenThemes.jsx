@@ -1,36 +1,36 @@
-
+import "./OpenThemes.css";
 import ThemeCard from "../themeCard/ThemeCard.jsx";
 import {Link} from "react-router-dom";
 import UseOpenThemes from "../useOpenThemes/UseOpenThemes.jsx";
 
 
-function OpenThemes({showSubmitButton}) {
-    const { themes, loading, error} = UseOpenThemes();
-
+function OpenThemes({showSubmitButton, overview, variant}) {
+    const {openThemes, loading, error} = UseOpenThemes();
+    const containerClassName = variant === 'aside' ? 'themes-container-aside' : 'themes-container-page';
 
     return (
         <div>
             {loading && <p>Loading...</p>}
-            {error && <p className="no-themes">No open themes available at this moment.</p>}
-            {themes.length > 0 && (
-                themes.map((theme) => (
-                    <div className="themes-container" key={theme.id}>
-                        <ThemeCard
-                            themeName={theme.themeName}
-                            description={showSubmitButton ? theme.description : null}
-                            openDate={theme.openDate}
-                            closingDate={theme.closingDate}
-                        />
-                        {showSubmitButton && (
-                            <Link to={`/stories/submit/${theme.id}`}>
-                                <h2>Submit your story here</h2>
-                            </Link>
-                        )}
-                    </div>
-                )))}
+            {error && <p>{error.message}</p>}
+            {openThemes.length > 0 && (
+                openThemes.map((theme) => (
+                        <div className={`themes-container ${containerClassName}`} key={theme.id}>
+                            <ThemeCard
+                                themeName={theme.name}
+                                description={theme.description}
+                                openDate={theme.openDate}
+                                closingDate={theme.closingDate}
+                                overview={overview}
+                            />
+                            {showSubmitButton && (
+                                <Link to={`/submit/${theme.id}`}>
+                                    <h4 className="link-button-style">Submit</h4>
+                                </Link>
+                            )}
+                        </div>
+                    )))}
         </div>
     )
-
 }
 
 export default OpenThemes;
