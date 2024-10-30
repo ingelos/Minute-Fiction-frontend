@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
 import axios from "axios";
 
 
@@ -8,7 +7,7 @@ function UseAuthors() {
     const [authors, setAuthors] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-    const {username} = useParams();
+
 
     useEffect(() => {
         const controller = new AbortController();
@@ -19,7 +18,7 @@ function UseAuthors() {
             setLoading(true);
 
             try {
-                const {data} = await axios.get(`http://localhost:8080/authorprofiles/authors`, {
+                const {data} = await axios.get(`http://localhost:8080/authorprofiles`, {
                     signal: signal,
                 });
                 console.log(data);
@@ -43,7 +42,7 @@ function UseAuthors() {
             controller.abort();
         }
 
-    }, [username]);
+    }, []);
 
     return {authors, loading, error};
 }

@@ -4,7 +4,6 @@ import StoryList from "../../components/storyList/StoryList.jsx";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 import {useNavigate} from "react-router-dom";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
-import {TailSpin} from "react-loader-spinner";
 import Button from "../../components/button/Button.jsx";
 
 
@@ -142,7 +141,7 @@ function ManageStoriesPage() {
                                 value={query}
                             />
                             <button onClick={() => searchAuthorStories(query)}>Search</button>
-                            {loading && <TailSpin height={50} width={50}/>}
+                            {loading && <p>Loading...</p>}
                             {error && <p>Error fetching stories.</p>}
                             <h3>Relevant Stories:</h3>
                             <ul>

@@ -7,20 +7,25 @@ import AuthenticateCheck from "../../components/authenticateCheck/AuthenticateCh
 import AuthorProfileForm from "../../components/authorProfileForm/AuthorProfileForm.jsx";
 
 function CreateAuthorProfilePage() {
-    // const [error, setError] = useState(null);
     const navigate = useNavigate();
     const {user} = useContext(AuthContext);
 
     async function handleCreateProfile(authorProfileData) {
-        // setError(false);
+        const token = localStorage.getItem('token');
 
         try {
-            const {data} = await axios.post('http://localhost:8080/authorprofiles', authorProfileData);
+            const {data} = await axios.post(`http://localhost:8080/authorprofiles/${user.username}`,
+                authorProfileData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
             console.log('Profile created successfully', data);
-            navigate(`/authorprofiles/${user.username}`);
+            navigate(`/authors/${user.username}`);
         } catch (error) {
             console.error('Error creating profile ', error);
-            // setError(true);
         }
     }
 

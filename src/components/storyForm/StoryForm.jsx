@@ -1,31 +1,34 @@
 import {useForm} from "react-hook-form";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import Input from "../input/Input.jsx";
 import axios from "axios";
-import {useLocation} from "react-router-dom";
+import Button from "../button/Button.jsx";
+import {AuthContext} from "../../context/AuthContext.jsx";
+import AuthenticateCheck from "../authenticateCheck/AuthenticateCheck.jsx";
 
 function StoryForm({themeId}) {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
-    const controller = new AbortController();
-    const {search} = useLocation();
-    const queryParams = new URLSearchParams(search);
-    const username = queryParams.get('username');
-
-
+    const { user } = useContext(AuthContext);
+    
     async function handleUpdatingStory(formData) {
+        const token = localStorage.getItem('token');
+
         try {
-            const {data} = await axios.post(`http://localhost:8080/stories/submit/${themeId}`, {
-                    title: formData.title,
-                    content: formData.content,
-                    username: username,
-                    signal: controller.signal,
+            const {data} = await axios.post(`http://localhost:8080/stories/submit/${themeId}?username=${user.username}`, {
+                title: formData.title,
+                content: formData.content,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }
                 });
             setSuccess(true);
             console.log('Form data:', data);
         } catch (error) {
-            console.error(error, 'There was an error submitting your story.')
+            console.error('Error', error.message || error);
             setSuccess(false);
             setError(true);
         }
@@ -63,10 +66,13 @@ function StoryForm({themeId}) {
                 register={register}
                 errors={errors}
             />
-            <button type='submit' className='submit-story-button'>
-                Submit Story
-            </button>
-
+            <AuthenticateCheck>
+                <Button
+                    buttonType="submit"
+                    className="submit-button"
+                    buttonText="Submit Story"
+                />
+            </AuthenticateCheck>
         </form>
     )
 }

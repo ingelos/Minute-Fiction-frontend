@@ -6,13 +6,23 @@ import axios from "axios";
 
 export const AuthContext = createContext({});
 
+
+
 export function AuthContextProvider({children}) {
     const [auth, setAuth] = useState({
         isAuth: false,
         user: null,
+        authorities: [],
         status: 'pending',
     });
     const navigate = useNavigate();
+
+    const updateUser = (updatedUser) => {
+        setAuth((prevAuth) => ({
+            ...prevAuth,
+            user: updatedUser,
+        }));
+    };
 
     const login = useCallback(async(token) => {
         localStorage.setItem('token', token);
@@ -23,17 +33,19 @@ export function AuthContextProvider({children}) {
         try {
             const response = await axios.get(`http://localhost:8080/users/${username}`, {
                 headers: {
-                    // "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
                 }
             });
-            console.log(response);
+            console.log(response.data);
+
             setAuth({
                 isAuth: true,
                 user: {
                     username: response.data.username,
                     email: response.data.email,
                 },
+                authorities: response.data.authorities || [],
                 status: 'done',
             });
             console.log('user is authenticated!');
@@ -48,14 +60,20 @@ export function AuthContextProvider({children}) {
         setAuth({
             isAuth: false,
             user: null,
+            authorities: [],
             status: 'done',
         });
         console.log('User has been logged out');
         navigate('/');
     }, [navigate]);
 
+
     useEffect(() => {
         const token = localStorage.getItem('token');
+        console.log("Token retrieved:", token);
+        if (!token) {
+            console.error("Token is undefined or null.");
+        }
 
         if (token && isTokenValid(token)) {
             void login(token);
@@ -63,6 +81,7 @@ export function AuthContextProvider({children}) {
             setAuth({
                 isAuth: false,
                 user: null,
+                authorities: [],
                 status: 'done',
             });
         }
@@ -70,9 +89,12 @@ export function AuthContextProvider({children}) {
 
     const contextData = {
         isAuth: auth.isAuth,
-        user: auth.user,
+        username: auth.user ? auth.user.username : null,
+        user: auth.user || {},
+        // ...auth,
         login: login,
         logout: logout,
+        updateUser,
     };
 
     return (

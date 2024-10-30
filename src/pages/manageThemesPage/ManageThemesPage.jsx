@@ -5,7 +5,6 @@ import axios from "axios";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 import DeletionConfirmation from "../../components/deletionConfirmation/DeletionConfirmation.jsx";
 import {useState} from "react";
-import {TailSpin} from "react-loader-spinner";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
 
 
@@ -48,7 +47,7 @@ function ManageThemesPage() {
                                 Theme</Link></p>
                             <div className="theme-container">
                                 <h3 className="all-themes overviews">All Themes:</h3>
-                                {loading && <TailSpin color="#000000" height={50} width={50}/>}
+                                {loading && <p>Loading...</p>}
                                 <ul>
                                     {error && <p>{error.message}</p>}
                                     {themes.length > 0 &&

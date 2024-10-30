@@ -2,6 +2,7 @@ import axios from "axios";
 import DeletionConfirmation from "../../components/deletionConfirmation/DeletionConfirmation.jsx";
 import {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
+import {Link} from "react-router-dom";
 
 
 function DeleteAccountPage() {
@@ -22,15 +23,19 @@ function DeleteAccountPage() {
     }
 
     return (
-        <section className='edit-password-page outer-container'>
-            <div className='edit-password-page inner-container'>
-                <div className='account-settings-inner-content-container'>
-                    {error && <p>Something went wrong... try to reload the page.</p>}
-                    <h2>Delete account</h2>
+        <section className='edit-password-page outer-content-container'>
+            <div className='edit-password-page inner-content-container'>
+                <div className='main-container'>
+                    <div className='featured-section'>
+                    {error && <p>{error.message}</p>}
+                    <h2 className='delete-title titles'>Delete account</h2>
+                        <h4>Keep in mind, deleting your account is permanent and cannot be reversed. </h4>
+                        <h5>If you have an author profile and published/submitted stories delete these first.</h5>
+                        <h4 className='back-link'><Link to={`/user/${user.username}`}>Go back to Account</Link></h4>
                     {!deleteSuccess ? (
                         <div>
                             <button onClick={() => setModalOpen(true)} className="delete-account-button">
-                                Delete Your Account
+                                Delete My Account
                             </button>
                             <DeletionConfirmation
                                 isOpen={isModalOpen}
@@ -43,6 +48,7 @@ function DeleteAccountPage() {
                     ) : (
                     <p>Successfully Deleted Account!</p>
                     )}
+                    </div>
                 </div>
             </div>
         </section>

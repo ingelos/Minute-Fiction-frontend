@@ -2,7 +2,7 @@
 import axios from "axios";
 import ThemeForm from "../../components/themeForm/ThemeForm.jsx";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+// import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
 
 
 function CreateThemePage() {
@@ -20,7 +20,7 @@ function CreateThemePage() {
         <section className='editor-themes-section outer-content-container'>
             <div className='editor-themes-section inner-content-container'>
                 <div className='main-container'>
-                    <EditorCheck>
+                    {/*<EditorCheck>*/}
                     <div className="featured-section">
                         <h2 className="themes-title titles">Create Theme</h2>
                         <div className='themes-container'>
@@ -29,7 +29,7 @@ function CreateThemePage() {
                         </div>
                     </div>
                     <AsideEditorMenu/>
-                    </EditorCheck>
+                    {/*</EditorCheck>*/}
                 </div>
             </div>
         </section>

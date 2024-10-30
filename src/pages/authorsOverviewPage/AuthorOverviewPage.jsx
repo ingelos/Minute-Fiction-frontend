@@ -1,10 +1,9 @@
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import useAuthors from "../../components/useAuthors/UseAuthors.jsx";
 
 function AuthorOverviewPage() {
-    const { username } = useParams();
-    const { authors, loading, error} = useAuthors(username);
+    const { authors, loading, error} = useAuthors();
 
 
     return (
@@ -16,12 +15,12 @@ function AuthorOverviewPage() {
                             <h2 className="author-title titles">All Authors</h2>
                             <div className="author-overview">
                                 {loading && <p>Loading...</p>}
-                                {error && <p>No authors available at this moment</p>}
+                                {error && <p>{error.message}</p>}
                                 {authors.length > 0 && (
-                                        authors.map((author) => (
-                                            <div className="themes-container" key={author.id}>
-                                                <Link to={`/authorprofiles/${username}`}>
-                                                    <h2>`{author.firstname} {author.lastname}`</h2>
+                                    authors.map((author) => (
+                                            <div className="author-container" key={author.username}>
+                                                <Link to={`/authors/${author.username}`}>
+                                                    <h3>{author.firstname} {author.lastname}</h3>
                                                 </Link>
                                             </div>
                                         )))}

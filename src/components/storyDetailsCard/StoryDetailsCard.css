@@ -1,7 +1,7 @@
 .story-detail-container {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid var(--color-primary);
+    /*border-top: 1px solid var(--color-primary);*/
     border-bottom: 2px solid var(--color-primary);
 }
 
@@ -10,13 +10,19 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 .story-detail-link {
-    text-decoration: underline;
+    display: flex;
+    flex-direction: row;
     text-align: center;
-    margin-bottom: 10px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.special-link:hover {
+    text-decoration: underline;
 }
 
 .icon {
@@ -25,10 +31,29 @@
     margin: 0 5px;
 }
 
+.arrow-icon {
+    height: 15px;
+    width: 15px;
+    vertical-align: middle;
+    margin-left: 2px;
+}
+
 .story-content {
-    margin: 15px 0;
+    margin: 20px 0;
 }
 
 .publish-date {
     text-align: center;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    color: grey;
+}
+
+.theme-name {
+    border-top: 1px solid var(--color-primary);
+    padding: 8px 0;
+    font-family: Oswald, sans-serif;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: grey;
 }

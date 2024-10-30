@@ -3,7 +3,14 @@ import {useForm} from "react-hook-form";
 import Button from "../button/Button.jsx";
 
 function RegisterForm({onSubmit, error}) {
-    const {register, handleSubmit, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors}} = useForm({
+        defaultValues: {
+            username: '',
+            email: '',
+            password: '',
+            subscribedToMailing: false,
+        }
+    });
 
     async function handleRegistration(data) {
         onSubmit(data);
@@ -11,10 +18,10 @@ function RegisterForm({onSubmit, error}) {
 
     return (
         <form className='register-form' onSubmit={handleSubmit(handleRegistration)}>
-            {error &&
-                <p className='error-message-register'>{error}</p>}
+            {error && <p>{error.message}</p>}
+            <h4>Username is unchangeable after creating. Choose with care.</h4>
             <Input
-                type='text'
+                inputType='text'
                 inputName='username'
                 labelInput='register-username-field'
                 inputLabel='Username: *'
@@ -29,9 +36,9 @@ function RegisterForm({onSubmit, error}) {
                 errors={errors}
             />
             <Input
-                type='password'
+                inputType='password'
                 inputName='password'
-                labelInput='register-password-field'
+                inputId='register-password-field'
                 inputLabel='Password: *'
                 validationRules={{
                     required: 'Password is required',
@@ -44,9 +51,9 @@ function RegisterForm({onSubmit, error}) {
                 errors={errors}
             />
             <Input
-                type='email'
+                inputType='email'
                 inputName='email'
-                labelInput='register-email-field'
+                inputId='register-email-field'
                 inputLabel='Email: *'
                 validationRules={{
                     required: 'Email is required',
@@ -60,8 +67,17 @@ function RegisterForm({onSubmit, error}) {
             />
             <p>* required</p>
             <div className='checkbox-container'>
-                <input type="checkbox" id="subscription" name="mailing"/>
-                <label htmlFor="mailing">I want to receive the mailing</label>
+                <Input
+                    inputType="checkbox"
+                    inputName="subscribedToMailing"
+                    inputId="mailing-subscription-field"
+                    validationRules={{
+                        required: false,
+                    }}
+                    register={register}
+                    errors={errors}
+                />
+                <label htmlFor="mailing-subscription-field">I want to receive the mailing</label>
             </div>
             <Button
                 buttonType='submit'

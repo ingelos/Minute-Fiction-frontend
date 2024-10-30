@@ -16,15 +16,16 @@ function RegisterPage() {
                 username: formData.username,
                 password: formData.password,
                 email: formData.email,
-                subscription: formData.subscription,
+                subscribedToMailing: formData.subscribedToMailing,
             });
-            console.log(data);
+            console.log("Registration data:", data);
             setUsername(data.username);
             setRegisterSuccess(true);
+
         } catch (error) {
-            if(error.response && error.response.status === 400) {
+            if (error.response && error.response.status === 400) {
                 const errorMessage = error.response.data.message || 'Username already in use';
-                console.error('Authentication failed:', errorMessage);
+                console.error('Registration failed:', errorMessage);
             } else {
                 console.error('Error: ', error.message);
             }
@@ -37,22 +38,25 @@ function RegisterPage() {
             <div className='register-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
-                        <h2 className='register-title titles'>Create account</h2>
-                        <p>Subscribe to the Minute Fiction newsletter by creating an account.</p>
-                        <p>With an account you can leave comments and submit your own stories by creating an author profile!</p>
                         {!registerSuccess ? (
-                            <RegisterForm onSubmit={handleRegistration}/>
+                            <div>
+                                <h2 className='register-title titles'>Create account</h2>
+                                <p>Subscribe to the Minute Fiction newsletter by creating an account.</p>
+                                <p>With an account you can leave comments and submit your own stories by creating an
+                                    author profile!</p>
+                                <RegisterForm onSubmit={handleRegistration}/>
+                            </div>
                         ) : (
                             <div>
-                                <p>Successfully registered!</p>
-                                <h3><Link to={"/authenticatePage"}>Log in</Link></h3>
+                                <h2 className='register-title titles'>Successfully registered!</h2>
+                                <h3 className='link-button-style'><Link to={"/authenticate"}>Log in</Link></h3>
                                 <EditorCheck>
                                     <Link to={`/editor/users/${username}/authorities`}>Manage Authorities</Link>
                                 </EditorCheck>
                             </div>
                         )}
                     </div>
-                    <AsideMenu />
+                    <AsideMenu/>
                 </div>
             </div>
         </section>

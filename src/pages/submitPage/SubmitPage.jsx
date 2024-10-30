@@ -1,4 +1,3 @@
-import "./SubmitPage.css";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import OpenThemes from "../../components/openThemes/OpenThemes.jsx";
 
@@ -12,7 +11,11 @@ function SubmitPage() {
                     <div className="featured-section">
                         <div className="submit-container container">
                             <h2 className="submit-title titles">Open themes</h2>
-                            <OpenThemes showSubmitButton={true} />
+                            <OpenThemes
+                                showSubmitButton={true}
+                                overview={true}
+                                variant="page"
+                            />
                         </div>
                     </div>
                     <AsideMenu/>

@@ -1,7 +1,6 @@
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {TailSpin} from 'react-loader-spinner';
 import StoryDetailsCard from "../../components/storyDetailsCard/StoryDetailsCard.jsx";
 
 function HomePage() {
@@ -50,10 +49,10 @@ function HomePage() {
                     <div className="featured-section">
                         <h2 className="homepage-title titles">Recent Stories</h2>
                         <div className="recent-stories-container">
-                            {loading && <TailSpin color="#000000" height={35} width={35}/>}
+                            {loading && <p>Loading...</p>}
                             {error && <p>{error.message}</p>}
                             <div>
-                                {stories.length > 0 &&
+                                {stories.length > 0 ?
                                     stories.map((story) => (
                                     <div className="story-container" key={story.id}>
                                         <StoryDetailsCard
@@ -63,10 +62,14 @@ function HomePage() {
                                             authorLastname={story.authorLastname}
                                             themeName={story.themeName}
                                             publishDate={story.publishDate}
+                                            preview={true}
                                         />
                                     </div>
-                                ))}
+                                )) : (
+                                    <p>No recently published stories</p>
+                                    )}
                             </div>
+                            <h3 className="prev-link pagination">Older Stories</h3>
                         </div>
                     </div>
                     <AsideMenu/>

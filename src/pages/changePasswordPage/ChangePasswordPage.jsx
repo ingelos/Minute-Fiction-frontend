@@ -18,8 +18,9 @@ function ChangePasswordPage() {
 
     async function editPassword(formData) {
         try {
-            const {data} = await axios.put(`https://localhost:8080/users/${user.username}`, {
-                password: formData.newPassword,
+            const {data} = await axios.patch(`https://localhost:8080/users/${user.username}/password`, {
+                newPassword: formData.newPassword,
+                confirmPassword: formData.confirmPassword,
             }, {
                 headers: {
                     "Content-Type": "application/json",
@@ -36,18 +37,19 @@ function ChangePasswordPage() {
 
 
         return (
-                <section className='edit-password-page outer-container'>
-                    <div className='edit-password-page inner-container'>
-                        <div className='account-settings-inner-content-container'>
+                <section className='edit-password-page outer-content-container'>
+                    <div className='edit-password-page inner-content-container'>
+                        <div className='main-container'>
+                            <div className='featured-section'>
+                                <h2 className='password-page-title titles'>Change Password</h2>
                             {error && <p>Something went wrong... try to reload the page.</p>}
-                            <h2>Change Password</h2>
                             {!updateSuccess ?
                                 <div>
                                     <form className='edit-password-form' onSubmit={handleSubmit(editPassword)}>
                                         <Input
                                             inputType='password'
                                             inputName='newPassword'
-                                            inputId='new-password-field'
+                                            inputId='newPassword-field'
                                             inputLabel='New Password: *'
                                             validationRules={{
                                                 required: 'Password is required',
@@ -62,7 +64,7 @@ function ChangePasswordPage() {
                                         <Input
                                             inputType='password'
                                             inputName='confirmPassword'
-                                            inputId='confirm-password-field'
+                                            inputId='confirmPassword-field'
                                             inputLabel='Confirm New Password: *'
                                             validationRules={{
                                                 required: 'Please confirm your password',
@@ -75,16 +77,15 @@ function ChangePasswordPage() {
 
                                         <button type='submit'>Save password</button>
                                     </form>
-                                    <p>Go back to Your Account<Link
-                                        to={`/users/${user.username}`}><strong>here</strong></Link></p>
+                                    <h4><Link to={`/users/${user.username}`}>Back to Account</Link></h4>
                                 </div>
                                 :
                                 <div className='account-settings-succes'>
                                     <p>You have successfully updated your password!</p>
-                                    <p>Go back to your account <Link
-                                        to={`/users/${user.username}`}><strong>here.</strong></Link></p>
+                                    <h4><Link to={`/users/${user.username}`}>Go back to account</Link></h4>
                                 </div>
                             }
+                            </div>
                         </div>
                     </div>
                 </section>

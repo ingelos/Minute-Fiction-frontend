@@ -62,17 +62,6 @@ li {
   list-style: none;
 }
 
-button {
-  border-radius: 25px;
-  border: 1px solid var(--color-primary);
-  background-color: var(--color-primary);
-  color: white;
-  width: fit-content;
-  padding: 0.4em 1.2em;
-  margin: 1.2em 0 2.5em;
-  cursor: pointer;
-}
-
 .error-message {
   padding: 20px 0;
 }
@@ -81,15 +70,8 @@ button {
   margin-top: 20px;
 }
 
-.link-button-style {
-  font-family: 'Oswald', sans-serif;
-  text-transform: uppercase;
-  border: 1px solid var(--color-primary);
-  width: fit-content;
-  padding: 0.2em 0.5em;
-  margin-top: 10px;
-  cursor: pointer;
-}
+
+
 /*button:hover {*/
 /*}*/
 

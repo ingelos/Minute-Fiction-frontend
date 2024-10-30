@@ -1,13 +1,11 @@
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
-// import ThemesOverview from "../../components/themesOverview/ThemesOverview.jsx";
 import {Link} from "react-router-dom";
-import useThemes from "../../components/useThemes/UseThemes.jsx";
+import useClosedThemes from "../../components/useClosedThemes/UseClosedThemes.jsx";
 
 
 function ThemesPage() {
+    const {closedThemes, loading, error} = useClosedThemes();
 
-    const {themes, loading, error} = useThemes();
-    // const {themeName} = useParams();
 
     return (
         <section className='themes-section outer-content-container'>
@@ -19,8 +17,8 @@ function ThemesPage() {
                             <div className="themes-menu-component">
                                 {loading && <p>Loading...</p>}
                                 {error && <p>{error.message}</p>}
-                                {themes.length > 0 && (
-                                    themes.map((theme) => (
+                                {closedThemes.length > 0 && (
+                                    closedThemes.map((theme) => (
                                         <div className="themes-container" key={theme.id}>
                                             <Link to={`/themes/${theme.name}`}>
                                                 <h3>{theme.name}</h3>

@@ -1,7 +1,7 @@
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 import {Link} from "react-router-dom";
 import "./EditorDashboardPage.css";
-// import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
 
 function EditorDashboardPage() {
 
@@ -10,7 +10,7 @@ function EditorDashboardPage() {
         <section className='editor-stories-section outer-content-container'>
             <div className='editor-stories-section inner-content-container'>
                 <div className='main-container'>
-                    {/*<EditorCheck>*/}
+                    <EditorCheck>
                     <div className="featured-section">
                         <h2 className="section-title titles">Editor Dashboard</h2>
                         <h3>Welcome! Manage stories, themes and mailings here.</h3>
@@ -56,7 +56,7 @@ function EditorDashboardPage() {
 
                         </div>
                     <AsideEditorMenu/>
-                        {/*</EditorCheck>*/}
+                        </EditorCheck>
                     </div>
                 </div>
         </section>

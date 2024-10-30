@@ -19,10 +19,10 @@ function AuthorProfileForm({onSubmit, initialData, isEditing, error}) {
 
         <form className='create-profile-form' onSubmit={handleSubmit(handleUpdatingAuthorProfile)}>
             <Input
-                type='text'
+                inputType='text'
                 inputName='firstname'
-                labelInput='firstname-field'
-                labelText='First name: *'
+                inputId='firstname-field'
+                inputLabel='First name: *'
                 validationRules={{
                     required: 'First name is required',
                     minLength: {
@@ -34,10 +34,10 @@ function AuthorProfileForm({onSubmit, initialData, isEditing, error}) {
                 errors={errors}
             />
             <Input
-                type='text'
+                inputType='text'
                 inputName='lastname'
-                labelInput='lastname-field'
-                labelText='Last name: *'
+                inputId='lastname-field'
+                inputLabel='Last name: *'
                 validationRules={{
                     required: 'Last name is required',
                     minLength: {
@@ -49,10 +49,10 @@ function AuthorProfileForm({onSubmit, initialData, isEditing, error}) {
                 errors={errors}
             />
             <Input
-                type='bio'
+                inputType='bio'
                 inputName='bio'
-                labelInput='bio-field'
-                labelText='Bio: *'
+                inputId='bio-field'
+                inputLabel='Bio: *'
                 validationRules={{
                     maxLength: {
                         value: 500,
@@ -63,10 +63,10 @@ function AuthorProfileForm({onSubmit, initialData, isEditing, error}) {
                 errors={errors}
             />
             <Input
-                type='date'
+                inputType='date'
                 inputName='dob'
-                labelInput='dob-field'
-                labelText='Date of birth:'
+                inputId='dob-field'
+                inputLabel='Date of birth:'
                 validationRules={{
                     validate: {
                         isValidDate: (value) => !isNaN(Date.parse(value)) || 'Invalid date format',

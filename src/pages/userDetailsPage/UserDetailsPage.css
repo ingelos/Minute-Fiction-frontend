@@ -1,0 +1,23 @@
+.edit-links {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    padding: 10px 0;
+    border-top: 1px solid var(--color-primary);
+}
+
+.profile-link {
+    margin: 25px 0;
+}
+
+.subscription-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    vertical-align: center;
+}
+
+.subscription-status {
+    padding: 20px 10px 20px 0;
+
+}

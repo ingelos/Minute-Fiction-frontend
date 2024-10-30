@@ -1,46 +1,13 @@
-import {useEffect, useState} from "react";
-import authContext from "../../context/AuthContext.jsx";
-import axios from "axios";
+import {useContext} from "react";
+import {AuthContext} from "../../context/AuthContext.jsx";
+
 
 function AuthorCheck({children}) {
-    const [hasAuthorProfile, setHasAuthorProfile] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-    const token = localStorage.getItem('token');
-    const {username} = authContext;
 
-    useEffect(() => {
-        async function checkAuthority() {
-            try {
-                const {data} = await axios.get(`http://localhost:8080/users/${username}`, {
-                    headers: {Authorization: `Bearer ${token}`},
-                });
-                if(data.hasAuthorProfile) {
-                    setHasAuthorProfile(true);
-                } else {
-                    setError(true);
-                    setHasAuthorProfile(false);
-                }
-            } catch (error) {
-                console.error('Error fetching author profile', error);
-                setError(true);
-            } finally {
-                setLoading(false);
-            }
-        }
+    const {isAuth, authorities} = useContext(AuthContext);
+    const isAuthor = isAuth && authorities.includes('AUTHOR');
 
-        if (token) {
-            checkAuthority();
-        } else {
-            setLoading(false);
-        }
-
-    }, [token, username]);
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error checking authority.</p>;
-
-    return hasAuthorProfile ? children : <p>You are not authorized to access this resource. Please create an author profile first.</p>
+    return isAuthor ? children : <h3>You need to create an author profile before submitting stories.</h3>
 }
 
 export default AuthorCheck;

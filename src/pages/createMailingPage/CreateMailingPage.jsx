@@ -1,6 +1,6 @@
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+// import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
 import MailingForm from "../../components/mailingForm/MailingForm.jsx";
 import {useState} from "react";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";

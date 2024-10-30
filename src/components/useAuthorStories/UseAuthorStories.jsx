@@ -1,9 +1,13 @@
 import {useEffect, useState} from "react";
+// import {useParams} from "react-router-dom";
 import axios from "axios";
+import {useParams} from "react-router-dom";
+
+// import {useParams} from "react-router-dom";
 
 
-function UseAuthorProfile(username) {
-    const [authorProfile, setAuthorProfile] = useState([]);
+function UseAuthorStories(username) {
+    const [stories, setStories] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     // const {username} = useParams();
@@ -16,18 +20,23 @@ function UseAuthorProfile(username) {
             setLoading(true);
 
             try {
-                const {data} = await axios.get(`http://localhost:8080/authorprofiles/${username}`, {
+                const {data} = await axios.get(`http://localhost:8080/authorprofiles/${username}/published`, {
                     signal: controller.signal,
                 });
                 console.log(data);
-                setAuthorProfile(data);
+                setStories(data);
 
             } catch (error) {
                 if (axios.isCancel(error)) {
                     console.error('Request is cancelled');
-                } else {
-                    console.error(error);
-                    setError(true);
+                } else if (error.response) {
+                    if (error.response.status === 404) {
+                        console.error('No stories exist for this author');
+                        setError(true);
+                    } else {
+                        console.error('Error:', error)
+                        setError(true);
+                    }
                 }
             } finally {
                 setLoading(false);
@@ -42,7 +51,7 @@ function UseAuthorProfile(username) {
 
     }, [username]);
 
-    return {authorProfile, loading, error};
+    return {stories, loading, error};
 }
 
-export default UseAuthorProfile;
+export default UseAuthorStories;

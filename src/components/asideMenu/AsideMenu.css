@@ -48,12 +48,16 @@
 }
 
 .open-themes-container {
-    margin: 10px 15px;
+    margin: 20px 15px;
     border: 1px solid var(--color-primary);
 }
 
 .aside-themes-nav {
     border-bottom: 2px solid var(--color-primary);
+}
+
+.no-open-themes {
+    margin: 10px 20px;
 }
 
 /*.theme-aside-nav {*/

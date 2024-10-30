@@ -34,6 +34,7 @@ import EditProfilePhotoPage from "./pages/editProfilePhotoPage/EditProfilePhotoP
 import ManageUsersPage from "./pages/manageUsersPage/ManageUsersPage.jsx";
 import AboutPage from "./pages/aboutPage/AboutPage.jsx";
 import ManageAuthoritiesPage from "./pages/manageAuthoritiesPage/ManageAuthoritiesPage.jsx";
+import CreateAuthorProfilePage from "./pages/createAuthorProfilePage/CreateAuthorProfilePage.jsx";
 
 
 function App() {
@@ -48,15 +49,17 @@ function App() {
                     <Route path="/register" element={<RegisterPage/>}/>
                     <Route path="/authenticate" element={<AuthenticatePage/>}/>
 
-                    <Route path="/user/account" element={<UserDetailsPage/>}/>
-                    <Route path="/user/account/:userId/edit" element={<EditAccountDetailsPage/>}/>
-                    <Route path="/user/account/:userId/change-password" element={<ChangePasswordPage/>}/>
-                    <Route path="/user/account/:userId/delete" element={<DeleteAccountPage/>}/>
+                    <Route path="/user/:username" element={<UserDetailsPage/>}/>
+                    <Route path="/user/:username/create-profile" element={<CreateAuthorProfilePage/>}/>
+                    <Route path="/user/account/:username/edit" element={<EditAccountDetailsPage/>}/>
+                    <Route path="/user/account/:username/change-password" element={<ChangePasswordPage/>}/>
+                    <Route path="/user/account/:username/delete" element={<DeleteAccountPage/>}/>
+
 
                     <Route path="/authors" element={<AuthorOverviewPage/>}/>
-                    <Route path="/authorprofiles/:authorId" element={<AuthorProfilePage/>}/>
-                    <Route path="/authorprofiles/:authorId/edit" element={<AuthorProfilePage/>}/>
-                    <Route path="/authorprofiles/:authorId/photo" element={<EditProfilePhotoPage/>}/>
+                    <Route path="/authors/:username" element={<AuthorProfilePage/>}/>
+                    <Route path="/authors/:username/edit" element={<AuthorProfilePage/>}/>
+                    <Route path="/authors/:username/photo" element={<EditProfilePhotoPage/>}/>
 
                     <Route path="/editor/dashboard" element={<EditorDashboardPage/>}/>
                     <Route path="/editor/stories" element={<ManageStoriesPage/>}/>
@@ -78,7 +81,7 @@ function App() {
                     <Route path="/themes" element={<ThemesPage/>}/>
                     <Route path="/themes/:themeName" element={<ThemePage/>}/>
                     <Route path="/submit" element={<SubmitPage/>}/>
-                    <Route path="/submit/:themeName" element={<SubmitToThemePage/>}/>
+                    <Route path="/submit/:themeId" element={<SubmitToThemePage/>}/>
                     <Route path="/stories/:storyId" element={<StoryDetailsPage/>}/>
 
                     <Route path="/about" element={<AboutPage/>}/>
