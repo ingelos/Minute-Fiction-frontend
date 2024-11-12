@@ -12,7 +12,7 @@ function OpenThemes({showSubmitButton, overview, variant}) {
         <div>
             {loading && <p>Loading...</p>}
             {error && <p>{error.message}</p>}
-            {openThemes.length > 0 && (
+            {openThemes.length > 0 ? (
                 openThemes.map((theme) => (
                         <div className={`themes-container ${containerClassName}`} key={theme.id}>
                             <ThemeCard
@@ -20,6 +20,7 @@ function OpenThemes({showSubmitButton, overview, variant}) {
                                 description={theme.description}
                                 openDate={theme.openDate}
                                 closingDate={theme.closingDate}
+                                themeId={theme.id}
                                 overview={overview}
                             />
                             {showSubmitButton && (
@@ -28,7 +29,9 @@ function OpenThemes({showSubmitButton, overview, variant}) {
                                 </Link>
                             )}
                         </div>
-                    )))}
+                    ))) : (
+                        <p className="no-themes">None</p>
+            )}
         </div>
     )
 }

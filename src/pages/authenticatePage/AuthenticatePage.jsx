@@ -79,6 +79,7 @@ function AuthenticatePage() {
                                 register={register}
                                 errors={errors}
                             />
+                            {error && <p>{error.message}</p>}
                             <Button
                                 buttonType='submit'
                                 className='login-button'

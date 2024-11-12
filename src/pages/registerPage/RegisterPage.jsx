@@ -5,6 +5,7 @@ import RegisterForm from "../../components/registerForm/RegisterForm.jsx";
 import {Link} from "react-router-dom";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
 import {useState} from "react";
+import {FaLongArrowAltRight} from "react-icons/fa";
 
 function RegisterPage() {
     const [registerSuccess, setRegisterSuccess] = useState(null);
@@ -51,7 +52,11 @@ function RegisterPage() {
                                 <h2 className='register-title titles'>Successfully registered!</h2>
                                 <h3 className='link-button-style'><Link to={"/authenticate"}>Log in</Link></h3>
                                 <EditorCheck>
-                                    <Link to={`/editor/users/${username}/authorities`}>Manage Authorities</Link>
+                                    <div className="back-link">
+                                        <FaLongArrowAltRight className="arrow-icon"/>
+                                        <h3 className="authorities-link"><Link
+                                            to={`/editor/users/${username}/authorities`}>Manage Authorities</Link></h3>
+                                    </div>
                                 </EditorCheck>
                             </div>
                         )}

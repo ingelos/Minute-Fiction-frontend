@@ -11,10 +11,16 @@ function UseUsers() {
         const signal = controller.signal;
 
         async function fetchAllUsers() {
+            const token = localStorage.getItem('token');
             setLoading(true);
 
             try {
                 const {data} = await axios.get(`http://localhost:8080/users`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+
+                },
                     signal: signal,
                 });
                 console.log(data);

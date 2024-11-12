@@ -47,12 +47,14 @@ function MainNavigation() {
                                         direct="Account"
                                         navDirect={`/user/${user.username}`}
                                     />
-                                <Button
-                                    buttonType='button'
-                                    className='logout-button'
-                                    buttonText='Logout'
-                                    onClick={logout}
-                                />
+                                    <div className="main-nav-button">
+                                    <Button
+                                        buttonType='button'
+                                        className='logout-button'
+                                        buttonText='Logout'
+                                        onClick={logout}
+                                    />
+                                        </div>
                                 </>
                             ) : (
                                 <NavigationLink

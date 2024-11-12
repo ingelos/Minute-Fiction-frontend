@@ -1,21 +1,23 @@
 import "./UserDetailsPage.css";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {useContext} from "react";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import axios from "axios";
 import useUser from "../../components/useUser/UseUser.jsx";
 import Button from "../../components/button/Button.jsx";
+import OwnerCheck from "../../components/ownerCheck/OwnerCheck.jsx";
 
 
 function UserDetailsPage() {
     const {isAuth, user, updateUser} = useContext(AuthContext);
     const token = localStorage.getItem('token');
     const { userData } = useUser();
+    const {username} = useParams();
 
     async function handleSubscriptionChange() {
         try {
-            const {data} = await axios.patch(`http://localhost:8080/users/${user.username}/subscription`,
+            const {data} = await axios.patch(`http://localhost:8080/users/${username}/subscription`,
                 {subscribedToMailing: !user.subscribedToMailing},
                 {
                     headers: {
@@ -34,6 +36,7 @@ function UserDetailsPage() {
         <section className='user-account outer-content-container'>
             <div className='user-account inner-content-container'>
                 <div className='main-container'>
+                    <OwnerCheck>
                     <div className="featured-section">
                         {isAuth ? (
                             <div>
@@ -63,8 +66,8 @@ function UserDetailsPage() {
                                             )}
                                         </div>
                                         <div className="edit-links">
-                                            <Link to={`/user/account/${user.username}/edit`}>Edit Account Details</Link>
-                                            <Link to={`/user/account/${user.username}/change-password`}>Change
+                                            <Link to={`/user/account/${user.username}/edit-email`}>Edit email</Link>
+                                            <Link to={`/user/account/${user.username}/edit-password`}>Edit
                                                 Password</Link>
                                             <Link to={`/user/account/${user.username}/delete`}>Delete Your
                                                 Account</Link>
@@ -75,9 +78,9 @@ function UserDetailsPage() {
                         ) : (
                             <h3 className='log-in-again-title titles'>You are logged out. Please log in again to access your account.</h3>
                         )}
-
                     </div>
                     <AsideMenu/>
+                    </OwnerCheck>
                 </div>
             </div>
         </section>

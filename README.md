@@ -1,8 +1,16 @@
-# React + Vite
+# Minute Fiction Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of contents
+1. Description
+2. Acknowledgements
 
-Currently, two official plugins are available:
+## 1. Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+> IMPORTANT: Frontend of Minute Fiction is still under development
+
+Minute Fiction is an application developed for the Backend module of the Novi Hogeschool Full Stack Developer Bootcamp.
+This frontend was developed to complete the full application.
+
+## 2. Acknowledgements
+
+This project was inspired by EveryDay Fiction (https://everydayfiction.com)

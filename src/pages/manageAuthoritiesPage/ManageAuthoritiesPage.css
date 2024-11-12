@@ -1,0 +1,18 @@
+
+
+.authority {
+    margin: 40px 0;
+}
+.authorities-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.authorities-list button {
+    margin-right: 20px;
+}
+
+.authority-list {
+    font-family: "Oswald", sans-serif;
+    font-weight: 300;
+}

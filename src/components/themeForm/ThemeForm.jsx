@@ -4,7 +4,7 @@ import {useEffect} from "react";
 import Button from "../button/Button.jsx";
 
 
-function ThemeForm({onSubmit, initialData, isEditing, error}) {
+function ThemeForm({onSubmit, initialData, isEditing}) {
     const {register, handleSubmit, reset, formState: {errors}} = useForm();
 
     useEffect(() => {
@@ -22,7 +22,7 @@ function ThemeForm({onSubmit, initialData, isEditing, error}) {
         <form className='subit-form' onSubmit={handleSubmit(handleUpdatingTheme)}>
             <Input
                 inputType='text'
-                inputName='themeName'
+                inputName='name'
                 inputId='themeName-field'
                 inputLabel='Name:'
                 validationRules={{
@@ -33,8 +33,8 @@ function ThemeForm({onSubmit, initialData, isEditing, error}) {
             />
             <Input
                 inputType='textarea'
-                inputName='theme-description'
-                inputId='theme-description-field'
+                inputName='description'
+                inputId='themeDescription-field'
                 inputLabel='Description:'
                 validationRules={{
                     required: 'Description is required'
@@ -44,8 +44,8 @@ function ThemeForm({onSubmit, initialData, isEditing, error}) {
             />
             <Input
                 inputType='date'
-                inputName='theme-openDate'
-                inputId='theme-openDate-field'
+                inputName='openDate'
+                inputId='themeOpenDate-field'
                 inputLabel='Open Date:'
                 validationRules={{
                     required: 'Open date is required'
@@ -55,8 +55,8 @@ function ThemeForm({onSubmit, initialData, isEditing, error}) {
             />
             <Input
                 inputType='date'
-                inputName='theme-closingDate'
-                inputId='theme-closingDate-field'
+                inputName='closingDate'
+                inputId='themeClosingDate-field'
                 inputLabel='Closing Date:'
                 validationRules={{
                     required: 'Closing date is required'
@@ -67,10 +67,8 @@ function ThemeForm({onSubmit, initialData, isEditing, error}) {
             <Button
                 buttonType='submit'
                 className='update-theme-button'
-                buttonText={isEditing ? 'Update Mailing' : 'Create Mailing'}
+                buttonText={isEditing ? 'Update Theme' : 'Create Theme'}
             />
-
-            {error && <p>Something went wrong submitting the form, please try again.</p>}
         </form>
     )
 }

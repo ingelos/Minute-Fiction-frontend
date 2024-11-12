@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {useForm} from "react-hook-form";
 import axios from "axios";
@@ -10,7 +10,8 @@ import useAuthorProfile from "../../components/useAuthorProfile/UseAuthorProfile
 
 function EditProfilePhotoPage() {
     const {register, handleSubmit, formState: {errors}} = useForm();
-    const [uploadStatus, setUploadStatus] = React.useState('');
+    const [uploadStatus, setUploadStatus] = useState('');
+
     const {username} = useContext(AuthContext);
     const {authorProfile} = useAuthorProfile(username);
 
@@ -19,10 +20,11 @@ function EditProfilePhotoPage() {
         const token = localStorage.getItem('token');
         const formData = new FormData();
 
-        formData.append('file', data.file[0]);
+        formData.append("file", data.file[0]);
 
         try {
-            const {data} = await axios.post(`http://localhost:8080/authorprofiles/${username}/photo`, formData, {
+            const {data} = await axios.post(`http://localhost:8080/authorprofiles/${username}/photo`,
+                formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`,
@@ -54,7 +56,7 @@ function EditProfilePhotoPage() {
                         <AuthenticateCheck>
                             {!authorProfile?.profilePhoto?.photoUrl ? (
                                 <div>
-                                    <h2 className='add-photo titles'>Add Photo to Author Profile</h2>
+                                    <h2 className='add-photo titles'>Add / Edit Photo</h2>
                                     <form onSubmit={handleSubmit(handleUploadPhoto)}>
                                         <Input
                                             inputType='file'

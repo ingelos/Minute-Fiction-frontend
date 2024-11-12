@@ -32,6 +32,13 @@
     padding: 10px;
 }
 
+.photo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .profile-picture-empty {
     height: 50px;
     width: 50px;

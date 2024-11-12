@@ -1,10 +1,13 @@
 import "./ThemeCard.css"
-import {formatClosingDate, formatOpenDate} from "../../helpers/dateFormatter.js";
 import {Link} from "react-router-dom";
+import {formatDate} from "../../helpers/dateFormatter.js";
+
 
 function ThemeCard({themeName, description, openDate, closingDate, overview = false}) {
-    const formattedDateOpens = formatOpenDate(openDate);
-    const formattedDateCloses = formatClosingDate(closingDate);
+
+    const formattedDateOpens = formatDate(openDate);
+    const formattedDateCloses = formatDate(closingDate);
+
 
     return (
         <div>

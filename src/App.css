@@ -37,6 +37,11 @@
   margin: 20px 0;
 }
 
+.sub-titles {
+  margin-top: 20px;
+}
+
+
 form {
   margin-top: 0.5em;
   display: flex;

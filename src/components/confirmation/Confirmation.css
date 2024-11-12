@@ -1,0 +1,13 @@
+.extra-check {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.confirmation {
+    margin: 10px 0;
+    padding: 0 10px;
+    border: 1px solid lightslategrey;
+    max-width: 250px;
+}

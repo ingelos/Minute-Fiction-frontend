@@ -1,3 +1,4 @@
+import "./ManageStoriesPage.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import StoryList from "../../components/storyList/StoryList.jsx";
@@ -32,13 +33,13 @@ function ManageStoriesPage() {
                 setError(error);
             }
         }
+
         fetchThemes();
 
         return function cleanup() {
             controller.abort();
         };
     }, []);
-
 
 
     async function fetchFilteredStories() {
@@ -79,7 +80,7 @@ function ManageStoriesPage() {
 
         try {
             const {data} = await axios.get(`http://localhost:8080/authorprofiles/${username}/overview`);
-            setAuthorStories(data.stories || []);
+            setAuthorStories(data || []);
         } catch (error) {
             console.error("Error fetching author stories", error);
             setError(true);
@@ -89,7 +90,7 @@ function ManageStoriesPage() {
     }
 
     async function handleEditStory(storyId) {
-            navigate(`/editor/stories/edit/${storyId}`);
+        navigate(`/editor/stories/edit/${storyId}`);
     }
 
 
@@ -98,69 +99,82 @@ function ManageStoriesPage() {
             <div className='editor-stories-section inner-content-container'>
                 <div className='main-container'>
                     <EditorCheck>
-                    <div className="featured-section">
-                        <h2 className="stories-title titles">Manage Stories</h2>
-                        <div className='stories-container'>
+                        <div className="featured-section">
+                            <h2 className="stories-title titles">Manage Stories</h2>
+                            <div className='stories-container'>
 
-                            {/*    <FilterPanel themes={themes} filter={filter} onFilterChange={handleFilterChange}/>*/}
-                            <br></br>
-                            <div className="filter-panel">
-                                <label>Status:</label>
-                                <select onChange={(e) => handleFilterChange('status', e.target.value)} value={filter.status}>
-                                    <option value="">All</option>
-                                    <option value="submitted">Submitted</option>
-                                    <option value="accepted">Accepted</option>
-                                    <option value="published">Published</option>
-                                    <option value="declined">Declined</option>
-                                </select>
+                                {/*    <FilterPanel themes={themes} filter={filter} onFilterChange={handleFilterChange}/>*/}
+                                <br></br>
+                                <div className="filter-panel">
+                                    <label>Status:</label>
+                                    <select onChange={(e) => handleFilterChange('status', e.target.value)}
+                                            value={filter.status}>
+                                        <option value="">All</option>
+                                        <option value="submitted">Submitted</option>
+                                        <option value="accepted">Accepted</option>
+                                        <option value="published">Published</option>
+                                        <option value="declined">Declined</option>
+                                    </select>
 
-                                <label>Theme:</label>
-                                <select onChange={(e) => handleFilterChange('theme', e.target.value)} value={filter.theme}>
-                                    <option value="">All</option>
-                                    {themes.map((theme) => (
-                                        <option key={theme.id} value={theme.name}>
-                                            {theme.name}
-                                        </option>
+                                    <label>Theme:</label>
+                                    <select onChange={(e) => handleFilterChange('theme', e.target.value)}
+                                            value={filter.theme}>
+                                        <option value="">All</option>
+                                        {themes.map((theme) => (
+                                            <option key={theme.id} value={theme.name}>
+                                                {theme.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <Button
+                                        buttonType="button"
+                                        onClick={fetchFilteredStories}
+                                        className="search-button"
+                                        buttonText="Search">
+                                    </Button>
+                                    {/*<label>Author:</label>*/}
+                                    {/*<input*/}
+                                    {/*    type="text"*/}
+                                    {/*    placeholder="Search by author"*/}
+                                    {/*    onChange={(e) => onFilterChange('author', e.target.value)}*/}
+                                    {/*    value={filter.author}*/}
+                                    {/*/>*/}
+                                </div>
+
+                                <label>Search Author:</label>
+                                <input
+                                    type="text"
+                                    placeholder="Search by author"
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    value={query}
+                                />
+                                <Button
+                                    buttonType="button"
+                                    onClick={() => searchAuthorStories(query)}
+                                    className="search-button"
+                                    buttonText="Search"
+                                />
+
+                                <h3>Relevant Stories:</h3>
+                                {loading && <p>Loading...</p>}
+                                {error && <p>Error fetching stories.</p>}
+                                <ul>
+                                    {authorStories.map((story, id) => (
+                                        <li key={id}>
+                                            <StoryList stories={stories} onEdit={handleEditStory}/>
+                                        </li>
                                     ))}
-                                </select>
-                                <Button onClick={fetchFilteredStories}>Search</Button>
-                                {/*<label>Author:</label>*/}
-                                {/*<input*/}
-                                {/*    type="text"*/}
-                                {/*    placeholder="Search by author"*/}
-                                {/*    onChange={(e) => onFilterChange('author', e.target.value)}*/}
-                                {/*    value={filter.author}*/}
-                                {/*/>*/}
+                                </ul>
+
+                                {/*<br></br>*/}
+                                {/*    {error && <p>Error fetching stories...</p>}*/}
+                                {/*    {loading && <p>Loading...</p>}*/}
+                                {/*        <StoryList stories={stories}*/}
+                                {/*                   onEdit={handleEditStory}*/}
+                                {/*        />*/}
                             </div>
-
-                            <label>Search Author:</label>
-                            <input
-                                type="text"
-                                placeholder="Search by author"
-                                onChange={(e) => setQuery(e.target.value)}
-                                value={query}
-                            />
-                            <button onClick={() => searchAuthorStories(query)}>Search</button>
-                            {loading && <p>Loading...</p>}
-                            {error && <p>Error fetching stories.</p>}
-                            <h3>Relevant Stories:</h3>
-                            <ul>
-                                {authorStories.map((story, index) => (
-                                <li key={index}>
-                                    <StoryList stories={stories} onEdit={handleEditStory}/>
-                                </li>
-                            ))}
-                            </ul>
-
-                            {/*<br></br>*/}
-                            {/*    {error && <p>Error fetching stories...</p>}*/}
-                            {/*    {loading && <p>Loading...</p>}*/}
-                            {/*        <StoryList stories={stories}*/}
-                            {/*                   onEdit={handleEditStory}*/}
-                            {/*        />*/}
                         </div>
-                    </div>
-                    <AsideEditorMenu/>
+                        <AsideEditorMenu/>
                     </EditorCheck>
                 </div>
             </div>

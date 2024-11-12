@@ -12,7 +12,7 @@ import MainNavigation from "./components/mainNavigation/MainNavigation.jsx";
 import Footer from "./components/footer/Footer.jsx";
 import AuthorProfilePage from "./pages/authorProfilePage/AuthorProfilePage.jsx";
 import AuthenticatePage from "./pages/authenticatePage/AuthenticatePage.jsx";
-import EditAccountDetailsPage from "./pages/editAccountDetailsPage/EditAccountDetailsPage.jsx";
+import EditEmailPage from "./pages/editEmailPage/EditEmailPage.jsx";
 import SubmitToThemePage from "./pages/submitToThemePage/SubmitToThemePage.jsx";
 import AuthorOverviewPage from "./pages/authorsOverviewPage/AuthorOverviewPage.jsx";
 import CreateThemePage from "./pages/createThemePage/CreateThemePage.jsx";
@@ -28,13 +28,15 @@ import SendMailingPage from "./pages/sendMailingPage/SendMailingPage.jsx";
 import EditStoryPage from "./pages/editStoryPage/EditStoryPage.jsx";
 import ManageStoriesPage from "./pages/manageStoriesPage/ManageStoriesPage.jsx";
 import UserDetailsPage from "./pages/userDetailsPage/UserDetailsPage.jsx";
-import ChangePasswordPage from "./pages/changePasswordPage/ChangePasswordPage.jsx";
+import EditPasswordPage from "./pages/editPasswordPage/EditPasswordPage.jsx";
 import DeleteAccountPage from "./pages/deleteAccountPage/DeleteAccountPage.jsx";
 import EditProfilePhotoPage from "./pages/editProfilePhotoPage/EditProfilePhotoPage.jsx";
 import ManageUsersPage from "./pages/manageUsersPage/ManageUsersPage.jsx";
 import AboutPage from "./pages/aboutPage/AboutPage.jsx";
 import ManageAuthoritiesPage from "./pages/manageAuthoritiesPage/ManageAuthoritiesPage.jsx";
 import CreateAuthorProfilePage from "./pages/createAuthorProfilePage/CreateAuthorProfilePage.jsx";
+import EditCommentPage from "./pages/editCommentPage/EditCommentPage.jsx";
+import EditAuthorProfilePage from "./pages/editAuthorProfilePage/EditAuthorProfilePage.jsx";
 
 
 function App() {
@@ -51,14 +53,13 @@ function App() {
 
                     <Route path="/user/:username" element={<UserDetailsPage/>}/>
                     <Route path="/user/:username/create-profile" element={<CreateAuthorProfilePage/>}/>
-                    <Route path="/user/account/:username/edit" element={<EditAccountDetailsPage/>}/>
-                    <Route path="/user/account/:username/change-password" element={<ChangePasswordPage/>}/>
+                    <Route path="/user/account/:username/edit-email" element={<EditEmailPage/>}/>
+                    <Route path="/user/account/:username/edit-password" element={<EditPasswordPage/>}/>
                     <Route path="/user/account/:username/delete" element={<DeleteAccountPage/>}/>
-
 
                     <Route path="/authors" element={<AuthorOverviewPage/>}/>
                     <Route path="/authors/:username" element={<AuthorProfilePage/>}/>
-                    <Route path="/authors/:username/edit" element={<AuthorProfilePage/>}/>
+                    <Route path="/authors/:username/edit" element={<EditAuthorProfilePage/>}/>
                     <Route path="/authors/:username/photo" element={<EditProfilePhotoPage/>}/>
 
                     <Route path="/editor/dashboard" element={<EditorDashboardPage/>}/>
@@ -67,7 +68,7 @@ function App() {
                     <Route path="/editor/stories/review" element={<ReviewStoriesPage/>}/>
                     <Route path="/editor/stories/publish" element={<PublishStoriesPage/>}/>
                     <Route path="/editor/users" element={<ManageUsersPage/>}/>
-                    <Route path="/editor/users/:userId/authorities" element={<ManageAuthoritiesPage/>}/>
+                    <Route path="/editor/users/:username/authorities" element={<ManageAuthoritiesPage/>}/>
 
                     <Route path="/editor/themes" element={<ManageThemesPage/>}/>
                     <Route path="/editor/themes/new" element={<CreateThemePage/>}/>
@@ -83,6 +84,7 @@ function App() {
                     <Route path="/submit" element={<SubmitPage/>}/>
                     <Route path="/submit/:themeId" element={<SubmitToThemePage/>}/>
                     <Route path="/stories/:storyId" element={<StoryDetailsPage/>}/>
+                    <Route path="/comments/:commentId/edit" element={<EditCommentPage/>}/>
 
                     <Route path="/about" element={<AboutPage/>}/>
                     <Route path="*" element={<NotFound/>}/>

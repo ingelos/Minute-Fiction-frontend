@@ -17,12 +17,13 @@ export function AuthContextProvider({children}) {
     });
     const navigate = useNavigate();
 
-    const updateUser = (updatedUser) => {
-        setAuth((prevAuth) => ({
-            ...prevAuth,
-            user: updatedUser,
-        }));
-    };
+    // const updateUser = (updatedUser) => {
+    //     setAuth((prevAuth) => ({
+    //         ...prevAuth,
+    //         user: updatedUser,
+    //         authorities: updatedUser.authorities,
+    //     }));
+    // };
 
     const login = useCallback(async(token) => {
         localStorage.setItem('token', token);
@@ -91,10 +92,11 @@ export function AuthContextProvider({children}) {
         isAuth: auth.isAuth,
         username: auth.user ? auth.user.username : null,
         user: auth.user || {},
+        authorities: auth.authorities || [],
         // ...auth,
         login: login,
         logout: logout,
-        updateUser,
+        // updateUser,
     };
 
     return (

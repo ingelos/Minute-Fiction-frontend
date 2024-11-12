@@ -1,5 +1,5 @@
 import axios from "axios";
-import DeletionConfirmation from "../../components/deletionConfirmation/DeletionConfirmation.jsx";
+import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {Link} from "react-router-dom";
@@ -37,7 +37,7 @@ function DeleteAccountPage() {
                             <button onClick={() => setModalOpen(true)} className="delete-account-button">
                                 Delete My Account
                             </button>
-                            <DeletionConfirmation
+                            <Confirmation
                                 isOpen={isModalOpen}
                                 onClose={() => setModalOpen(false)}
                                 onConfirm={handleDeleteAccount}

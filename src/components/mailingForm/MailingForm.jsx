@@ -23,47 +23,43 @@ function MailingForm({onSubmit, initialData, isEditing}) {
         <form className='subit-form' onSubmit={handleSubmit(handleUpdatingMailing)}>
             <Input
                 inputType='text'
-                inputName='mailing-title'
-                inputId='title-field'
-                inputLabel='Title:'
+                inputName='subject'
+                inputId='subject-field'
+                inputLabel='Subject:'
                 validationRules={{
-                    required: 'Mailing title is required'
+                    required: 'Mailing subject is required'
                 }}
                 register={register}
                 errors={errors}
             />
             <Input
                 inputType='textarea'
-                inputName='mailing-content'
+                inputName='body'
                 inputId='mailing-content-field'
-                inputLabel='Content:'
+                inputLabel='Body:'
                 validationRules={{
-                    required: 'Content is required'
+                    required: 'Body is required'
                 }}
                 rows={20}
                 register={register}
                 errors={errors}
             />
-            <Input
-                inputType='date'
-                inputName='mailing-date'
-                inputId='mailing-date-field'
-                inputLabel='Date:'
-                validationRules={{
-                    required: 'Date is required'
-                }}
-                register={register}
-                errors={errors}
-            />
+            {/*<Input*/}
+            {/*    inputType='date'*/}
+            {/*    inputName='date'*/}
+            {/*    inputId='mailing-date-field'*/}
+            {/*    inputLabel='Date:'*/}
+            {/*    validationRules={{*/}
+            {/*        required: 'Date is required'*/}
+            {/*    }}*/}
+            {/*    register={register}*/}
+            {/*    errors={errors}*/}
+            {/*/>*/}
             <Button
                 buttonType='submit'
                 className='update-mailing-form'
                 buttonText={isEditing ? 'Update Mailing' : 'Create Mailing'}
             />
-
-            {/*<button type='submitPage' className='update-mailing-button'>*/}
-            {/*    {isEditing ? 'Update Mailing' : 'Create Mailing'}*/}
-            {/*</button>*/}
         </form>
     )
 }

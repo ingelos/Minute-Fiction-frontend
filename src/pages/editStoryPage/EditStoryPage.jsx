@@ -4,7 +4,7 @@ import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.js
 import { useParams } from "react-router-dom";
 import {useForm} from "react-hook-form";
 import Input from "../../components/input/Input.jsx";
-import DeletionConfirmation from "../../components/deletionConfirmation/DeletionConfirmation.jsx";
+import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
 
 function EditStoryPage() {
@@ -105,7 +105,7 @@ function EditStoryPage() {
                             <button onClick={() => setModalOpen(true)} className="delete-button">
                                 Delete Story
                             </button>
-                            <DeletionConfirmation
+                            <Confirmation
                                 isOpen={isModalOpen}
                                 onClose={() => setModalOpen(false)}
                                 onConfirm={handleDeleteStory}
