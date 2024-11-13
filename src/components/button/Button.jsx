@@ -1,12 +1,11 @@
 import "./Button.css";
 
-function Button({ buttonType, onClick, className, buttonText, disabled= false }) {
+function Button({ buttonType, onClick, className, buttonText }) {
     return (
         <button
             type={buttonType}
             className={className}
             onClick={onClick}
-            disabled={disabled}
         >
             <h3>{buttonText}</h3>
         </button>
