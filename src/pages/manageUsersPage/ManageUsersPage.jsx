@@ -6,13 +6,13 @@ import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import {useState} from "react";
 import Button from "../../components/button/Button.jsx";
 import UseUsers from "../../components/useUsers/UseUsers.jsx";
-import useAuthors from "../../components/useAuthors/UseAuthors.jsx";
+// import useAuthors from "../../components/useAuthors/UseAuthors.jsx";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
 
 function ManageUsersPage() {
     const [deleteSuccess, setDeleteSuccess] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
-    const {authors} = useAuthors();
+    // const {authors} = useAuthors();
     const [userToDelete, setUserToDelete] = useState(null);
     const {users, error} = UseUsers();
     // const [query, setQuery] = useState("");
@@ -106,44 +106,44 @@ function ManageUsersPage() {
                                     </li>
                                 </ul>
                             </div>
-                            <div>
-                                <h3 className="sub-titles">All Authors</h3>
-                                <ul>
-                                    <li className="author-contaier">
-                                        <div className="author-list">
-                                            <table className="author-table">
-                                                <thead>
-                                                <tr>
-                                                    <th>Username</th>
-                                                    <th>First name</th>
-                                                    <th>Last name</th>
-                                                    <th>Bio</th>
-                                                    <th>Profile Photo</th>
-                                                    <th>See Profile</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                {authors.length > 0 && (
-                                                    authors.map((author) => (
-                                                        <tr key={author.username}>
-                                                            <td>{author.username}</td>
-                                                            <td>{author.firstname}</td>
-                                                            <td>{author.lastname}</td>
-                                                            <td>{author.bio}</td>
-                                                            <td>{author.profilePhoto}</td>
-                                                            <td>
-                                                                <Link to={`/authors/${author.username}`} className="link-button-style">
-                                                                      profile
-                                                                </Link>
-                                                            </td>
-                                                        </tr>
-                                                    )))}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                            {/*<div>*/}
+                            {/*    <h3 className="sub-titles">All Authors</h3>*/}
+                            {/*    <ul>*/}
+                            {/*        <li className="author-contaier">*/}
+                            {/*            <div className="author-list">*/}
+                            {/*                <table className="author-table">*/}
+                            {/*                    <thead>*/}
+                            {/*                    <tr>*/}
+                            {/*                        <th>Username</th>*/}
+                            {/*                        <th>First name</th>*/}
+                            {/*                        <th>Last name</th>*/}
+                            {/*                        <th>Bio</th>*/}
+                            {/*                        <th>Profile Photo</th>*/}
+                            {/*                        <th>See Profile</th>*/}
+                            {/*                    </tr>*/}
+                            {/*                    </thead>*/}
+                            {/*                    <tbody>*/}
+                            {/*                    {authors.length > 0 && (*/}
+                            {/*                        authors.map((author) => (*/}
+                            {/*                            <tr key={author.username}>*/}
+                            {/*                                <td>{author.username}</td>*/}
+                            {/*                                <td>{author.firstname}</td>*/}
+                            {/*                                <td>{author.lastname}</td>*/}
+                            {/*                                <td>{author.bio}</td>*/}
+                            {/*                                <td>{author.profilePhoto}</td>*/}
+                            {/*                                <td>*/}
+                            {/*                                    <Link to={`/authors/${author.username}`} className="link-button-style">*/}
+                            {/*                                          profile*/}
+                            {/*                                    </Link>*/}
+                            {/*                                </td>*/}
+                            {/*                            </tr>*/}
+                            {/*                        )))}*/}
+                            {/*                    </tbody>*/}
+                            {/*                </table>*/}
+                            {/*            </div>*/}
+                            {/*        </li>*/}
+                            {/*    </ul>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                     <AsideEditorMenu/>

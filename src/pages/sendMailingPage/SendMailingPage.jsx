@@ -15,7 +15,7 @@ function SendMailingPage() {
     const [loading, setLoading] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
     const [mailingToSend, setMailingToSend] = useState(null);
-    const [sendingSuccessfull, setSendingSuccessfull] = useState(false);
+    const [sendSuccess, setSendSuccess] = useState(false);
 
 
     useEffect(() => {
@@ -65,7 +65,7 @@ function SendMailingPage() {
                 }
             });
             setModalOpen(false);
-            setSendingSuccessfull(true);
+            setSendSuccess(true);
         } catch (error) {
             console.error("Error sending mailing:", error);
         }
@@ -88,7 +88,7 @@ function SendMailingPage() {
                                 <FaLongArrowAltRight className="arrow-icon"/>
                                 <Link to="/editor/mailings">Back to Manage Mailings</Link>
                             </div>
-                            {!sendingSuccessfull ? (
+                            {!sendSuccess ? (
                                 <div className='mailings-container'>
                                     {loading && <p>Loading...</p>}
                                     {error && <p>{error.message}</p>}

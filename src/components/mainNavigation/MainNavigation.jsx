@@ -1,8 +1,8 @@
 import "./MainNavigation.css"
 import NavigationLink from "../navigationLink/NavigationLink.jsx";
 import {useContext} from "react";
-import {AuthContext} from "../../context/AuthContext.jsx";
 import Button from "../button/Button.jsx";
+import AuthContext from "../../context/AuthContext.jsx";
 
 
 function MainNavigation() {

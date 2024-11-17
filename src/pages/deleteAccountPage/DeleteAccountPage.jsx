@@ -1,7 +1,7 @@
 import axios from "axios";
 import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import {useContext, useState} from "react";
-import {AuthContext} from "../../context/AuthContext.jsx";
+import {AuthContextProvider} from "../../context/AuthContextProvider.jsx";
 import {Link} from "react-router-dom";
 
 
@@ -9,7 +9,7 @@ function DeleteAccountPage() {
     const [error, setError] = useState(false);
     const [deleteSuccess, setDeleteSuccess] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
-    const {user} = useContext(AuthContext);
+    const {user} = useContext(AuthContextProvider);
 
     async function handleDeleteAccount() {
         try {

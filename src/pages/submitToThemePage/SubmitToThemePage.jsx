@@ -2,9 +2,9 @@ import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {useParams} from "react-router-dom";
 import StoryForm from "../../components/storyForm/StoryForm.jsx";
 import {useContext, useState} from "react";
-import {AuthContext} from "../../context/AuthContext.jsx";
 import axios from "axios";
 import AuthorCheck from "../../components/authorCheck/AuthorCheck.jsx";
+import AuthContext from "../../context/AuthContext.jsx";
 
 
 function SubmitToThemePage() {

@@ -2,13 +2,13 @@ import axios from "axios";
 import ThemeForm from "../../components/themeForm/ThemeForm.jsx";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 import {useContext, useState} from "react";
-import {AuthContext} from "../../context/AuthContext.jsx";
+import {AuthContextProvider} from "../../context/AuthContextProvider.jsx";
 import {Link} from "react-router-dom";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
 
 
 function CreateThemePage() {
-    const {user, authorities} = useContext(AuthContext);
+    const {user, authorities} = useContext(AuthContextProvider);
     const [createSuccess, setCreateSuccess] = useState(null);
 
 

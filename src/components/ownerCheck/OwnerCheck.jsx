@@ -1,12 +1,10 @@
 import {useContext} from "react";
-import {AuthContext} from "../../context/AuthContext.jsx";
+import AuthContext from "../../context/AuthContext.jsx";
 
 function OwnerCheck({ username, children}) {
-    const { user, authorities } = useContext(AuthContext);
+    const { user} = useContext(AuthContext);
 
-    const isOwner = user && user.username === username || user && authorities?.includes('EDITOR');
-
-
+    const isOwner = user && user.username === username;
 
     return isOwner ? children : null;
 }

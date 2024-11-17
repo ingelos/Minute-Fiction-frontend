@@ -1,3 +1,4 @@
+import "./EditStoryPage.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
@@ -10,17 +11,19 @@ import {FaLongArrowAltRight} from "react-icons/fa";
 
 function EditStoryPage() {
     const {storyId} = useParams();
+    const [story, setStory] = useState(null);
     const {register, handleSubmit, setValue, formState: {errors}} = useForm();
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [deleteSuccess, setDeleteSuccess] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
 
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+
         async function fetchStory() {
-            setLoading(true);
-            const token = localStorage.getItem('token');
             try {
                 const {data} = await axios.get(`http://localhost:8080/stories/${storyId}`, {
                     headers: {
@@ -28,9 +31,11 @@ function EditStoryPage() {
                         Authorization: `Bearer ${token}`,
                     },
                 });
+                setStory(data);
                 setValue('title', data.title);
                 setValue('content', data.content);
                 setError(false);
+
             } catch (error) {
                 console.error('Error fetching story data:', error);
                 setError(true);
@@ -60,6 +65,33 @@ function EditStoryPage() {
         }
     }
 
+    async function handleStatusChange(newStatus) {
+        const token = localStorage.getItem('token');
+        if (!storyId) return;
+        try {
+            const {data} = await axios.patch(`http://localhost:8080/stories/editor/${storyId}/status`,
+                {},
+                {
+                    params: {status: newStatus},
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+            console.log('Story updated:', data);
+
+            setStory((prevStory) => ({
+                ...prevStory,
+                status: newStatus,
+            }))
+
+
+        } catch (error) {
+            console.error('Error updating story:', error);
+            setError(true);
+        }
+    }
+
 
     async function handleDeleteStory(storyId) {
         const token = localStorage.getItem('token');
@@ -71,6 +103,7 @@ function EditStoryPage() {
                 },
             });
             console.log('Story deleted.');
+            setDeleteSuccess(true);
         } catch (error) {
             setError(true);
             console.error('Error deleting the story', error);
@@ -124,11 +157,29 @@ function EditStoryPage() {
                                             </button>
                                         </form>
                                         {loading && <p>Loading...</p>}
-                                        {error && <p>Error...</p>}
+                                        {error && <p>{error.message}</p>}
+                                        <div className="status-container">
+                                            <label>Current Status: {story?.status}</label>
+                                            <div className="status-content-container">
+                                                <label htmlFor="status-select">Change Status to:</label>
+                                                <select id="status-select"
+                                                        value={story?.status || 'SUBMITTED'}
+                                                        onChange={(e) => handleStatusChange(e.target.value)}>
+                                                    <option value="SUBMITTED">Submitted</option>
+                                                    <option value="ACCEPTED">Accepted</option>
+                                                    <option value="DECLINED">Declined</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div>
-                                            <button onClick={() => setModalOpen(true)} className="delete-button">
-                                                Delete Story
-                                            </button>
+                                            {!deleteSuccess ? (
+                                                <button onClick={() => setModalOpen(true)} className="delete-button">
+                                                    Delete Story
+                                                </button>
+
+                                            ) : (
+                                                <p>Successfully Deleted Story!</p>
+                                            )}
                                             <Confirmation
                                                 isOpen={isModalOpen}
                                                 onClose={() => setModalOpen(false)}
@@ -156,6 +207,6 @@ function EditStoryPage() {
             </div>
         </section>
     )
-                                }
+}
 
-                                export default EditStoryPage;
+export default EditStoryPage;

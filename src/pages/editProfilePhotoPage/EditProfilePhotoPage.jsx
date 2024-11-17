@@ -1,5 +1,5 @@
 import {useContext, useState} from "react";
-import {AuthContext} from "../../context/AuthContext.jsx";
+import {AuthContextProvider} from "../../context/AuthContextProvider.jsx";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import AuthenticateCheck from "../../components/authenticateCheck/AuthenticateCheck.jsx";
@@ -12,7 +12,7 @@ function EditProfilePhotoPage() {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const [uploadStatus, setUploadStatus] = useState('');
 
-    const {username} = useContext(AuthContext);
+    const {username} = useContext(AuthContextProvider);
     const {authorProfile} = useAuthorProfile(username);
 
 

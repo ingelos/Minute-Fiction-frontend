@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from "react";
-import {AuthContext} from "../../context/AuthContext.jsx";
+import AuthContext from "../../context/AuthContext.jsx";
 
 
 function AuthorCheck({children}) {
@@ -16,9 +16,9 @@ function AuthorCheck({children}) {
 
     // const isAuthor = isAuth && authorities?.includes('AUTHOR');
 
-    console.log('isAuth:', isAuth);
-    console.log('authorities:', authorities);
-    console.log('isAuthor:', isAuthor);
+    // console.log('isAuth:', isAuth);
+    // console.log('authorities:', authorities);
+    // console.log('isAuthor:', isAuthor);
 
     return isAuthor ? children : <h3>You need to create an author profile before submitting stories.</h3>
 }

@@ -37,9 +37,13 @@ import ManageAuthoritiesPage from "./pages/manageAuthoritiesPage/ManageAuthoriti
 import CreateAuthorProfilePage from "./pages/createAuthorProfilePage/CreateAuthorProfilePage.jsx";
 import EditCommentPage from "./pages/editCommentPage/EditCommentPage.jsx";
 import EditAuthorProfilePage from "./pages/editAuthorProfilePage/EditAuthorProfilePage.jsx";
+import {useAxiosInterceptor} from "./helpers/AxiosInterceptor.jsx";
+import ManageAuthorsPage from "./pages/manageAuthorsPage/ManageAuthorsPage.jsx";
+import SearchByAuthorPage from "./pages/searchByAuthorPage/SearchByAuthorPage.jsx";
 
 
 function App() {
+    useAxiosInterceptor();
 
     return (
         <>
@@ -67,6 +71,9 @@ function App() {
                     <Route path="/editor/stories/:storyId/edit" element={<EditStoryPage/>}/>
                     <Route path="/editor/stories/review" element={<ReviewStoriesPage/>}/>
                     <Route path="/editor/stories/publish" element={<PublishStoriesPage/>}/>
+
+                    <Route path="/editor/authors" element={<ManageAuthorsPage/>}/>
+                    <Route path="/editor/authors/search" element={<SearchByAuthorPage/>}/>
                     <Route path="/editor/users" element={<ManageUsersPage/>}/>
                     <Route path="/editor/users/:username/authorities" element={<ManageAuthoritiesPage/>}/>
 

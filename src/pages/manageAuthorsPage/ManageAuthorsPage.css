@@ -1,0 +1,12 @@
+.stories-container-author {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--color-primary);
+}
+
+.author-story-container {
+    flex-basis: 525px;
+    flex-direction: column;
+}

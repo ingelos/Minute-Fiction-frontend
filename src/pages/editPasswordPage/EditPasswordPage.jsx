@@ -1,10 +1,10 @@
 import {useForm} from "react-hook-form";
 import {useContext, useState} from "react";
-import {AuthContext} from "../../context/AuthContext.jsx";
 import axios from "axios";
 import Input from "../../components/input/Input.jsx";
 import {Link} from "react-router-dom";
 import {FaLongArrowAltRight} from "react-icons/fa";
+import AuthContext from "../../context/AuthContext.jsx";
 
 
 function EditPasswordPage() {

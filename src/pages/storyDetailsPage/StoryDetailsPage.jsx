@@ -6,7 +6,7 @@ import axios from "axios";
 import CommentCard from "../../components/commentCard/CommentCard.jsx";
 import StoryDetailsCard from "../../components/storyDetailsCard/StoryDetailsCard.jsx";
 import CommentForm from "../../components/commentForm/CommentForm.jsx";
-import {AuthContext} from "../../context/AuthContext.jsx";
+import {AuthContextProvider} from "../../context/AuthContextProvider.jsx";
 import {formatDateTime} from "../../helpers/dateFormatter.js";
 
 // import AuthenticateCheck from "../../components/authenticateCheck/AuthenticateCheck.jsx";
@@ -16,7 +16,7 @@ function StoryDetailsPage() {
     const [comments, setComments] = useState({})
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-    const {user} = useContext(AuthContext);
+    const {user} = useContext(AuthContextProvider);
     const currentUsername = user?.username;
     const {storyId} = useParams();
 

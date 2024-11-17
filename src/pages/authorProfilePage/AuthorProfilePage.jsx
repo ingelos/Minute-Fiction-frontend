@@ -8,8 +8,8 @@ import StoryDetailsCard from "../../components/storyDetailsCard/StoryDetailsCard
 import useAuthorPublishedStories from "../../components/useAuthorPublishedStories/UseAuthorPublishedStories.jsx";
 import {useContext, useState} from "react";
 import axios from "axios";
-import {AuthContext} from "../../context/AuthContext.jsx";
 import OwnerCheck from "../../components/ownerCheck/OwnerCheck.jsx";
+import AuthContext from "../../context/AuthContext.jsx";
 
 function AuthorProfilePage() {
     const {username} = useParams();

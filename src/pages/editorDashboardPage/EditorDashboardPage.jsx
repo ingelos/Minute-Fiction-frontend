@@ -25,6 +25,14 @@ function EditorDashboardPage() {
                                         <Link to={'/editor/stories/publish'}><h4>Publish Stories</h4></Link>
                                     </div>
                                 </div>
+                                <div className="authors-section dashboard-section">
+                                    <h2>Manage Authors</h2>
+                                    <p>View all authors or view all stories by author</p>
+                                    <div className="dashboard-nav-links">
+                                        <Link to={'/editor/authors'}><h4>Manage authors</h4></Link>
+                                        <Link to={'/editor/authors/search'}><h4>Search Author</h4></Link>
+                                    </div>
+                                </div>
                                 <div className="themes-section dashboard-section">
                                     <h2>Manage Themes</h2>
                                     <p>Create and edit themes for categorizing stories</p>
@@ -53,11 +61,11 @@ function EditorDashboardPage() {
                             </div>
                         </div>
 
-                        </div>
-                    <AsideEditorMenu/>
-                        </EditorCheck>
                     </div>
+                        <AsideEditorMenu/>
+                    </EditorCheck>
                 </div>
+            </div>
         </section>
     )
 }
