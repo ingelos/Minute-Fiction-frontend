@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import isTokenValid from "../helpers/isTokenValid.js";
-import {jwtDecode} from "jwt-decode";
 import axios from "axios";
 import AuthContext from "./AuthContext.jsx";
+import {jwtDecode} from "jwt-decode";
 
-// export const AuthContextProvider = createContext({});
+
 
 export function AuthContextProvider({children}) {
     const [auth, setAuth] = useState({
@@ -14,6 +14,8 @@ export function AuthContextProvider({children}) {
         authorities: [],
         status: 'pending',
     });
+
+
 
     const navigate = useNavigate();
 
@@ -66,22 +68,24 @@ export function AuthContextProvider({children}) {
             authorities: [],
             status: 'done',
         });
+
         console.log('User has been logged out');
-        alert('Session expired. Please log in again.')
-        // navigate('/authenticate');
-    }, []);
+        navigate('/');
+    }, [navigate]);
 
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         console.log("Token retrieved:", token);
-        if (!token) {
-            console.error("Token is undefined or null.");
-        }
+
+        // if (!token) {
+        //     console.error("Token is undefined or null.");
+        // }
 
         if (token && isTokenValid(token)) {
             void login(token);
         } else {
+            // console.log("no valid token found. Setting default auth state..")
             setAuth({
                 isAuth: false,
                 user: null,
@@ -93,7 +97,7 @@ export function AuthContextProvider({children}) {
 
     const contextData = {
         isAuth: auth.isAuth,
-        username: auth.user ? auth.user.username : null,
+        username: auth.user ? auth.user?.username : null,
         user: auth.user || {},
         authorities: auth.authorities || [],
         login: login,

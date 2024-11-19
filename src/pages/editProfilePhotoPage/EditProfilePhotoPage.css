@@ -1,0 +1,11 @@
+.profile-photo-content-container {
+    max-width: 300px;
+}
+
+.delete-photo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 225px;
+}

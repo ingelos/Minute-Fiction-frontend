@@ -37,13 +37,12 @@ import ManageAuthoritiesPage from "./pages/manageAuthoritiesPage/ManageAuthoriti
 import CreateAuthorProfilePage from "./pages/createAuthorProfilePage/CreateAuthorProfilePage.jsx";
 import EditCommentPage from "./pages/editCommentPage/EditCommentPage.jsx";
 import EditAuthorProfilePage from "./pages/editAuthorProfilePage/EditAuthorProfilePage.jsx";
-import {useAxiosInterceptor} from "./helpers/AxiosInterceptor.jsx";
 import ManageAuthorsPage from "./pages/manageAuthorsPage/ManageAuthorsPage.jsx";
 import SearchByAuthorPage from "./pages/searchByAuthorPage/SearchByAuthorPage.jsx";
 
 
 function App() {
-    useAxiosInterceptor();
+
 
     return (
         <>

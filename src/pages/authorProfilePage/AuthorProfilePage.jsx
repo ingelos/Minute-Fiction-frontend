@@ -6,20 +6,18 @@ import {Link, useParams} from "react-router-dom";
 import UserIcon from "../../assets/icons/user-circle.svg";
 import StoryDetailsCard from "../../components/storyDetailsCard/StoryDetailsCard.jsx";
 import useAuthorPublishedStories from "../../components/useAuthorPublishedStories/UseAuthorPublishedStories.jsx";
-import {useContext, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 import OwnerCheck from "../../components/ownerCheck/OwnerCheck.jsx";
-import AuthContext from "../../context/AuthContext.jsx";
 
 function AuthorProfilePage() {
     const {username} = useParams();
-    const {user} = useContext(AuthContext);
-    const {authorProfile, loading: profileLoading, error: profileError} = useAuthorProfile(username);
+    // const {user} = useContext(AuthContext);
+    const {authorProfile, profilePhoto, loading: profileLoading, error: profileError} = useAuthorProfile(username);
     const {stories, loading: storiesLoading, error: storiesError} = useAuthorPublishedStories(username);
     const [error, setError] = useState(null);
     const [unpublishedStories, setUnpublishedStories] = useState([]);
     const [showUnpublishedStories, setShowUnpublishedStories] = useState(false);
-    // const isOwner = user && user.username === username;
 
 
     async function getUnpublishedStories() {
@@ -58,23 +56,34 @@ function AuthorProfilePage() {
                                 {profileLoading && <p>Loading...</p>}
                                 {profileError && <p>{profileError.message}</p>}
                                 {authorProfile &&
-                                    <AuthorProfileCard
-                                        username={authorProfile.username}
-                                        firstname={authorProfile.firstname}
-                                        lastname={authorProfile.lastname}
-                                        bio={authorProfile.bio}
-                                        dob={authorProfile.dob}
-                                    />
+                                    <>
+                                        <AuthorProfileCard
+                                            username={authorProfile.username}
+                                            firstname={authorProfile.firstname}
+                                            lastname={authorProfile.lastname}
+                                            bio={authorProfile.bio}
+                                            dob={authorProfile.dob}
+                                        />
+                                        <div className="edit-link">
+                                        <OwnerCheck username={username}>
+                                            <Link to={`/authors/${username}/edit`}>
+                                                Edit Profile
+                                            </Link>
+                                        </OwnerCheck>
+                                        </div>
+                                    </>
                                 }
                             </div>
                             <div className="profile-photo-container">
-                                {authorProfile?.profilePhoto?.photoUrl ? (
+                                {profilePhoto ? (
                                     <div className="photo-container">
-                                        <img src={authorProfile.profilePhoto.photoUrl}
+                                        <img src={profilePhoto}
                                              alt='Profile Photo'
                                              className='profile-photo'/>
-                                        <OwnerCheck username={user.username}>
-                                            <Link to={`/authors/${username}/photo`}>Edit Photo</Link>
+                                        <OwnerCheck username={username}>
+                                            <Link to={`/authors/${username}/photo`} className="edit-link">
+                                                Edit Photo
+                                            </Link>
                                         </OwnerCheck>
                                     </div>
                                 ) : (
@@ -82,7 +91,7 @@ function AuthorProfilePage() {
                                         <img src={UserIcon}
                                              alt='no profile photo'
                                              className='profile-picture-empty'/>
-                                        <OwnerCheck username={user.username}>
+                                        <OwnerCheck username={username}>
                                             <Link to={`/authors/${username}/photo`}>Add Photo</Link>
                                             <Link to={`/authors/${username}/edit`}>Edit Profile</Link>
                                         </OwnerCheck>
@@ -120,18 +129,13 @@ function AuthorProfilePage() {
                                     {showUnpublishedStories && (
                                         unpublishedStories.length > 0 && (
                                             unpublishedStories.map((story) => (
-                                                <div className="story-container" key={story.id}>
-                                                    <StoryDetailsCard
-                                                        title={story.title}
-                                                        storyContent={story.content}
-                                                        authorFirstname={story.authorFirstname}
-                                                        authorLastname={story.authorLastname}
-                                                        themeName={story.themeName}
-                                                        storyStatus={story.status}
-                                                        storyId={story.id}
-                                                        preview={true}
-                                                        unpublished={true}
-                                                    />
+                                                <div className="stories-container-author" key={story.id}>
+                                                    <div className="author-story-container">
+                                                        <p>Title: {story.title}</p>
+                                                        <p>Content: {story.content}</p>
+                                                        <p>Theme: {story.themeName}</p>
+                                                        <p>Status: {story.status}</p>
+                                                    </div>
                                                 </div>
                                             ))))}
                                 </div>
@@ -142,7 +146,7 @@ function AuthorProfilePage() {
                 </div>
             </div>
         </section>
-)
+    )
 }
 
 export default AuthorProfilePage;

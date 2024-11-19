@@ -43,7 +43,7 @@ function EditAuthorProfilePage() {
                                 <FaLongArrowAltRight className="arrow-icon"/>
                                 <Link to={`/authors/${username}`}>Back to Author Profile</Link>
                             </div>
-                            <OwnerCheck>
+                            <OwnerCheck username={username}>
                                 {!updateSuccess ? (
                                     <div>
                                         {error && <p>{error.message}</p>}

@@ -2,7 +2,7 @@ import "./ManageStoriesPage.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
 import Button from "../../components/button/Button.jsx";
 
@@ -14,8 +14,6 @@ function ManageStoriesPage() {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate();
-    // const {authorStories} = useAllAuthorStories();
 
     useEffect(() => {
         const controller = new AbortController();
@@ -69,12 +67,6 @@ function ManageStoriesPage() {
         } finally {
             setLoading(false);
         }
-    }
-
-
-
-    async function handleEditStory(storyId) {
-        navigate(`/editor/stories/${storyId}/edit`);
     }
 
 
@@ -135,10 +127,6 @@ function ManageStoriesPage() {
                                                             <p>Status: {story.status}</p>
                                                         </div>
                                                         <div>
-                                                            {/*<Button onClick={() => handleEditStory(story.id)}*/}
-                                                            {/*        buttonText="View/ Edit"*/}
-                                                            {/*        className="view-button"*/}
-                                                            {/*/>*/}
                                                             <Link to={`/editor/stories/${story.id}/edit`} className="button">View/ Edit</Link>
                                                         </div>
                                                     </div>

@@ -5,7 +5,6 @@ import {formatDate} from "../../helpers/dateFormatter.js";
 
 
 function StoryDetailsCard({
-                              // username,
                               title,
                               authorFirstname,
                               authorLastname,
@@ -14,8 +13,6 @@ function StoryDetailsCard({
                               publishDate,
                               storyId,
                               preview = false,
-                              unpublished = false,
-                              storyStatus,
                           }) {
 
     const formattedDate = publishDate ? formatDate(publishDate) : 'Date not available';
@@ -34,7 +31,7 @@ function StoryDetailsCard({
                     <h2 className="story-author-name">By {authorFirstname} {authorLastname}</h2>
                 </div>
             </Link>
-            {unpublished ? <p className="story-status">Status: {storyStatus}</p> : <p className="publish-date">{formattedDate} / Minute Fiction</p>}
+            <p className="publish-date">{formattedDate} / Minute Fiction</p>
             <p className="story-content">{preview ? truncateContent(storyContent) : storyContent}</p>
             {preview &&
                 <p className="story-detail-link">

@@ -56,15 +56,7 @@ function UserDetailsPage() {
                     },
                 });
 
-        //     setUserData((prevUserData) => ({
-        //         ...prevUserData,
-        //         subscribedToMailing: data.subscribedToMailing,
-        // }));
-
             updateUser({ ...user, subscribedToMailing: !user.subscribedToMailing })
-
-            // setUserData(data);
-
             console.log("Subscription updated successfully");
         } catch (error) {
             console.error("Error updating subscription:", error);

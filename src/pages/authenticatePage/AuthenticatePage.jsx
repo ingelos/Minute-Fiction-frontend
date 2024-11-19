@@ -13,7 +13,6 @@ function AuthenticatePage() {
     const { login, user } = useContext(AuthContext);
     const [error, setError] = useState(false);
     const [loginSuccess, setLoginSuccess] = useState(null);
-    // const navigate = useNavigate();
 
 
     async function handleLogin(formData) {
@@ -30,7 +29,6 @@ function AuthenticatePage() {
             await login(jwt);
 
             setLoginSuccess(true);
-            // navigate(`/user/${user.username}`)
 
         } catch (error) {
             console.error('Error logging in:', error);

@@ -49,9 +49,9 @@ function RegisterPage() {
                             </div>
                         ) : (
                             <div>
-                                <h2 className='register-title titles'>Successfully registered!</h2>
+                                <h3 className='register-title titles'>Successfully registered!</h3>
                                 <h3 className='link-button-style'><Link to={"/authenticate"}>Log in</Link></h3>
-                                <EditorCheck>
+                                <EditorCheck register={true}>
                                     <div className="back-link">
                                         <FaLongArrowAltRight className="arrow-icon"/>
                                         <h3 className="authorities-link"><Link
