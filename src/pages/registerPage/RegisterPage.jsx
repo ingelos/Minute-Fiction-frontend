@@ -10,8 +10,10 @@ import {FaLongArrowAltRight} from "react-icons/fa";
 function RegisterPage() {
     const [registerSuccess, setRegisterSuccess] = useState(null);
     const [username, setUsername] = useState(null);
+    const [error, setError] = useState(null);
 
     async function handleRegistration(formData) {
+        setError(null);
         try {
             const {data} = await axios.post('http://localhost:8080/users', {
                 username: formData.username,
@@ -24,11 +26,12 @@ function RegisterPage() {
             setRegisterSuccess(true);
 
         } catch (error) {
-            if (error.response && error.response.status === 400) {
-                const errorMessage = error.response.data.message || 'Username already in use';
+            if (error.response && (error.response.status === 400 || error.response.status === 409)) {
+                const errorMessage = error.response.data.message || 'Username already in use! Choose a different one.';
+                setError(errorMessage);
                 console.error('Registration failed:', errorMessage);
             } else {
-                console.error('Error: ', error.message);
+                setError('An unexpected error occurred. Please try again.: ');
             }
         }
     }
@@ -45,7 +48,9 @@ function RegisterPage() {
                                 <p>Subscribe to the Minute Fiction newsletter by creating an account.</p>
                                 <p>With an account you can leave comments and submit your own stories by creating an
                                     author profile!</p>
+
                                 <RegisterForm onSubmit={handleRegistration}/>
+                                {error && <p className="error-message">{error}</p>}
                             </div>
                         ) : (
                             <div>

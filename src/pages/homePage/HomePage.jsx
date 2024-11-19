@@ -1,45 +1,16 @@
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {useState} from "react";
 import StoryDetailsCard from "../../components/storyDetailsCard/StoryDetailsCard.jsx";
+import useRecentStories from "../../components/useRecentStories/UseRecentStories.jsx";
 
 function HomePage() {
+    const [page, setPage] = useState(0);
+    const limit = 20;
+    const offset = page * limit;
+    const {stories, loading, error} = useRecentStories({limit, offset});
 
-    const [stories, setStories] = useState([]);
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        const controller = new AbortController();
-
-        async function fetchRecentStories() {
-            setLoading(true);
-            setError(false);
-
-            try {
-                const {data} = await axios.get(`http://localhost:8080/stories/published`, {
-                    signal: controller.signal,
-                });
-                console.log(data);
-                setStories(data);
-            } catch (error) {
-                if (axios.isCancel(error)) {
-                    console.error('Request is cancelled', error);
-                } else {
-                    console.error(error);
-                    setError(true);
-                }
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchRecentStories();
-
-        return function cleanup() {
-            controller.abort();
-        }
-    }, []);
+    const handleNextPage = () => setPage((prev) => prev + 1);
+    const handlePreviousPage = () => setPage((prev) => Math.max(prev - 1, 0));
 
 
     return (
@@ -53,21 +24,29 @@ function HomePage() {
                             {error && <p>{error.message}</p>}
                             {stories.length > 0 ?
                                 stories.map((story) => (
-                                        <div className="story-container" key={story.id}>
-                                            <StoryDetailsCard
-                                                title={story.title}
-                                                storyContent={story.content}
-                                                authorFirstname={story.authorFirstname}
-                                                authorLastname={story.authorLastname}
-                                                themeName={story.themeName}
-                                                publishDate={story.publishDate}
-                                                storyId={story.id}
-                                                preview={true}
-                                            />
-                                        </div>
+                                    <div className="story-container" key={story.id}>
+                                        <StoryDetailsCard
+                                            title={story.title}
+                                            storyContent={story.content}
+                                            authorFirstname={story.authorFirstname}
+                                            authorLastname={story.authorLastname}
+                                            themeName={story.themeName}
+                                            publishDate={story.publishDate}
+                                            storyId={story.id}
+                                            preview={true}
+                                        />
+                                    </div>
                                 )) : (
                                     <p>No recently published stories</p>
                                 )}
+                        </div>
+                        <div className="pagination-buttons">
+                            <button onClick={handlePreviousPage} disabled={page === 0}>
+                                Previous
+                            </button>
+                            <button onClick={handleNextPage} disabled={stories.length < limit}>
+                                Next
+                            </button>
                         </div>
                     </div>
                     <AsideMenu/>

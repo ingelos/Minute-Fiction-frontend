@@ -42,11 +42,14 @@ function EditEmailPage() {
         <section className='edit-accountdetails-page outer-content-container'>
             <div className='edit-accountdetails-page inner-content-container'>
                 <div className='main-container'>
-                    <OwnerCheck>
+                    <OwnerCheck username={user.username}>
                     <div className='featured-section'>
                         <h2 className='edit-account-title titles'>Account Settings</h2>
-                        <h3>Username: {user.username}</h3>
-                        <h4>Current email: {user.email}</h4>
+                        <div className="account-details">
+                            <h4>Username: {user.username}</h4>
+                            <h4>Current email: {user.email}</h4>
+                        </div>
+
                         {error && <p>{error.message}</p>}
                         {!submitSuccess ?
                             <div>

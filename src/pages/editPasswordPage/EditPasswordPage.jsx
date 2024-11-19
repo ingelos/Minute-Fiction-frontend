@@ -5,6 +5,7 @@ import Input from "../../components/input/Input.jsx";
 import {Link} from "react-router-dom";
 import {FaLongArrowAltRight} from "react-icons/fa";
 import AuthContext from "../../context/AuthContext.jsx";
+import OwnerCheck from "../../components/ownerCheck/OwnerCheck.jsx";
 
 
 function EditPasswordPage() {
@@ -42,6 +43,7 @@ function EditPasswordPage() {
                     <div className='edit-password-page inner-content-container'>
                         <div className='main-container'>
                             <div className='featured-section'>
+                                <OwnerCheck username={user.username}>
                                 <h2 className='password-page-title titles'>Change Password</h2>
                             {error && <p>{error.message}</p>}
                             {!updateSuccess ?
@@ -85,13 +87,14 @@ function EditPasswordPage() {
                                 </div>
                                 :
                                 <div className='account-settings-succes'>
-                                    <p>You have successfully updated your password!</p>
+                                    <h4 className="success-message">You have successfully updated your password!</h4>
                                     <div className="back-link">
                                         <FaLongArrowAltRight className="arrow-icon"/>
                                         <Link to={`/user/${user.username}`}>Go back to account</Link>
                                     </div>
                                 </div>
                             }
+                                </OwnerCheck>
                             </div>
                         </div>
                     </div>
