@@ -4,6 +4,7 @@ import axios from "axios";
 
 function UseAuthorProfile(username) {
     const [authorProfile, setAuthorProfile] = useState([]);
+    const [profilePhoto, setProfilePhoto] = useState(null);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     // const {username} = useParams();
@@ -11,22 +12,38 @@ function UseAuthorProfile(username) {
     useEffect(() => {
         const controller = new AbortController();
 
-        async function fetchAuthorProfile() {
+        async function fetchAuthorProfileAndPhoto() {
             setError(false);
             setLoading(true);
 
             try {
-                const {data} = await axios.get(`http://localhost:8080/authorprofiles/${username}`, {
+                const profileResponse = await axios.get(`http://localhost:8080/authorprofiles/${username}`, {
                     signal: controller.signal,
                 });
-                console.log(data);
-                setAuthorProfile(data);
+                console.log(profileResponse);
+                setAuthorProfile(profileResponse.data);
+
+                try {
+                    const photoResponse = await axios.get(`http://localhost:8080/authorprofiles/${username}/photo`,
+                        {responseType: 'blob', signal: controller.signal}
+                    );
+                    const photoUrl = URL.createObjectURL(photoResponse.data);
+                    setProfilePhoto(photoUrl);
+                } catch (photoError) {
+                    if (photoError.response && photoError.response.status === 404) {
+                        console.log("No profile photo found");
+                        setProfilePhoto(null);
+                    } else {
+                        throw photoError;
+                    }
+                }
+
 
             } catch (error) {
                 if (axios.isCancel(error)) {
                     console.error('Request is cancelled');
                 } else {
-                    console.error(error);
+                    console.error("Error fetching author profile or photo:", error);
                     setError(true);
                 }
             } finally {
@@ -34,7 +51,7 @@ function UseAuthorProfile(username) {
             }
         }
 
-        fetchAuthorProfile();
+        fetchAuthorProfileAndPhoto();
 
         return function cleanup() {
             controller.abort();
@@ -42,7 +59,7 @@ function UseAuthorProfile(username) {
 
     }, [username]);
 
-    return {authorProfile, loading, error};
+    return {authorProfile,profilePhoto, loading, error};
 }
 
 export default UseAuthorProfile;

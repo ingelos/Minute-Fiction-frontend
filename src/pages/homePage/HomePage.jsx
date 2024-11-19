@@ -39,7 +39,7 @@ function HomePage() {
         return function cleanup() {
             controller.abort();
         }
-}, []);
+    }, []);
 
 
     return (
@@ -51,25 +51,23 @@ function HomePage() {
                         <div className="recent-stories-container">
                             {loading && <p>Loading...</p>}
                             {error && <p>{error.message}</p>}
-                            <div>
-                                {stories.length > 0 ?
-                                    stories.map((story) => (
-                                    <div className="story-container" key={story.id}>
-                                        <StoryDetailsCard
-                                            title={story.title}
-                                            storyContent={story.content}
-                                            authorFirstname={story.authorFirstname}
-                                            authorLastname={story.authorLastname}
-                                            themeName={story.themeName}
-                                            publishDate={story.publishDate}
-                                            preview={true}
-                                        />
-                                    </div>
+                            {stories.length > 0 ?
+                                stories.map((story) => (
+                                        <div className="story-container" key={story.id}>
+                                            <StoryDetailsCard
+                                                title={story.title}
+                                                storyContent={story.content}
+                                                authorFirstname={story.authorFirstname}
+                                                authorLastname={story.authorLastname}
+                                                themeName={story.themeName}
+                                                publishDate={story.publishDate}
+                                                storyId={story.id}
+                                                preview={true}
+                                            />
+                                        </div>
                                 )) : (
                                     <p>No recently published stories</p>
-                                    )}
-                            </div>
-                            <h3 className="prev-link pagination">Older Stories</h3>
+                                )}
                         </div>
                     </div>
                     <AsideMenu/>

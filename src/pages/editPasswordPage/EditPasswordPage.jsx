@@ -1,12 +1,13 @@
 import {useForm} from "react-hook-form";
 import {useContext, useState} from "react";
-import {AuthContext} from "../../context/AuthContext.jsx";
 import axios from "axios";
 import Input from "../../components/input/Input.jsx";
 import {Link} from "react-router-dom";
+import {FaLongArrowAltRight} from "react-icons/fa";
+import AuthContext from "../../context/AuthContext.jsx";
 
 
-function ChangePasswordPage() {
+function EditPasswordPage() {
 
     const {register, handleSubmit, formState: {errors}, watch} = useForm()
     const {user} = useContext(AuthContext);
@@ -18,7 +19,7 @@ function ChangePasswordPage() {
 
     async function editPassword(formData) {
         try {
-            const {data} = await axios.patch(`https://localhost:8080/users/${user.username}/password`, {
+            const {data} = await axios.patch(`http://localhost:8080/users/${user.username}/password`, {
                 newPassword: formData.newPassword,
                 confirmPassword: formData.confirmPassword,
             }, {
@@ -42,7 +43,7 @@ function ChangePasswordPage() {
                         <div className='main-container'>
                             <div className='featured-section'>
                                 <h2 className='password-page-title titles'>Change Password</h2>
-                            {error && <p>Something went wrong... try to reload the page.</p>}
+                            {error && <p>{error.message}</p>}
                             {!updateSuccess ?
                                 <div>
                                     <form className='edit-password-form' onSubmit={handleSubmit(editPassword)}>
@@ -73,16 +74,22 @@ function ChangePasswordPage() {
                                             register={register}
                                             errors={errors}
                                         />
-                                        {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+                                        {/*{errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}*/}
 
                                         <button type='submit'>Save password</button>
                                     </form>
-                                    <h4><Link to={`/users/${user.username}`}>Back to Account</Link></h4>
+                                    <div className="back-link">
+                                        <FaLongArrowAltRight className="arrow-icon"/>
+                                        <Link to={`/user/${user.username}`}>Back to Account</Link>
+                                    </div>
                                 </div>
                                 :
                                 <div className='account-settings-succes'>
                                     <p>You have successfully updated your password!</p>
-                                    <h4><Link to={`/users/${user.username}`}>Go back to account</Link></h4>
+                                    <div className="back-link">
+                                        <FaLongArrowAltRight className="arrow-icon"/>
+                                        <Link to={`/user/${user.username}`}>Go back to account</Link>
+                                    </div>
                                 </div>
                             }
                             </div>
@@ -92,4 +99,4 @@ function ChangePasswordPage() {
         )
     }
 
-    export default ChangePasswordPage;
+    export default EditPasswordPage;

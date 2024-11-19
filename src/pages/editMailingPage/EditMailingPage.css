@@ -1,0 +1,10 @@
+.deletion-container {
+    border-top: 1px solid var(--color-primary);
+    margin: 20px 0;
+    padding-top: 10px;
+}
+
+.delete-button {
+    background-color: lightslategrey;
+    border: none;
+}

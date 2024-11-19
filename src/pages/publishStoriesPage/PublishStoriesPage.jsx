@@ -12,17 +12,24 @@ function PublishStoriesPage() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        const controller = new AbortController();
+        const {signal} = controller;
+
         async function fetchThemes() {
             try {
-                const {data} = await axios.get(`http://localhost:8080/themes`);
+                const {data} = await axios.get(`http://localhost:8080/themes`, {signal});
                 setThemes(data);
             } catch (error) {
-                console.error('Error fetching themesPage:', error);
+                console.error('Error fetching themes:', error);
                 setError(true);
             }
         }
 
         fetchThemes();
+
+        return function cleanup() {
+            controller.abort();
+        }
 
     }, []);
 
@@ -32,7 +39,7 @@ function PublishStoriesPage() {
         async function fetchAcceptedStories() {
             try {
                 setLoading(true);
-                const {data} = await axios.get(`http://localhost:8080/stories/accepted/themes/${selectedTheme}`)
+                const {data} = await axios.get(`http://localhost:8080/stories/editor/${selectedTheme}/accepted`)
                 console.log(data);
                 setAcceptedStories(data);
             } catch (error) {
@@ -54,7 +61,7 @@ function PublishStoriesPage() {
             const {data} = await axios.patch(`http://localhost:8080/stories/themes/${themeId}/publish`)
             console.log('Bulk publish result: ', data);
         } catch (error) {
-            console.error('Error publishing stories for this themePage', error);
+            console.error('Error publishing stories for this theme', error);
         }
     }
 
@@ -74,7 +81,7 @@ function PublishStoriesPage() {
                 <div className='main-container'>
                     <div className="featured-section">
                         <h2 className="publish-title titles">Publish Accepted Stories</h2>
-                        <div className='stories-container'>
+                        <div className='accepted-stories-container'>
                             {/*<EditorCheck>*/}
                             <div className="theme-selection">
                                 <label htmlFor="themeSelect">Select a Theme:</label>
@@ -82,7 +89,7 @@ function PublishStoriesPage() {
                                     <option value="">Select theme</option>
                                     {themes.map((theme) => (
                                         <option key={theme.id} value={theme.id}>
-                                            {theme.themeName}
+                                            {theme.name} ({theme.id})
                                         </option>
                                     ))}
                                 </select>
@@ -91,17 +98,16 @@ function PublishStoriesPage() {
                             {error && <p>{error.message}</p>}
                             {loading && <p>Loading stories...</p>}
                             {acceptedStories.length > 0 ? (
-                                <StoryList stories={acceptedStories}>
-                                    {acceptedStories.map((story) => (
+                                    acceptedStories.map((story) => (
                                         <div key={story.id} className="story-actions">
+                                            <p>{story.title}</p>
                                             <button onClick={() => handlePublishByStory(story.id)}>
                                                 Publish Story
                                             </button>
                                         </div>
-                                    ))}
-                                </StoryList>
+                                    ))
                             ) : (
-                                <div>
+                                <div className="no-stories-message">
                                     <br></br>
                                     <p>No Accepted stories available for this theme. Please review stories first.</p>
                                 </div>

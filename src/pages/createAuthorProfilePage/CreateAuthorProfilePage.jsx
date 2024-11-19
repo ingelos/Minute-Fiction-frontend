@@ -2,13 +2,13 @@ import {useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
-import {AuthContext} from "../../context/AuthContext.jsx";
 import AuthenticateCheck from "../../components/authenticateCheck/AuthenticateCheck.jsx";
 import AuthorProfileForm from "../../components/authorProfileForm/AuthorProfileForm.jsx";
+import AuthContext from "../../context/AuthContext.jsx";
 
 function CreateAuthorProfilePage() {
     const navigate = useNavigate();
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     async function handleCreateProfile(authorProfileData) {
         const token = localStorage.getItem('token');
@@ -22,6 +22,8 @@ function CreateAuthorProfilePage() {
                     },
                 }
             );
+            // const { data: updatedUser } = await axios.get(`http://localhost:8080/users/${user.username}`)
+            // updateUser(updatedUser);
             console.log('Profile created successfully', data);
             navigate(`/authors/${user.username}`);
         } catch (error) {
@@ -38,6 +40,12 @@ function CreateAuthorProfilePage() {
                         <AuthenticateCheck>
                             <AuthorProfileForm onSubmit={handleCreateProfile} isEditing={false}/>
                         </AuthenticateCheck>
+
+                        {/*{isAuth ? (*/}
+                        {/*    <AuthorProfileForm onSubmit={handleCreateProfile} isEditing={false}/>*/}
+                        {/*) : (*/}
+                        {/*    <p>Log in</p>*/}
+                        {/*)}*/}
                     </div>
                     <AsideMenu/>
                 </div>

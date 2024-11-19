@@ -1,0 +1,33 @@
+.user-container, .author-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.user-list, .author-list{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.user-table, .author-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-table th, .user-table td, .author-table th, .author-table td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.user-table th, .author-table th {
+    background-color: #f4f4f4;
+}
+
+.user-table tr:hover, .author-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.sub-titles {
+    margin-bottom: 10px;
+}

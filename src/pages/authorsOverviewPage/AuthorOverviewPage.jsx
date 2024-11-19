@@ -11,7 +11,7 @@ function AuthorOverviewPage() {
             <div className='author-overview-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
-                        <div className='author-container container'>
+                        <div>
                             <h2 className="author-title titles">All Authors</h2>
                             <div className="author-overview">
                                 {loading && <p>Loading...</p>}

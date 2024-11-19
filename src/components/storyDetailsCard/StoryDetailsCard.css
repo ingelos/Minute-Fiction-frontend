@@ -42,10 +42,11 @@
     margin: 20px 0;
 }
 
-.publish-date {
+.publish-date, .story-status {
     text-align: center;
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
+    font-weight: 300;
     color: grey;
 }
 

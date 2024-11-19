@@ -1,21 +1,54 @@
 import "./UserDetailsPage.css";
-import {Link} from "react-router-dom";
-import {AuthContext} from "../../context/AuthContext.jsx";
-import {useContext} from "react";
+import {Link, useParams} from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import axios from "axios";
-import useUser from "../../components/useUser/UseUser.jsx";
 import Button from "../../components/button/Button.jsx";
+import OwnerCheck from "../../components/ownerCheck/OwnerCheck.jsx";
+import AuthContext from "../../context/AuthContext.jsx";
 
 
 function UserDetailsPage() {
-    const {isAuth, user, updateUser} = useContext(AuthContext);
+    const { user, isAuth, updateUser } = useContext(AuthContext);
+    const { username} = useParams();
+    const [userData, setUserData] = useState({});
+    const [loading, setLoading] = useState(true);
     const token = localStorage.getItem('token');
-    const { userData } = useUser();
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        async function fetchUserData() {
+            try {
+                const {data} = await axios.get(`http://localhost:8080/users/${username}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    signal: controller.signal,
+                });
+                setUserData(data);
+            } catch (error) {
+                console.error("error fetching user data", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        if (username) {
+            fetchUserData();
+        }
+
+        return function cleanup() {
+            controller.abort();
+        }
+
+    }, [username, token]);
+
 
     async function handleSubscriptionChange() {
         try {
-            const {data} = await axios.patch(`http://localhost:8080/users/${user.username}/subscription`,
+            await axios.patch(`http://localhost:8080/users/${username}/subscription`,
                 {subscribedToMailing: !user.subscribedToMailing},
                 {
                     headers: {
@@ -23,8 +56,8 @@ function UserDetailsPage() {
                     },
                 });
 
-            updateUser({ ...user, subscribedToMailing: !user.subscribedToMailing});
-            console.log("Subscription updated", data);
+            updateUser({ ...user, subscribedToMailing: !user.subscribedToMailing })
+            console.log("Subscription updated successfully");
         } catch (error) {
             console.error("Error updating subscription:", error);
         }
@@ -34,24 +67,26 @@ function UserDetailsPage() {
         <section className='user-account outer-content-container'>
             <div className='user-account inner-content-container'>
                 <div className='main-container'>
+                    <OwnerCheck username={username}>
                     <div className="featured-section">
                         {isAuth ? (
                             <div>
+                                {loading && <p>Loading...</p>}
                                 <h2 className="section-title titles">Welcome back {user.username}!</h2>
-                                {user && (
+                                {/*{userData && (*/}
                                     <div>
                                         <div className="account-container">
                                             <p>Username: {userData.username}</p>
                                             <p>Email: {userData.email}</p>
                                         </div>
-
                                         <div className="subscription-container">
-                                            <p className="subscription-status">Subscribed: {userData.subscribedToMailing ? "Yes" : "No"}</p>
+                                            <p className="subscription-status">
+                                                Subscribed: {user.subscribedToMailing ? "Yes" : "No"}</p>
                                             <Button
                                                 onClick={handleSubscriptionChange}
                                                 buttonType="submit"
                                                 classname="submit-button"
-                                                buttonText={userData.subscribedToMailing ? "Unsubscribe" : "Subscribe"}
+                                                buttonText={user.subscribedToMailing ? "Unsubscribe" : "Subscribe"}
                                                 />
                                         </div>
                                         <div className="profile-link">
@@ -63,21 +98,20 @@ function UserDetailsPage() {
                                             )}
                                         </div>
                                         <div className="edit-links">
-                                            <Link to={`/user/account/${user.username}/edit`}>Edit Account Details</Link>
-                                            <Link to={`/user/account/${user.username}/change-password`}>Change
+                                            <Link to={`/user/account/${user.username}/edit-email`}>Edit email</Link>
+                                            <Link to={`/user/account/${user.username}/edit-password`}>Edit
                                                 Password</Link>
                                             <Link to={`/user/account/${user.username}/delete`}>Delete Your
                                                 Account</Link>
                                         </div>
                                     </div>
-                                )}
                             </div>
                         ) : (
                             <h3 className='log-in-again-title titles'>You are logged out. Please log in again to access your account.</h3>
                         )}
-
                     </div>
                     <AsideMenu/>
+                    </OwnerCheck>
                 </div>
             </div>
         </section>

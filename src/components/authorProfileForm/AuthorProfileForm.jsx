@@ -49,7 +49,7 @@ function AuthorProfileForm({onSubmit, initialData, isEditing, error}) {
                 errors={errors}
             />
             <Input
-                inputType='bio'
+                inputType='textarea'
                 inputName='bio'
                 inputId='bio-field'
                 inputLabel='Bio: *'
@@ -59,6 +59,7 @@ function AuthorProfileForm({onSubmit, initialData, isEditing, error}) {
                         message: 'Please do not exceed 500 characters',
                     }
                 }}
+                rows={5}
                 register={register}
                 errors={errors}
             />
@@ -68,9 +69,9 @@ function AuthorProfileForm({onSubmit, initialData, isEditing, error}) {
                 inputId='dob-field'
                 inputLabel='Date of birth:'
                 validationRules={{
-                    validate: {
-                        isValidDate: (value) => !isNaN(Date.parse(value)) || 'Invalid date format',
-                    }
+                    // validate: {
+                    //     isValidDate: (value) => !isNaN(Date.parse(value)) || 'Invalid date format',
+                    // }
                 }}
                 register={register}
                 errors={errors}

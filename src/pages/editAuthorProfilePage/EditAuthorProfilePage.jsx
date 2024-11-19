@@ -2,23 +2,31 @@ import {useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import AuthorProfileForm from "../../components/authorProfileForm/AuthorProfileForm.jsx";
-import AuthorCheck from "../../components/authorCheck/AuthorCheck.jsx";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import useAuthorProfile from "../../components/useAuthorProfile/UseAuthorProfile.jsx";
+import OwnerCheck from "../../components/ownerCheck/OwnerCheck.jsx";
+import {FaLongArrowAltRight} from "react-icons/fa";
 
 
 function EditAuthorProfilePage() {
     const [error, setError] = useState(null);
     const {username} = useParams();
     const {authorProfile, loading} = useAuthorProfile(username);
+    const [updateSuccess, setUpdateSuccess] = useState(false);
 
-
-    async function handleUpdatingProfile(username, updatedData) {
+    async function handleUpdatingProfile(updatedData) {
+        const token = localStorage.getItem('token');
         setError(false);
 
         try {
-            const {data} = await axios.put(`http://localhost:8080/authorprofiles/${username}`, updatedData);
+            const {data} = await axios.put(`http://localhost:8080/authorprofiles/${username}`, updatedData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }
+            });
             console.log('Form data:', data);
+            setUpdateSuccess(true);
         } catch (error) {
             console.error('Error updating author profile:', error);
         }
@@ -31,26 +39,26 @@ function EditAuthorProfilePage() {
                     <div className="featured-section">
                         <div className='authorprofile-contianer'>
                             <h2 className="mailings-title titles">Edit Author Profile</h2>
-                            <p>Go <Link to={`/authorprofiles/${username}`}><strong>back</strong></Link> to Author Profile</p>
-                            <AuthorCheck>
-                                <div>
-                                    {error && <p>{error.message}</p>}
-                                    {loading && <p>Loading mailing...</p>}
-                                    {authorProfile && (
-                                        <AuthorProfileForm onSubmit={handleUpdatingProfile} initialData={authorProfile}
-                                                           isEditing={true}/>
-                                    )}
-                                </div>
-                                {authorProfile?.profilePhoto?.photoUrl ? (
-                                        <div>
-                                            <img src={authorProfile.profilePhoto?.photoUrl} alt="profile-photo"/>
-                                            <p><Link to={`/authorprofiles/${username}/photo`}>Edit Profile Photo</Link></p>
-                                        </div>
-                                    ) : (
-                                    <p><Link to={`/authorprofiles/${username}/photo`}>Add Profile Photo</Link></p>
-                                    )
-                                }
-                            </AuthorCheck>
+                            <div className="back-link">
+                                <FaLongArrowAltRight className="arrow-icon"/>
+                                <Link to={`/authors/${username}`}>Back to Author Profile</Link>
+                            </div>
+                            <OwnerCheck username={username}>
+                                {!updateSuccess ? (
+                                    <div>
+                                        {error && <p>{error.message}</p>}
+                                        {loading && <p>Loading mailing...</p>}
+                                        {authorProfile && (
+                                            <AuthorProfileForm onSubmit={handleUpdatingProfile}
+                                                               initialData={authorProfile}
+                                                               isEditing={true}/>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <p>Successfully Updated Profile!</p>
+                                )}
+
+                            </OwnerCheck>
                         </div>
                     </div>
                     <AsideMenu/>

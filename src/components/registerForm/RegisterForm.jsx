@@ -19,7 +19,10 @@ function RegisterForm({onSubmit, error}) {
     return (
         <form className='register-form' onSubmit={handleSubmit(handleRegistration)}>
             {error && <p>{error.message}</p>}
-            <h4>Username is unchangeable after creating. Choose with care.</h4>
+            <br></br>
+            <h3>Username is unchangeable after creation.</h3>
+            <h3>Choose with care.</h3>
+            <br></br>
             <Input
                 inputType='text'
                 inputName='username'
@@ -83,7 +86,7 @@ function RegisterForm({onSubmit, error}) {
                 buttonType='submit'
                 className='register-button'
                 buttonText='Create Account'
-               />
+            />
             {error && <p className="error-message">Something went wrong. Please try again.</p>}
         </form>
     )

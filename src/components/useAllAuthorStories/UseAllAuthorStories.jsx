@@ -1,16 +1,11 @@
 import {useEffect, useState} from "react";
-// import {useParams} from "react-router-dom";
 import axios from "axios";
-import {useParams} from "react-router-dom";
-
-// import {useParams} from "react-router-dom";
 
 
-function UseAuthorStories(username) {
-    const [stories, setStories] = useState([]);
+function UseAllAuthorStories(username) {
+    const [authorStories, setAuthorStories] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-    // const {username} = useParams();
 
     useEffect(() => {
         const controller = new AbortController();
@@ -20,11 +15,11 @@ function UseAuthorStories(username) {
             setLoading(true);
 
             try {
-                const {data} = await axios.get(`http://localhost:8080/authorprofiles/${username}/published`, {
+                const {data} = await axios.get(`http://localhost:8080/authorprofiles/${username}/overview`, {
                     signal: controller.signal,
                 });
                 console.log(data);
-                setStories(data);
+                setAuthorStories(data);
 
             } catch (error) {
                 if (axios.isCancel(error)) {
@@ -51,7 +46,7 @@ function UseAuthorStories(username) {
 
     }, [username]);
 
-    return {stories, loading, error};
+    return {authorStories, loading, error};
 }
 
-export default UseAuthorStories;
+export default UseAllAuthorStories;

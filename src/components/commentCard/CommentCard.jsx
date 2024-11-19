@@ -1,17 +1,32 @@
 import "./CommentCard.css";
+import {Link} from "react-router-dom";
+import {formatDateTime} from "../../helpers/dateFormatter.js";
 
-function CommentCard({commentOwner, commentCreated, content}) {
+function CommentCard({commentOwner, commentCreated, content, currentUsername, commentId}) {
+    const isOwner = currentUsername === commentOwner;
+    const formattedDateTime = formatDateTime(commentCreated);
 
     return (
+
         <div className="comment-container">
-            <div className="content-container">
-                <h3>{content}</h3>
+            <div>
+                <div className="content-container">
+                    <p>{content}</p>
+                </div>
+                <div className="comment-data">
+                    <h4 className="comment-owner">By {commentOwner} </h4>
+                    <h4 className="comment-created">At {formattedDateTime}</h4>
+                </div>
             </div>
-            <div className="comment-data">
-                <h4>By {commentOwner} </h4>
-                <h4 className="comment-created">At {commentCreated}</h4>
+            <div>
+                {isOwner && (
+                    <div className="edit-comment-links">
+                        <Link to={`/comments/${commentId}/edit`}>Edit / Delete</Link>
+                    </div>
+                )}
             </div>
         </div>
+
     )
 }
 

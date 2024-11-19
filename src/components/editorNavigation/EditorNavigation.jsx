@@ -8,7 +8,6 @@ function EditorNavigation() {
                     direct="Editor Dashboard"
                     navDirect={'/editor/editor-dashboard'}
                 />
-
                 <div>
                     <NavigationLink
                         direct="Review Stories"

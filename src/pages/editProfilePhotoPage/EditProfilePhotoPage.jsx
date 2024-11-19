@@ -1,43 +1,64 @@
-import React, {useContext} from "react";
-import {AuthContext} from "../../context/AuthContext.jsx";
-import {useForm} from "react-hook-form";
+import "./EditProfilePhotoPage.css";
+import {useContext, useState} from "react";
 import axios from "axios";
 import AuthenticateCheck from "../../components/authenticateCheck/AuthenticateCheck.jsx";
-import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
-import Input from "../../components/input/Input.jsx";
 import useAuthorProfile from "../../components/useAuthorProfile/UseAuthorProfile.jsx";
+import AuthContext from "../../context/AuthContext.jsx";
+import {FaLongArrowAltRight} from "react-icons/fa";
+import {Link} from "react-router-dom";
 
 
 function EditProfilePhotoPage() {
-    const {register, handleSubmit, formState: {errors}} = useForm();
-    const [uploadStatus, setUploadStatus] = React.useState('');
-    const {username} = useContext(AuthContext);
-    const {authorProfile} = useAuthorProfile(username);
+    // const {register, handleSubmit, formState: {errors}} = useForm();
+    // const [uploadStatus, setUploadStatus] = useState('');
+    const {user, username} = useContext(AuthContext);
+    const { profilePhoto } = useAuthorProfile(username);
+    const [file, setFile] = useState([]);
+    const [previewUrl, setPreviewUrl] = useState('');
+    const [uploadSuccess, setUploadSuccess] = useState(false);
+    const [deleteSuccess, setDeleteSuccess] = useState(false);
+    const token = localStorage.getItem('token');
 
 
-    async function handleUploadPhoto(data) {
-        const token = localStorage.getItem('token');
+    function handleImageChange(e) {
+        const file = e.target.files[0];
+
+        console.log("UploadedFile:", file);
+        setFile(file);
+        setPreviewUrl(URL.createObjectURL(file));
+    }
+
+    async function handleUploadPhoto(e) {
+        e.preventDefault();
+
         const formData = new FormData();
-
-        formData.append('file', data.file[0]);
+        formData.append("file", file);
 
         try {
-            const {data} = await axios.post(`http://localhost:8080/authorprofiles/${username}/photo`, formData, {
+            const {data} = await axios.post(`http://localhost:8080/authorprofiles/${user.username}/photo`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(data);
-            setUploadStatus(`File uploaded successfully: ${data.fileName}`)
+            setUploadSuccess(true);
+            setPreviewUrl(null);
+            console.log("Photo uploaded successfully!", data);
         } catch (error) {
-            setUploadStatus(`An error occurred: ${error.message}`);
+            console.log("Error uploading photo", error);
         }
     }
 
-    async function handleDeleteProfilePhoto(username) {
+    async function handleDeleteProfilePhoto() {
+        const token = localStorage.getItem('token');
+
         try {
-            await axios.delete(`http://localhost:8080/authorprofiles/${username}/photo`);
+            await axios.delete(`http://localhost:8080/authorprofiles/${user.username}/photo`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setDeleteSuccess(true);
             console.log('Profile photo deleted.');
         } catch (error) {
             console.error('Error deleting profile photo', error);
@@ -50,40 +71,68 @@ function EditProfilePhotoPage() {
             <div className='update-photo-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
-
                         <AuthenticateCheck>
-                            {!authorProfile?.profilePhoto?.photoUrl ? (
+                            {!profilePhoto && (
                                 <div>
-                                    <h2 className='add-photo titles'>Add Photo to Author Profile</h2>
-                                    <form onSubmit={handleSubmit(handleUploadPhoto)}>
-                                        <Input
-                                            inputType='file'
-                                            inputName='fileName'
-                                            inputId='fileInput'
-                                            inputLabel='Choose image:'
-                                            register={register}
-                                            errors={errors}
-                                        />
-                                        {errors.file && <p>{errors.file.message}</p>}
-                                        <button type="submit">Upload Photo</button>
-                                    </form>
-                                    {uploadStatus && <p>{uploadStatus}</p>}
-                                </div>
-                            ) : (
-                                <div>
-                                    {authorProfile?.profilePhoto?.photoUrl && (
+                                    <h2 className='add-photo titles'>Add / Edit Photo</h2>
+                                    {uploadSuccess ?
                                         <div>
-                                            <img src={authorProfile.profilePhoto.photoUrl}
-                                                 alt='Profile Photo'
-                                                 className='profile-photo'/>
-                                            <button onClick={handleDeleteProfilePhoto}>Delete Photo</button>
+                                            <p>Successfully added a photo to your profile!</p>
+                                            <div className="back-link">
+                                                <FaLongArrowAltRight className="arrow-icon"/>
+                                                <Link to={`/authors/${username}`}>Back to profile</Link>
+                                            </div>
                                         </div>
-                                    )}
+                                        :
+                                        <div className="profile-photo-content-container">
+                                            <form onSubmit={handleUploadPhoto}>
+                                                <label htmlFor="author-photo">
+                                                    Choose image:
+                                                    <input type="file" name="file" id="author-photo"
+                                                           onChange={handleImageChange}/>
+                                                </label>
+                                                {previewUrl &&
+                                                    <label>
+                                                        Preview:
+                                                        <img src={previewUrl} alt="Example of chosen image"
+                                                             className="image-preview"/>
+                                                    </label>}
+                                                <button type="submit">Upload Photo</button>
+                                            </form>
+                                        </div>
+                                    }
+
                                 </div>
                             )}
+                            <div>
+                                {profilePhoto && (
+                                    <div>
+                                        {deleteSuccess ?
+                                            <div>
+                                                <p>Successfully deleted your photo!</p>
+                                                <div className="back-link">
+                                                    <FaLongArrowAltRight className="arrow-icon"/>
+                                                    <Link to={`/authors/${username}`}>Back to profile</Link>
+                                                </div>
+                                            </div>
+                                            :
+                                            <div>
+                                                <h2 className='add-photo titles'>Delete Photo</h2>
+                                                <div className="delete-photo-container">
+                                                    <img src={profilePhoto} alt='Profile Photo'
+                                                         className='profile-photo'/>
+                                                    <button onClick={handleDeleteProfilePhoto}
+                                                            className="delete-button">Delete
+                                                        Photo
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                )}
+                            </div>
                         </AuthenticateCheck>
                     </div>
-                    <AsideMenu/>
                 </div>
             </div>
         </section>

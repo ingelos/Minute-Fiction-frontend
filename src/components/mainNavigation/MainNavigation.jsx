@@ -1,8 +1,8 @@
 import "./MainNavigation.css"
 import NavigationLink from "../navigationLink/NavigationLink.jsx";
 import {useContext} from "react";
-import {AuthContext} from "../../context/AuthContext.jsx";
 import Button from "../button/Button.jsx";
+import AuthContext from "../../context/AuthContext.jsx";
 
 
 function MainNavigation() {
@@ -47,12 +47,14 @@ function MainNavigation() {
                                         direct="Account"
                                         navDirect={`/user/${user.username}`}
                                     />
-                                <Button
-                                    buttonType='button'
-                                    className='logout-button'
-                                    buttonText='Logout'
-                                    onClick={logout}
-                                />
+                                    <div className="main-nav-button">
+                                    <Button
+                                        buttonType='button'
+                                        className='logout-button'
+                                        buttonText='Logout'
+                                        onClick={logout}
+                                    />
+                                        </div>
                                 </>
                             ) : (
                                 <NavigationLink

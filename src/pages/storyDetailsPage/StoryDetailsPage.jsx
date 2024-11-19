@@ -1,11 +1,13 @@
 import "./StoryDetailsPage.css";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import CommentCard from "../../components/commentCard/CommentCard.jsx";
 import StoryDetailsCard from "../../components/storyDetailsCard/StoryDetailsCard.jsx";
 import CommentForm from "../../components/commentForm/CommentForm.jsx";
+import {AuthContextProvider} from "../../context/AuthContextProvider.jsx";
+import {formatDateTime} from "../../helpers/dateFormatter.js";
 
 // import AuthenticateCheck from "../../components/authenticateCheck/AuthenticateCheck.jsx";
 
@@ -14,7 +16,10 @@ function StoryDetailsPage() {
     const [comments, setComments] = useState({})
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const {user} = useContext(AuthContextProvider);
+    const currentUsername = user?.username;
     const {storyId} = useParams();
+
 
     useEffect(() => {
         const controller = new AbortController();
@@ -73,7 +78,7 @@ function StoryDetailsPage() {
 
 
     async function handleSubmitComment(commentData) {
-        const token =localStorage.getItem('token');
+        const token = localStorage.getItem('token');
 
         try {
             const {data} = await axios.post(`http://localhost:8080/stories/${storyId}/comments`,
@@ -86,9 +91,16 @@ function StoryDetailsPage() {
                 });
             console.log('Comment created:', data);
         } catch (error) {
-            console.error('Error creating comment:', error);
+            if (error.response) {
+                console.error('Error creating comment:', error.response.data);
+                console.error('Status:', error.response.status);
+            } else {
+                console.error('Network error:', error.message);
+            }
         }
     }
+
+
 
 
     return (
@@ -120,15 +132,18 @@ function StoryDetailsPage() {
                                                 content={comment.content}
                                                 commentCreated={comment.created}
                                                 commentOwner={comment.username}
+                                                commentId={comment.id}
+                                                currentUsername={currentUsername}
+                                                storyId={story.id}
                                             />
                                         </div>
                                     ))) : (
                                     <h4 className="no-comments">Be the first to leave a comment!</h4>
                                 )}
                             </div>
-                            {/*<AuthenticateCheck comment={true}>*/}
-                            <CommentForm onSubmit={handleSubmitComment} isEditing={false}/>
-                            {/*</AuthenticateCheck>*/}
+                            <CommentForm
+                                onSubmit={handleSubmitComment}
+                                isEditing={false}/>
                         </div>
                     </div>
                     <AsideMenu/>

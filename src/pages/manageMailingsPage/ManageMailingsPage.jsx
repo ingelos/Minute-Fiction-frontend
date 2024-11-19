@@ -1,33 +1,46 @@
-import {Link, useParams} from "react-router-dom";
+import "./ManageMailingsPage.css";
+import {Link} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import Button from "../../components/button/Button.jsx";
+import Confirmation from "../../components/confirmation/Confirmation.jsx";
+import {formatDate} from "../../helpers/dateFormatter.js";
 
 
 function ManageThemes() {
     const [mailings, setMailings] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-    const {mailingId} = useParams();
+    const [mailingToDelete, setMailingToDelete] = useState(null);
+    const [isModalOpen, setModalOpen] = useState(false);
+    // const [deleteSuccess, setDeleteSuccess] = useState(false);
+
+    // const {mailingId} = useParams();
 
     useEffect(() => {
         const controller = new AbortController();
         const {signal} = controller;
 
         async function fetchAllMailings() {
+            const token = localStorage.getItem('token');
             setError(false);
+            setLoading(true);
 
             try {
-                setLoading(true);
                 const {data} = await axios.get(`http://localhost:8080/mailings`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
                     signal: signal,
                 });
                 console.log(data);
                 setMailings(data);
             } catch (error) {
                 console.error('Error fetching mailings', error)
-                setError(error);
+                setError(true);
             } finally {
                 setLoading(false);
             }
@@ -42,11 +55,27 @@ function ManageThemes() {
 
 
     async function handleDeleteMailing(mailingId) {
+        const token = localStorage.getItem('token');
+
         try {
-            await axios.delete(`http://localhost:8080/mailings/${mailingId}/delete`)
+            await axios.delete(`http://localhost:8080/mailings/${mailingId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            setMailings(mailings.filter((mailing) => mailing.id !== mailingId));
+            setModalOpen(false);
         } catch (error) {
             console.error("Error deleting mailing:", error);
+        } finally {
+            setModalOpen(false);
         }
+    }
+
+    async function openModal(mailing) {
+        setMailingToDelete(mailing);
+        setModalOpen(true);
     }
 
 
@@ -55,33 +84,58 @@ function ManageThemes() {
             <div className='editor-mailings-section inner-content-container'>
                 <div className='main-container'>
                     <EditorCheck>
-                    <div className="featured-section">
-                        <h2 className="mailings-title titles">Manage Mailings</h2>
-                        <p className="link-button-style titles"><Link to="/editor/mailings/new">Create New Mailing</Link></p>
-                        <div className='mailings-container'>
-                            <h3 className="mailing-overview overviews">Previous mailings:</h3>
-                            <ul>
+                        <div className="featured-section">
+                            <h2 className="mailings-title titles">Manage Mailings</h2>
+                            <p className="link-button-style titles"><Link to="/editor/mailings/new">Create New
+                                Mailing</Link></p>
+                            <div className='mailings-container'>
+                                <h3 className="mailing-overview overviews">Mailings:</h3>
                                 {loading && <p>Loading...</p>}
-                                {error && <p>{error.message}</p>}
-                                {mailings.length > 0 && (
-                                    mailings.map((mailing) => (
-                                        <li className="mailings-container" key={mailing.id}>
-                                            <div className="mailings-list">
-                                                <span>{mailing.subject} -- {mailing.date}</span>
-                                                <div className="mailing-edit">
-                                                    <Link to={`/editor/mailings/edit/${mailingId}`}>Edit</Link>
-                                                    <Link to={`/editor/mailings/send/${mailingId}`}>Send</Link>
-                                                    <button onClick={() => handleDeleteMailing(mailingId)}>Delete
-                                                    </button>
+                                <ul>
+                                    {error && <p>{error.message}</p>}
+                                    {mailings.length > 0 &&
+                                        mailings.map((mailing) => (
+                                            <li className="list-edit mailing-specific" key={mailing.id}>
+                                                <div className="editor-container">
+                                                    <p><strong>Id: </strong>{mailing.id}</p>
+                                                    <p><strong>Subject: </strong>{mailing.subject}</p>
+                                                    <p><strong>Body: </strong>{mailing.body}</p>
+                                                    <p><strong>Send on: </strong>
+                                                        {mailing.sendDate ? formatDate(mailing.sendDate) : "Not yet send"}</p>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    )))}
-                            </ul>
+                                                <div className="edit-container">
+                                                    <div className='edit-send-container'>
+                                                        <p className='link-button-style'>
+                                                            <Link to={`/editor/mailings/${mailing.id}/edit`}>Edit</Link>
+                                                        </p>
+                                                        <p className='link-button-style'>
+                                                            <Link to={`/editor/mailings/${mailing.id}/send`}>Send</Link>
+                                                        </p>
+                                                    </div>
+                                                    <Button
+                                                        buttonType="submit"
+                                                        buttonText="Delete"
+                                                        onClick={() => openModal(mailing)}
+                                                    />
+
+                                                </div>
+
+                                                {isModalOpen && mailingToDelete?.id === mailing.id && (
+                                                    <Confirmation
+                                                        isOpen={isModalOpen}
+                                                        onClose={() => setModalOpen(false)}
+                                                        onConfirm={() => handleDeleteMailing(mailingToDelete.id)}
+                                                        title="Confirm Deletion"
+                                                        message="Are you sure you want to delete this Mailing?"
+                                                    />
+                                                )}
+                                            </li>
+                                        ))}
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <AsideEditorMenu/>
-                        </EditorCheck>
+                        <AsideEditorMenu/>
+                    </EditorCheck>
                 </div>
             </div>
         </section>

@@ -3,7 +3,7 @@ function StoryList({ stories }) {
 
     return (
         <ul>
-            {stories.length === 0 && <p>No stories available</p>}
+            {/*{stories.length === 0 && <p>No stories available</p>}*/}
             {stories.map((story) => (
                 <li className="story-container" key={story.id}>
                     <div className="story-list">

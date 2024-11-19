@@ -3,16 +3,16 @@ import axios from "axios";
 import {useForm} from "react-hook-form";
 import {useContext, useState} from "react";
 import Input from "../../components/input/Input.jsx";
-import {useNavigate} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
-import {AuthContext} from "../../context/AuthContext.jsx";
+import AuthContext from "../../context/AuthContext.jsx";
+import {Link} from "react-router-dom";
 
 function AuthenticatePage() {
 
     const {register, handleSubmit, formState: {errors}} = useForm();
-    const {login, user} = useContext(AuthContext);
+    const { login, user } = useContext(AuthContext);
     const [error, setError] = useState(false);
-    const navigate = useNavigate();
+    const [loginSuccess, setLoginSuccess] = useState(null);
 
 
     async function handleLogin(formData) {
@@ -28,7 +28,7 @@ function AuthenticatePage() {
             console.log("received token:", jwt);
             await login(jwt);
 
-            navigate(`/user/${user.username}`)
+            setLoginSuccess(true);
 
         } catch (error) {
             console.error('Error logging in:', error);
@@ -53,38 +53,49 @@ function AuthenticatePage() {
             <div className='authenticate-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
+                        {!loginSuccess ? (
+                            <>
+                            {error && <p>{error.message}</p>}
+                            <h2 className='login-title titles'>Login</h2>
+                            <form className='login-form' onSubmit={handleSubmit(handleLogin)}>
+                        <Input
+                            inputType='text'
+                            inputName='username'
+                            inputId='username-field'
+                            inputLabel='Username:'
+                            validationRules={{
+                                required: 'Username is required'
+                            }}
+                            register={register}
+                            errors={errors}
+                        />
+                        <Input
+                            inputType='password'
+                            inputName='password'
+                            inputId='password-field'
+                            inputLabel='Password:'
+                            validationRules={{
+                                required: 'Password is required',
+                            }
+                            }
+                            register={register}
+                            errors={errors}
+                        />
                         {error && <p>{error.message}</p>}
-                        <h2 className='login-title titles'>Login</h2>
-                        <form className='login-form' onSubmit={handleSubmit(handleLogin)}>
-                            <Input
-                                inputType='text'
-                                inputName='username'
-                                inputId='username-field'
-                                inputLabel='Username:'
-                                validationRules={{
-                                    required: 'Username is required'
-                                }}
-                                register={register}
-                                errors={errors}
-                            />
-                            <Input
-                                inputType='password'
-                                inputName='password'
-                                inputId='password-field'
-                                inputLabel='Password:'
-                                validationRules={{
-                                    required: 'Password is required',
-                                }
-                                }
-                                register={register}
-                                errors={errors}
-                            />
-                            <Button
-                                buttonType='submit'
-                                className='login-button'
-                                buttonText='Login'
-                            />
-                        </form>
+                        <Button
+                            buttonType='submit'
+                            className='login-button'
+                            buttonText='Login'
+                        />
+                    </form>
+                            </>
+                        ) : (
+                            <div>
+                                <h3 className='login-title titles'>Successfully logged in!</h3>
+                                <Link to={`/user/${user.username}`} className='link-button-style'>Go to account</Link>
+                            </div>
+                    )}
+
                     </div>
                     <AsideMenu/>
                 </div>

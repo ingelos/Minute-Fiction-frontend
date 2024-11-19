@@ -13,7 +13,6 @@
 
 .author-info-container {
     flex-basis: 400px;
-    /*border: 2px solid red;*/
 }
 
 .published-title {
@@ -23,16 +22,30 @@
 }
 
 .profile-photo-container {
-    /*border: 2px solid pink;*/
-    flex-basis: 200px;
+    max-width: 225px;
+    flex-grow: 0;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-    padding: 10px;
+}
+
+.photo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-photo {
+    max-width: 200px;
+    margin: 10px 0 10px 10px;
 }
 
 .profile-picture-empty {
     height: 50px;
     width: 50px;
+}
+
+.edit-link {
+    margin-top: 15px;
 }
