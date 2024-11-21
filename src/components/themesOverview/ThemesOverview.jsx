@@ -17,7 +17,7 @@ function ThemesOverview() {
                         </Link>
                     </div>
                 ))) : (
-                    <p>None</p>
+                    <p className="no-themes"></p>
             )}
         </div>
     );

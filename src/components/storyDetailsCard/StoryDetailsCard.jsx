@@ -5,7 +5,7 @@ import {formatDate} from "../../helpers/dateFormatter.js";
 
 
 function StoryDetailsCard({
-                              title,
+                              storyTitle,
                               authorFirstname,
                               authorLastname,
                               storyContent,
@@ -26,7 +26,7 @@ function StoryDetailsCard({
         <div className="story-detail-container">
             <Link to={`/stories/${storyId}`}>
                 <div className="title-author-container">
-                    <h2 className="story-title">{title}</h2>
+                    <h2 className="story-title">{storyTitle}</h2>
                     <FaCircle className="icon"/>
                     <h2 className="story-author-name">By {authorFirstname} {authorLastname}</h2>
                 </div>

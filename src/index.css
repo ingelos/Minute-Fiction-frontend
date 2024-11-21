@@ -63,22 +63,10 @@ li {
 }
 
 .error-message {
-  /*padding: 10px 0;*/
   color: red;
 }
 
 textarea {
   padding: 5px;
 }
-
-
-
-
-/*button:hover {*/
-/*}*/
-
-/*button:focus,*/
-/*button:focus-visible {*/
-/*  outline: 4px auto -webkit-focus-ring-color;*/
-/*}*/
 

@@ -30,7 +30,7 @@ function OpenThemes({showSubmitButton, overview, variant}) {
                             )}
                         </div>
                     ))) : (
-                        <p className="no-themes">None</p>
+                        <p className="no-themes"></p>
             )}
         </div>
     )

@@ -88,6 +88,7 @@ function StoryDetailsPage() {
                     }
                 });
             console.log('Comment created:', data);
+            setComments((prev) => [...prev, data]);
         } catch (error) {
             if (error.response) {
                 console.error('Error creating comment:', error.response.data);
@@ -112,7 +113,8 @@ function StoryDetailsPage() {
                             <div className="story-card">
                                 {Object.keys(story).length > 0 &&
                                     <StoryDetailsCard
-                                        title={story.title}
+                                        storyId={story.id}
+                                        storyTitle={story.title}
                                         storyContent={story.content}
                                         authorFirstname={story.authorFirstname}
                                         authorLastname={story.authorLastname}
@@ -141,7 +143,8 @@ function StoryDetailsPage() {
                             </div>
                             <CommentForm
                                 onSubmit={handleSubmitComment}
-                                isEditing={false}/>
+                                isEditing={false}
+                            />
                         </div>
                     </div>
                     <AsideMenu/>

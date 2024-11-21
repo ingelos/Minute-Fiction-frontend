@@ -26,7 +26,7 @@ function HomePage() {
                                 stories.map((story) => (
                                     <div className="story-container" key={story.id}>
                                         <StoryDetailsCard
-                                            title={story.title}
+                                            storyTitle={story.title}
                                             storyContent={story.content}
                                             authorFirstname={story.authorFirstname}
                                             authorLastname={story.authorLastname}

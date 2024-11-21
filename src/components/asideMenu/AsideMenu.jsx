@@ -33,7 +33,7 @@ function AsideMenu() {
                     <ThemesOverview/>
                 </div>
             </div>
-            <div className="register aside-card">
+            <div className="register-nav aside-card">
                 <h3 className="aside-title">Register</h3>
                 <div className="register-menu">
                     <h4>New here?</h4>

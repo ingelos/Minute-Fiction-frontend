@@ -8,6 +8,10 @@ export function formatDate(dateString) {
 }
 
 export function formatDateTime(dateString) {
+    if (!dateString) {
+        return "Unknown date";
+    }
+
     const dateObj = parse(dateString, "yyyy-MM-dd'T'HH:mm:ss", new Date());
     return format(dateObj, "d MMMM, yyyy, HH:mm", {locale: nl});
 }

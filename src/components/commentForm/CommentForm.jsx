@@ -15,7 +15,8 @@ function CommentForm({onSubmit, isEditing, initialData}) {
     }, [isEditing, initialData, reset]);
 
     async function handleSubmitComment(commentData) {
-        onSubmit(commentData);
+        await onSubmit(commentData);
+        reset();
     }
 
 
@@ -25,7 +26,7 @@ function CommentForm({onSubmit, isEditing, initialData}) {
                 inputType='textarea'
                 inputName='content'
                 inputId='comment-field'
-                inputLabel='Your comment:'
+                inputLabel='Add comment:'
                 validationRules={{
                     required: 'Content is required'
                 }}

@@ -78,14 +78,9 @@ export function AuthContextProvider({children}) {
         const token = localStorage.getItem('token');
         console.log("Token retrieved:", token);
 
-        // if (!token) {
-        //     console.error("Token is undefined or null.");
-        // }
-
         if (token && isTokenValid(token)) {
             void login(token);
         } else {
-            // console.log("no valid token found. Setting default auth state..")
             setAuth({
                 isAuth: false,
                 user: null,

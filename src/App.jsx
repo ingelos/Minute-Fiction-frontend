@@ -90,7 +90,7 @@ function App() {
                     <Route path="/submit" element={<SubmitPage/>}/>
                     <Route path="/submit/:themeId" element={<SubmitToThemePage/>}/>
                     <Route path="/stories/:storyId" element={<StoryDetailsPage/>}/>
-                    <Route path="/comments/:commentId/edit" element={<EditCommentPage/>}/>
+                    <Route path="/stories/:storyId/comments/:commentId/edit" element={<EditCommentPage/>}/>
 
                     <Route path="/about" element={<AboutPage/>}/>
                     <Route path="*" element={<NotFound/>}/>
