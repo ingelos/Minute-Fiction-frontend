@@ -2,7 +2,7 @@ import "./EditMailingPage.css";
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 import MailingForm from "../../components/mailingForm/MailingForm.jsx";
 import Confirmation from "../../components/confirmation/Confirmation.jsx";

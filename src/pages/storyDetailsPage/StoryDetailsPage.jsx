@@ -118,6 +118,7 @@ function StoryDetailsPage() {
                                         storyContent={story.content}
                                         authorFirstname={story.authorFirstname}
                                         authorLastname={story.authorLastname}
+                                        username={story.username}
                                         themeName={story.themeName}
                                         publishDate={story.publishDate}
                                         preview={false}

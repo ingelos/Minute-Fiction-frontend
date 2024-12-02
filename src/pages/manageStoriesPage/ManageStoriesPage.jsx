@@ -1,74 +1,30 @@
 import "./ManageStoriesPage.css";
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {useState} from "react";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 import {Link} from "react-router-dom";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
+import useThemes from "../../hooks/useThemes/UseThemes.jsx";
+import useFetchStories from "../../hooks/useFetchStories/UseFetchStories.jsx";
 import Button from "../../components/button/Button.jsx";
 
 
 function ManageStoriesPage() {
-    const [stories, setStories] = useState([]);
-    const [themes, setThemes] = useState([]);
     const [filter, setFilter] = useState({status: '', theme: ''});
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
-
-
-    useEffect(() => {
-        const controller = new AbortController();
-        const {signal} = controller;
-
-        async function fetchThemes() {
-            setLoading(true);
-            try {
-                const {data} = await axios.get(`http://localhost:8080/themes`, {signal});
-                setThemes(data);
-            } catch (error) {
-                if (!axios.isCancel(error)) {
-                    console.error('Error fetching themes:', error);
-                    setError(true);
-                }
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchThemes();
-
-        return () => controller.abort();
-    }, []);
-
+    const [searchClicked, setSearchClicked] = useState(false);
+    const { themes } = useThemes();
+    const { stories, loading, error, fetchStories} = useFetchStories({
+        status: filter.status,
+        themeId: filter.themeId,
+    })
 
     async function handleFilterChange(field, value) {
         setFilter((prev) => ({...prev, [field]: value}));
     }
 
-
-    async function fetchFilteredStories() {
-        setLoading(true);
-        const token = localStorage.getItem('token');
-
-        try {
-            const {data} = await axios.get(`http://localhost:8080/stories/editor/overview`, {
-                params: {
-                    status: filter.status || undefined,
-                    themeId: filter.themeId || undefined,
-                },
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                }
-            });
-            setStories(data);
-        } catch (error) {
-            console.error(`Error fetching stories:`, error);
-            setError(true);
-        } finally {
-            setLoading(false);
-        }
+    async function handleSearch() {
+        setSearchClicked(true);
+        fetchStories();
     }
-
 
     return (
         <section className='editor-stories-section outer-content-container'>
@@ -103,7 +59,7 @@ function ManageStoriesPage() {
                                     </div>
                                     <Button
                                         buttonType="button"
-                                        onClick={fetchFilteredStories}
+                                        onClick={handleSearch}
                                         className="button"
                                         buttonText="Search">
                                     </Button>
@@ -113,11 +69,11 @@ function ManageStoriesPage() {
                             </div>
                             <div className="relevant-stories-container">
                                 <div className="relevant-stories-list">
-                                    {stories.length > 0 && (
-                                        <>
-                                            {loading && <p>Loading...</p>}
-                                            <h3>Relevant Stories:</h3>
-                                            {stories.map((story) => (
+                                    {loading && <p>Loading...</p>}
+                                    <h3>Relevant Stories</h3>
+                                    {searchClicked && (
+                                        stories.length > 0 ? (
+                                            stories.map((story) => (
                                                 <div key={story.id}>
                                                     <div className="stories-info">
                                                         <div>
@@ -127,13 +83,14 @@ function ManageStoriesPage() {
                                                             <p>Status: {story.status}</p>
                                                         </div>
                                                         <div>
-                                                            <Link to={`/editor/stories/${story.id}/edit`} className="button">View/ Edit</Link>
+                                                            <Link to={`/editor/stories/${story.id}/edit`}
+                                                                  className="button">View/ Edit</Link>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            ))}
-                                        </>
-                                    )}
+                                            ))) : (
+                                            <p className="no-stories-container">No stories with the selected status</p>
+                                        ))}
                                 </div>
                             </div>
                         </div>

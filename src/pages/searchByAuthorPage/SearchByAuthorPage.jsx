@@ -4,7 +4,7 @@ import Button from "../../components/button/Button.jsx";
 import {Link} from "react-router-dom";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 import axios from "axios";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 
 function SearchByAuthorPage() {
 

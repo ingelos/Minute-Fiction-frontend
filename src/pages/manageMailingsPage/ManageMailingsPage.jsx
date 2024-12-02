@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import Button from "../../components/button/Button.jsx";
 import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import {formatDate} from "../../helpers/dateFormatter.js";

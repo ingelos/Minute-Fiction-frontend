@@ -21,7 +21,7 @@ function UseThemes() {
                         signal: signal,
                     });
                console.log(data);
-                setThemes(data);
+               setThemes(data);
             } catch (error) {
                 console.error("Error fetching themes", error)
                 setError(true);

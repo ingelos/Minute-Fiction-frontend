@@ -3,7 +3,7 @@ import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import axios from "axios";
 import RegisterForm from "../../components/registerForm/RegisterForm.jsx";
 import {Link} from "react-router-dom";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import {useState} from "react";
 import {FaLongArrowAltRight} from "react-icons/fa";
 
@@ -45,10 +45,11 @@ function RegisterPage() {
                         {!registerSuccess ? (
                             <div>
                                 <h2 className='register-title titles'>Create account</h2>
-                                <p>Subscribe to the Minute Fiction newsletter by creating an account.</p>
-                                <p>With an account you can leave comments and submit your own stories by creating an
-                                    author profile!</p>
-
+                                <ul>Create an account on Minute Fiction to:
+                                    <li id="account-list">receive the monthly mailing</li>
+                                    <li id="account-list">leave comments on stories</li>
+                                    <li id="account-list">create an author profile and submit your own stories</li>
+                                </ul>
                                 <RegisterForm onSubmit={handleRegistration}/>
                                 {error && <p className="error-message">{error}</p>}
                             </div>

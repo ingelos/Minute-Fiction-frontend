@@ -51,17 +51,18 @@ function ThemePage() {
                 <div className="main-container">
                     <article className="featured-section">
                         <h2 className="themes-title titles">{themeName} stories</h2>
-                        <div className="stories-container">
+                        <div className="theme-stories-container">
                             {error && <p>{error.message}</p>}
                             {loading && <p>Loading...</p>}
                             {stories.length > 0 && (
                                 stories.map((story) => (
                                     <div className="story-container" key={story.id}>
                                         <StoryDetailsCard
-                                            title={story.title}
+                                            storyTitle={story.title}
                                             storyContent={story.content}
                                             authorFirstname={story.authorFirstname}
                                             authorLastname={story.authorLastname}
+                                            username={story.username}
                                             themeName={story.themeName}
                                             publishDate={story.publishDate}
                                             storyId={story.id}

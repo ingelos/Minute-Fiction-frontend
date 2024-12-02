@@ -5,9 +5,9 @@ import axios from "axios";
 import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import {useState} from "react";
 import Button from "../../components/button/Button.jsx";
-import UseUsers from "../../components/useUsers/UseUsers.jsx";
+import UseUsers from "../../hooks/useUsers/UseUsers.jsx";
 // import useAuthors from "../../components/useAuthors/UseAuthors.jsx";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 
 function ManageUsersPage() {
     const [deleteSuccess, setDeleteSuccess] = useState(false);

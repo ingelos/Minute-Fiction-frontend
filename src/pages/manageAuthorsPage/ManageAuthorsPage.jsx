@@ -1,8 +1,8 @@
 import "./ManageAuthorsPage.css";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import {Link} from "react-router-dom";
-import useAuthors from "../../components/useAuthors/UseAuthors.jsx";
+import useAuthors from "../../hooks/useAuthors/UseAuthors.jsx";
 
 
 function ManageAuthorsPage() {

@@ -8,12 +8,14 @@ function StoryDetailsCard({
                               storyTitle,
                               authorFirstname,
                               authorLastname,
+                              username,
                               storyContent,
                               themeName,
                               publishDate,
                               storyId,
                               preview = false,
                           }) {
+
 
     const formattedDate = publishDate ? formatDate(publishDate) : 'Date not available';
 
@@ -24,13 +26,15 @@ function StoryDetailsCard({
 
     return (
         <div className="story-detail-container">
-            <Link to={`/stories/${storyId}`}>
-                <div className="title-author-container">
+            <div className="title-author-container">
+                <Link to={`/stories/${storyId}`}>
                     <h2 className="story-title">{storyTitle}</h2>
-                    <FaCircle className="icon"/>
+                </Link>
+                <FaCircle className="icon"/>
+                <Link to={`/authors/${username}`}>
                     <h2 className="story-author-name">By {authorFirstname} {authorLastname}</h2>
-                </div>
-            </Link>
+                </Link>
+            </div>
             <p className="publish-date">{formattedDate} / Minute Fiction</p>
             <p className="story-content">{preview ? truncateContent(storyContent) : storyContent}</p>
             {preview &&

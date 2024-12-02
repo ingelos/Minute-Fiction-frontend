@@ -9,7 +9,7 @@ function AboutPage() {
                     <div className="featured-section">
                         <div className="about-section-container">
                             <div>
-                                <h2>Minute Fiction</h2>
+                                <h2 className="about-title titles">Minute Fiction</h2>
                                 <h3>Origin of the name:</h3>
                                 <div className="about-container">
                                     <h4>Minute</h4>
@@ -24,6 +24,11 @@ function AboutPage() {
                                     <h4>Fiction</h4>
                                     <p><strong>noun.</strong></p>
                                     <p>a literary work based on the imagination </p>
+                                </div>
+                                <div className="about-container">
+                                    <h4>Questions?</h4>
+                                    <p>Questions, remarks or want to apply as an editor of Minute Fiction?</p>
+                                    <p>Contect us at <strong>editor@minutefiction.com</strong></p>
                                 </div>
                             </div>
                         </div>

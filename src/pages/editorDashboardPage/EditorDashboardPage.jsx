@@ -1,7 +1,7 @@
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 import {Link} from "react-router-dom";
 import "./EditorDashboardPage.css";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 
 function EditorDashboardPage() {
 

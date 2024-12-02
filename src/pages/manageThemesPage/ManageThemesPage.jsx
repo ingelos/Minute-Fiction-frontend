@@ -1,11 +1,11 @@
 import "./ManageThemesPage.css"
-import useThemes from "../../components/useThemes/UseThemes.jsx";
+import useThemes from "../../hooks/useThemes/UseThemes.jsx";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import {useState} from "react";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 
 
 function ManageThemesPage() {

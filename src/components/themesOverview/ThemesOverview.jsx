@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import useClosedThemes from "../useClosedThemes/UseClosedThemes.jsx";
+import useClosedThemes from "../../hooks/useClosedThemes/UseClosedThemes.jsx";
 
 function ThemesOverview() {
     const {closedThemes, loading, error} = useClosedThemes();

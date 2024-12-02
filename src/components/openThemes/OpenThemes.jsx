@@ -1,7 +1,7 @@
 import "./OpenThemes.css";
 import ThemeCard from "../themeCard/ThemeCard.jsx";
 import {Link} from "react-router-dom";
-import UseOpenThemes from "../useOpenThemes/UseOpenThemes.jsx";
+import UseOpenThemes from "../../hooks/useOpenThemes/UseOpenThemes.jsx";
 
 
 function OpenThemes({showSubmitButton, overview, variant}) {

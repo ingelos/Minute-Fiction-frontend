@@ -5,7 +5,7 @@ import axios from "axios";
 import Input from "../../components/input/Input.jsx";
 import {Link} from "react-router-dom";
 import {FaLongArrowAltRight} from "react-icons/fa";
-import OwnerCheck from "../../components/ownerCheck/OwnerCheck.jsx";
+import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
 import AuthContext from "../../context/AuthContext.jsx";
 
 function EditEmailPage() {

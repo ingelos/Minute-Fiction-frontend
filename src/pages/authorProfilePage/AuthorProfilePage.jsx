@@ -1,18 +1,17 @@
 import "./AuthorProfilePage.css";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
-import useAuthorProfile from "../../components/useAuthorProfile/UseAuthorProfile.jsx";
+import useAuthorProfile from "../../hooks/useAuthorProfile/UseAuthorProfile.jsx";
 import AuthorProfileCard from "../../components/authorProfileCard/AuthorProfileCard.jsx";
 import {Link, useParams} from "react-router-dom";
-import UserIcon from "../../assets/icons/user-circle.svg";
 import StoryDetailsCard from "../../components/storyDetailsCard/StoryDetailsCard.jsx";
-import useAuthorPublishedStories from "../../components/useAuthorPublishedStories/UseAuthorPublishedStories.jsx";
+import useAuthorPublishedStories from "../../hooks/useAuthorPublishedStories/UseAuthorPublishedStories.jsx";
 import {useState} from "react";
 import axios from "axios";
-import OwnerCheck from "../../components/ownerCheck/OwnerCheck.jsx";
+import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
+
 
 function AuthorProfilePage() {
     const {username} = useParams();
-    // const {user} = useContext(AuthContext);
     const {authorProfile, profilePhoto, loading: profileLoading, error: profileError} = useAuthorProfile(username);
     const {stories, loading: storiesLoading, error: storiesError} = useAuthorPublishedStories(username);
     const [error, setError] = useState(null);
@@ -22,7 +21,6 @@ function AuthorProfilePage() {
 
     async function getUnpublishedStories() {
         const token = localStorage.getItem('token');
-
         try {
             const {data} = await axios.get(`http://localhost:8080/authorprofiles/${username}/unpublished`, {
                 headers: {
@@ -88,9 +86,9 @@ function AuthorProfilePage() {
                                     </div>
                                 ) : (
                                     <div className="photo-container">
-                                        <img src={UserIcon}
-                                             alt='no profile photo'
-                                             className='profile-picture-empty'/>
+                                        {/*<img src={UserIcon}*/}
+                                        {/*     alt='no profile photo'*/}
+                                        {/*     className='profile-picture-empty'/>*/}
                                         <OwnerCheck username={username}>
                                             <Link to={`/authors/${username}/photo`}>Add Photo</Link>
                                             <Link to={`/authors/${username}/edit`}>Edit Profile</Link>
@@ -106,10 +104,11 @@ function AuthorProfilePage() {
                                 stories.map((story) => (
                                     <div className="story-container" key={story.id}>
                                         <StoryDetailsCard
-                                            title={story.title}
+                                            storyTitle={story.title}
                                             storyContent={story.content}
                                             authorFirstname={story.authorFirstname}
                                             authorLastname={story.authorLastname}
+                                            username={story.username}
                                             themeName={story.themeName}
                                             publishDate={story.publishDate}
                                             storyId={story.id}

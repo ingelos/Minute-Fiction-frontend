@@ -4,7 +4,7 @@ import {useContext, useEffect, useState} from "react";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import axios from "axios";
 import Button from "../../components/button/Button.jsx";
-import OwnerCheck from "../../components/ownerCheck/OwnerCheck.jsx";
+import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
 import AuthContext from "../../context/AuthContext.jsx";
 
 

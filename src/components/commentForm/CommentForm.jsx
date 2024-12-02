@@ -2,7 +2,7 @@ import {useForm} from "react-hook-form";
 import {useEffect} from "react";
 import Input from "../input/Input.jsx";
 import Button from "../button/Button.jsx";
-import AuthenticateCheck from "../authenticateCheck/AuthenticateCheck.jsx";
+import AuthenticateCheck from "../../helpers/authenticateCheck/AuthenticateCheck.jsx";
 
 
 function CommentForm({onSubmit, isEditing, initialData}) {

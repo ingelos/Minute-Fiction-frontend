@@ -2,7 +2,7 @@ import './AsideMenu.css'
 import {Link} from "react-router-dom";
 import ThemesOverview from "../themesOverview/ThemesOverview.jsx";
 import OpenThemes from "../openThemes/OpenThemes.jsx";
-import useRecentStories from "../useRecentStories/UseRecentStories.jsx";
+import useRecentStories from "../../hooks/useRecentStories/UseRecentStories.jsx";
 
 
 function AsideMenu() {

@@ -4,7 +4,7 @@ import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import {useContext, useState} from "react";
 import {Link} from "react-router-dom";
 import AuthContext from "../../context/AuthContext.jsx";
-import OwnerCheck from "../../components/ownerCheck/OwnerCheck.jsx";
+import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
 import {FaLongArrowAltRight} from "react-icons/fa";
 
 

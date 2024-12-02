@@ -2,7 +2,7 @@ import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import ThemeForm from "../../components/themeForm/ThemeForm.jsx";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import {FaLongArrowAltRight} from "react-icons/fa";

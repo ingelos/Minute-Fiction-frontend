@@ -7,7 +7,6 @@ function UseAuthorProfile(username) {
     const [profilePhoto, setProfilePhoto] = useState(null);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-    // const {username} = useParams();
 
     useEffect(() => {
         const controller = new AbortController();
@@ -34,7 +33,8 @@ function UseAuthorProfile(username) {
                         console.log("No profile photo found");
                         setProfilePhoto(null);
                     } else {
-                        throw photoError;
+                        console.log("Error fetching photo")
+                        // throw photoError;
                     }
                 }
 

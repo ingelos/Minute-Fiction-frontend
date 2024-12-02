@@ -1,38 +1,21 @@
 import "./ReviewStoriesPage.css";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
+import useThemes from "../../hooks/useThemes/UseThemes.jsx";
+import useFetchStories from "../../hooks/useFetchStories/UseFetchStories.jsx";
+import Button from "../../components/button/Button.jsx";
 
 
 function ReviewStoriesPage() {
-    const [themes, setThemes] = useState([]);
     const [selectedTheme, setSelectedTheme] = useState('');
-    const [stories, setStories] = useState([]);
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        const controller = new AbortController();
-        const {signal} = controller;
-
-        async function fetchThemes() {
-            try {
-                const {data} = await axios.get(`http://localhost:8080/themes`, {signal});
-                setThemes(data);
-            } catch (error) {
-                console.error('Error fetching themesPage:', error);
-                setError(true);
-            }
-        }
-
-        fetchThemes();
-
-        return function cleanup() {
-            controller.abort();
-        }
-
-    }, []);
+    const [searchClicked, setSearchClicked] = useState(false);
+    const { themes} = useThemes();
+    const { stories, loading, error, setStories, fetchStories} = useFetchStories({
+        status: 'SUBMITTED',
+        themeId: selectedTheme,
+    })
 
 
     async function handleThemeChange(event) {
@@ -40,51 +23,10 @@ function ReviewStoriesPage() {
         setSelectedTheme(themeId);
     }
 
-
-    useEffect(() => {
-        const controller = new AbortController();
-        const {signal} = controller;
-
-        if (!selectedTheme) return;
-
-        async function fetchSubmittedStoriesByTheme(themeId) {
-            const token = localStorage.getItem('token');
-            setLoading(true);
-            setStories([]);
-
-            try {
-                const {data} = await axios.get(`http://localhost:8080/stories/editor/overview`, {
-                    params: {
-                        status: 'SUBMITTED',
-                        themeId
-                    },
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    signal
-                });
-                setStories(data);
-            } catch (error) {
-                if (axios.isCancel(error)) {
-                    console.log('Request cancelled');
-                } else {
-                    console.error('Error fetching submitted stories:', error);
-                    setError(true);
-                }
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchSubmittedStoriesByTheme(selectedTheme);
-
-        return function cleanup() {
-            controller.abort();
-        };
-    }, [selectedTheme]);
-
-
+    async function handleSearch() {
+        setSearchClicked(true);
+        fetchStories();
+    }
 
 
     async function handleAcceptStory(storyId) {
@@ -110,7 +52,7 @@ function ReviewStoriesPage() {
         const token = localStorage.getItem('token');
 
         try {
-            const {data} = await axios.patch(`http://localhost:8080/stories/editors/${storyId}/decline`,
+            const {data} = await axios.patch(`http://localhost:8080/stories/editor/${storyId}/decline`,
                 {},
                 {
                 headers: {
@@ -145,17 +87,19 @@ function ReviewStoriesPage() {
                                             </option>
                                         ))}
                                     </select>
-                                    {/*<Button onClick={fetchSubmittedStoriesByTheme}*/}
-                                    {/*        buttonType="button"*/}
-                                    {/*        buttonText="Show Stories"*/}
-                                    {/*        className="show-button"/>*/}
+                                    <Button
+                                        buttonType="button"
+                                        onClick={handleSearch}
+                                        className="search-button"
+                                        buttonText="Search">
+                                    </Button>
                                 </div>
                                 <br></br>
                                 {loading && <p>Loading stories...</p>}
                                 {error && <p>{error.message}</p>}
 
                                 <div className="story-list">
-                                    {selectedTheme && (
+                                    {searchClicked && selectedTheme && (
                                         stories.length > 0 ? (
                                             stories.map((story) => (
                                                 <div key={story.id} className="story-actions">
@@ -173,7 +117,7 @@ function ReviewStoriesPage() {
                                                 </div>
                                             ))
                                         ) : (
-                                            <p>No Submitted stories available for the selected theme.</p>
+                                            <p>No stories with status SUBMITTED</p>
                                         ))}
                                 </div>
                             </div>

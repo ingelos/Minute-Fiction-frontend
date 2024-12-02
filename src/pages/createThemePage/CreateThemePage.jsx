@@ -4,7 +4,7 @@ import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.js
 import {useContext, useState} from "react";
 import {AuthContextProvider} from "../../context/AuthContextProvider.jsx";
 import {Link} from "react-router-dom";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 
 
 function CreateThemePage() {

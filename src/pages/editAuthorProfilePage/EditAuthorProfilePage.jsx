@@ -3,8 +3,8 @@ import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import AuthorProfileForm from "../../components/authorProfileForm/AuthorProfileForm.jsx";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
-import useAuthorProfile from "../../components/useAuthorProfile/UseAuthorProfile.jsx";
-import OwnerCheck from "../../components/ownerCheck/OwnerCheck.jsx";
+import useAuthorProfile from "../../hooks/useAuthorProfile/UseAuthorProfile.jsx";
+import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
 import {FaLongArrowAltRight} from "react-icons/fa";
 
 

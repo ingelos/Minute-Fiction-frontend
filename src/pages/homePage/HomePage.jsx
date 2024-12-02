@@ -1,7 +1,7 @@
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {useState} from "react";
 import StoryDetailsCard from "../../components/storyDetailsCard/StoryDetailsCard.jsx";
-import useRecentStories from "../../components/useRecentStories/UseRecentStories.jsx";
+import useRecentStories from "../../hooks/useRecentStories/UseRecentStories.jsx";
 
 function HomePage() {
     const [page, setPage] = useState(0);
@@ -30,6 +30,7 @@ function HomePage() {
                                             storyContent={story.content}
                                             authorFirstname={story.authorFirstname}
                                             authorLastname={story.authorLastname}
+                                            username={story.username}
                                             themeName={story.themeName}
                                             publishDate={story.publishDate}
                                             storyId={story.id}

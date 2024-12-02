@@ -3,7 +3,7 @@ import axios from "axios";
 import MailingForm from "../../components/mailingForm/MailingForm.jsx";
 import {useState} from "react";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import {FaLongArrowAltRight} from "react-icons/fa";
 
 

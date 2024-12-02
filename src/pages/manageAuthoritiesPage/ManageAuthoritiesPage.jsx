@@ -2,7 +2,7 @@ import "./ManageAuthoritiesPage.css";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import Button from "../../components/button/Button.jsx";
 import {useParams} from "react-router-dom";
 // import {useParams} from "react-router-dom";

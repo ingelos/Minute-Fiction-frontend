@@ -2,7 +2,7 @@ import {Link, useParams} from "react-router-dom";
 import StoryForm from "../../components/storyForm/StoryForm.jsx";
 import {useContext, useState} from "react";
 import axios from "axios";
-import AuthorCheck from "../../components/authorCheck/AuthorCheck.jsx";
+import AuthorCheck from "../../helpers/authorCheck/AuthorCheck.jsx";
 import AuthContext from "../../context/AuthContext.jsx";
 import {FaLongArrowAltRight} from "react-icons/fa";
 
@@ -15,8 +15,6 @@ function SubmitToThemePage() {
 
     async function handleSubmitStory(storyData) {
         const token = localStorage.getItem('token');
-        console.log(storyData);
-        console.log(user.username);
 
         try {
             const {data} = await axios.post(`http://localhost:8080/stories/submit/${themeId}`,

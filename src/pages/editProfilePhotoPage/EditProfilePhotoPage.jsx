@@ -1,8 +1,8 @@
 import "./EditProfilePhotoPage.css";
 import {useContext, useState} from "react";
 import axios from "axios";
-import AuthenticateCheck from "../../components/authenticateCheck/AuthenticateCheck.jsx";
-import useAuthorProfile from "../../components/useAuthorProfile/UseAuthorProfile.jsx";
+import AuthenticateCheck from "../../helpers/authenticateCheck/AuthenticateCheck.jsx";
+import useAuthorProfile from "../../hooks/useAuthorProfile/UseAuthorProfile.jsx";
 import AuthContext from "../../context/AuthContext.jsx";
 import {FaLongArrowAltRight} from "react-icons/fa";
 import {Link} from "react-router-dom";

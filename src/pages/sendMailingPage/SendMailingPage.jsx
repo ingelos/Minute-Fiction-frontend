@@ -3,7 +3,7 @@ import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import Button from "../../components/button/Button.jsx";
 import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import {FaLongArrowAltRight} from "react-icons/fa";

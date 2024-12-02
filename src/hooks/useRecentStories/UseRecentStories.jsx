@@ -15,7 +15,7 @@ export function UseRecentStories({ limit, offset = 0}) {
 
             try {
                 const {data} = await axios.get(`http://localhost:8080/stories/published`, {
-                    params: { limit, offset},
+                    params: { limit, offset },
                     signal: controller.signal,
                 });
                 setStories(data);

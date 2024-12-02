@@ -1,124 +1,127 @@
-import {useEffect, useState} from "react";
+import "./PublishStoriesPage.css";
+import {useState} from "react";
 import axios from "axios";
-// import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
-import StoryList from "../../components/storyList/StoryList.jsx";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
+import useThemes from "../../hooks/useThemes/UseThemes.jsx";
+import useFetchStories from "../../hooks/useFetchStories/UseFetchStories.jsx";
+import Button from "../../components/button/Button.jsx";
+
 
 function PublishStoriesPage() {
-    const [acceptedStories, setAcceptedStories] = useState([]);
-    const [themes, setThemes] = useState([]);
     const [selectedTheme, setSelectedTheme] = useState('')
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        const controller = new AbortController();
-        const {signal} = controller;
-
-        async function fetchThemes() {
-            try {
-                const {data} = await axios.get(`http://localhost:8080/themes`, {signal});
-                setThemes(data);
-            } catch (error) {
-                console.error('Error fetching themes:', error);
-                setError(true);
-            }
-        }
-
-        fetchThemes();
-
-        return function cleanup() {
-            controller.abort();
-        }
-
-    }, []);
-
-    useEffect(() => {
-        if (!selectedTheme) return;
-
-        async function fetchAcceptedStories() {
-            try {
-                setLoading(true);
-                const {data} = await axios.get(`http://localhost:8080/stories/editor/${selectedTheme}/accepted`)
-                console.log(data);
-                setAcceptedStories(data);
-            } catch (error) {
-                console.error('Error fetching accepted stories', error);
-                setError(true);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchAcceptedStories();
-    }, [selectedTheme]);
+    const [searchClicked, setSearchClicked] = useState(false);
+    const {themes} = useThemes();
+    const {stories, loading, error, setStories, fetchStories} = useFetchStories({
+        status: 'ACCEPTED',
+        themeId: selectedTheme
+    })
+    const token = localStorage.getItem('token');
 
 
-    async function handleBulkPublishByTheme(themeId) {
-        if (!selectedTheme) return;
+    async function handleThemeChange(event) {
+        const themeId = Number(event.target.value)
+        setSelectedTheme(themeId);
+    }
 
-        try {
-            const {data} = await axios.patch(`http://localhost:8080/stories/themes/${themeId}/publish`)
-            console.log('Bulk publish result: ', data);
-        } catch (error) {
-            console.error('Error publishing stories for this theme', error);
-        }
+    async function handleSearch() {
+        setSearchClicked(true);
+        fetchStories();
     }
 
     async function handlePublishByStory(storyId) {
         try {
-            const {data} = await axios.patch(`http://localhost:8080/stories/${storyId}/publish`)
-            console.log('Story published: ', data);
+            const {data} = await axios.patch(`http://localhost:8080/stories/editor/${storyId}/publish`, {},
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+            console.log('Story published', data);
+            setStories((prevStories) => prevStories.filter(story => story.id !== storyId));
+
         } catch (error) {
             console.error('Error publishing story', error);
         }
     }
 
+    async function handleBulkPublishByTheme(themeId, themeName) {
+        if (!themeId || !themeName) return;
+        try {
+            const {data} = await axios.patch(`http://localhost:8080/stories/editor/themes/${themeId}/publish`, {}, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            console.log('Bulk publishing successful', data);
+            setStories((prevStories) => prevStories.filter(story => story.themeName !== themeName));
+
+        } catch (error) {
+            console.error('Error publishing stories for this theme', error);
+        }
+    }
 
     return (
         <section className='editor-stories-section outer-content-container'>
             <div className='editor-stories-section inner-content-container'>
                 <div className='main-container'>
                     <div className="featured-section">
-                        <h2 className="publish-title titles">Publish Accepted Stories</h2>
-                        <div className='accepted-stories-container'>
-                            {/*<EditorCheck>*/}
-                            <div className="theme-selection">
-                                <label htmlFor="themeSelect">Select a Theme:</label>
-                                <select id="themeSelect" onChange={(e) => setSelectedTheme(e.target.value)}>
-                                    <option value="">Select theme</option>
-                                    {themes.map((theme) => (
-                                        <option key={theme.id} value={theme.id}>
-                                            {theme.name} ({theme.id})
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            {error && <p>{error.message}</p>}
-                            {loading && <p>Loading stories...</p>}
-                            {acceptedStories.length > 0 ? (
-                                    acceptedStories.map((story) => (
-                                        <div key={story.id} className="story-actions">
-                                            <p>{story.title}</p>
-                                            <button onClick={() => handlePublishByStory(story.id)}>
-                                                Publish Story
-                                            </button>
-                                        </div>
-                                    ))
-                            ) : (
-                                <div className="no-stories-message">
-                                    <br></br>
-                                    <p>No Accepted stories available for this theme. Please review stories first.</p>
+                        <EditorCheck>
+                            <h2 className="publish-title titles">Publish Accepted Stories</h2>
+                            <div className='accepted-stories-container'>
+                                <div className="theme-selection">
+                                    <label htmlFor="themeSelect">Select a Theme:</label>
+                                    <select id="themeSelect" onChange={handleThemeChange}>
+                                        <option value="">Select theme</option>
+                                        {themes.map((theme) => (
+                                            <option key={theme.id} value={theme.id}>
+                                                {theme.name} ({theme.id})
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <Button
+                                        buttonType="button"
+                                        onClick={handleSearch}
+                                        className="search-button"
+                                        buttonText="Search">
+                                    </Button>
                                 </div>
-                            )}
-                            <br></br>
-                            <h4>Bulk Publish Stories for Selected Theme:</h4>
-                            <button onClick={handleBulkPublishByTheme} disabled={!selectedTheme}>
-                                Bulk Publish
-                            </button>
-                            {/*</EditorCheck>*/}
-                        </div>
+
+                                {error && <p>{error.message}</p>}
+                                {loading && <p>Loading stories...</p>}
+                                {searchClicked && (
+                                    stories.length > 0 ? (
+                                        stories.map((story) => (
+                                            <div key={story.id} className="story-actions">
+                                                <div className="story-container">
+                                                    <p>Id: {story.id}</p>
+                                                    <p>Status: {story.status}</p>
+                                                    <p>Title: {story.title}</p>
+                                                    <p>By: {story.username}</p>
+                                                    <p>Content: {story.content}</p>
+                                                </div>
+                                                <button
+                                                    onClick={() => handlePublishByStory(story.id)}>
+                                                    Publish
+                                                </button>
+                                            </div>
+                                        ))) : (
+                                        <p className="no-stories-container">No stories with status ACCEPTED for this
+                                            theme</p>
+                                    ))}
+                                <div className="bulk-publish-container">
+                                    <h4>Bulk Publish Stories for Selected Theme:</h4>
+                                    <button
+                                        onClick={() => handleBulkPublishByTheme(selectedTheme)}
+                                        disabled={!selectedTheme}>
+                                        Bulk Publish
+                                    </button>
+                                </div>
+
+                            </div>
+                        </EditorCheck>
                     </div>
                     <AsideEditorMenu/>
                 </div>

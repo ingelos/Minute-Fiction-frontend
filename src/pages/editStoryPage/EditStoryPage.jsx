@@ -6,7 +6,7 @@ import {Link, useParams} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import Input from "../../components/input/Input.jsx";
 import Confirmation from "../../components/confirmation/Confirmation.jsx";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import {FaLongArrowAltRight} from "react-icons/fa";
 
 function EditStoryPage() {
