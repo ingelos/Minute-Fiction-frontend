@@ -44,7 +44,7 @@ function UseAuthors() {
 
     }, []);
 
-    return {authors, loading, error};
+    return {authors, loading, error, setAuthors};
 }
 
 export default UseAuthors;

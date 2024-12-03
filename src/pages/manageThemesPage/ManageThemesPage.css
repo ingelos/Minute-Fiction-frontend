@@ -4,7 +4,8 @@
 }
 
 .list-edit {
-    border: 1px solid black;
+    border: 1px dotted black;
+    border-radius: 5px;
     margin: 15px 0;
     padding: 10px;
     display: flex;

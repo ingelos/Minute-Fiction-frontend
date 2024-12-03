@@ -80,11 +80,11 @@ function SearchByAuthorPage() {
                                         {authorStories.map((story) => (
                                             <div key={story.id} className="stories-container-author">
                                                 <div className="author-story-container">
-                                                    <p>Status: <strong>{story.status}</strong></p>
-                                                    <p>Username: <strong>{story.username}</strong></p>
-                                                    <p>Title: <strong>{story.title}</strong></p>
-                                                    <p>Theme: <strong>{story.themeName}</strong></p>
-                                                    <p>Content: {story.content}</p>
+                                                    <p><strong>Status:</strong> {story.status}</p>
+                                                    <p><strong>Username:</strong> {story.username}</p>
+                                                    <p><strong>Title:</strong> {story.title}</p>
+                                                    <p><strong>Theme:</strong> {story.themeName}</p>
+                                                    <p><strong>Content:</strong> {story.content}</p>
                                                 </div>
                                                 <Link to={`/editor/stories/${story.id}/edit`} className="button">View/
                                                     Edit</Link>

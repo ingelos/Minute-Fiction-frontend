@@ -10,8 +10,9 @@ import {Link} from "react-router-dom";
 function AuthenticatePage() {
 
     const {register, handleSubmit, formState: {errors}} = useForm();
-    const { login, user } = useContext(AuthContext);
+    const {login, user} = useContext(AuthContext);
     const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
     const [loginSuccess, setLoginSuccess] = useState(null);
 
 
@@ -27,15 +28,13 @@ function AuthenticatePage() {
             const {jwt} = response.data;
             console.log("received token:", jwt);
             await login(jwt);
-
             setLoginSuccess(true);
-
         } catch (error) {
             console.error('Error logging in:', error);
             if (error.response) {
                 if (error.response.status === 401) {
-                    console.error('Authentication failed: Invalid username or password');
-                    setError(true);
+                    console.error('Authentication failed: Invalid username or password', error);
+                    setErrorMessage('Authentication failed: Invalid username or password');
                 } else {
                     console.error('Error:', error.response.data.message);
                 }
@@ -55,46 +54,47 @@ function AuthenticatePage() {
                     <div className="featured-section">
                         {!loginSuccess ? (
                             <>
-                            {error && <p>{error.message}</p>}
-                            <h2 className='login-title titles'>Login</h2>
-                            <form className='login-form' onSubmit={handleSubmit(handleLogin)}>
-                        <Input
-                            inputType='text'
-                            inputName='username'
-                            inputId='username-field'
-                            inputLabel='Username:'
-                            validationRules={{
-                                required: 'Username is required'
-                            }}
-                            register={register}
-                            errors={errors}
-                        />
-                        <Input
-                            inputType='password'
-                            inputName='password'
-                            inputId='password-field'
-                            inputLabel='Password:'
-                            validationRules={{
-                                required: 'Password is required',
-                            }
-                            }
-                            register={register}
-                            errors={errors}
-                        />
-                        {error && <p>{error.message}</p>}
-                        <Button
-                            buttonType='submit'
-                            className='login-button'
-                            buttonText='Login'
-                        />
-                    </form>
+                                {error && <p>{error}</p>}
+                                <h2 className='login-title titles'>Login</h2>
+                                {errorMessage && <p className="error-message">{errorMessage}</p>}
+                                <form className='login-form' onSubmit={handleSubmit(handleLogin)}>
+                                    <Input
+                                        inputType='text'
+                                        inputName='username'
+                                        inputId='username-field'
+                                        inputLabel='Username:'
+                                        validationRules={{
+                                            required: 'Username is required'
+                                        }}
+                                        register={register}
+                                        errors={errors}
+                                    />
+                                    <Input
+                                        inputType='password'
+                                        inputName='password'
+                                        inputId='password-field'
+                                        inputLabel='Password:'
+                                        validationRules={{
+                                            required: 'Password is required',
+                                        }
+                                        }
+                                        register={register}
+                                        errors={errors}
+                                    />
+                                    {error && <p>{error.message}</p>}
+                                    <Button
+                                        buttonType='submit'
+                                        className='login-button'
+                                        buttonText='Login'
+                                    />
+                                </form>
                             </>
                         ) : (
                             <div>
                                 <h3 className='login-title titles'>Successfully logged in!</h3>
                                 <Link to={`/user/${user.username}`} className='link-button-style'>Go to account</Link>
                             </div>
-                    )}
+                        )}
 
                     </div>
                     <AsideMenu/>

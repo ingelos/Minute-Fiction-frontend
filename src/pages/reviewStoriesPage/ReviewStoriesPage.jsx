@@ -102,13 +102,13 @@ function ReviewStoriesPage() {
                                     {searchClicked && selectedTheme && (
                                         stories.length > 0 ? (
                                             stories.map((story) => (
-                                                <div key={story.id} className="story-actions">
+                                                <div key={story.id} className="action-container">
                                                     <div className="story-container">
-                                                        <p>Id: {story.id}</p>
-                                                        <p>Status: {story.status}</p>
-                                                        <p>Title: {story.title}</p>
-                                                        <p>By: {story.username}</p>
-                                                        <p>Content: {story.content}</p>
+                                                        <p><strong>Id:</strong> {story.id}</p>
+                                                        <p><strong>Status:</strong> {story.status}</p>
+                                                        <p><strong>Title:</strong> {story.title}</p>
+                                                        <p><strong>Username:</strong> {story.username}</p>
+                                                        <p><strong>Content:</strong> {story.content}</p>
                                                     </div>
                                                     <div className="button-actions">
                                                         <button onClick={() => handleAcceptStory(story.id)}>Accept</button>

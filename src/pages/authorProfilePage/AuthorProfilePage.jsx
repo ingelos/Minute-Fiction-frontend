@@ -8,6 +8,7 @@ import useAuthorPublishedStories from "../../hooks/useAuthorPublishedStories/Use
 import {useState} from "react";
 import axios from "axios";
 import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
+import Button from "../../components/button/Button.jsx";
 
 
 function AuthorProfilePage() {
@@ -54,7 +55,7 @@ function AuthorProfilePage() {
                                 {profileLoading && <p>Loading...</p>}
                                 {profileError && <p>{profileError.message}</p>}
                                 {authorProfile &&
-                                    <>
+                                    <div className="author-profile-container">
                                         <AuthorProfileCard
                                             username={authorProfile.username}
                                             firstname={authorProfile.firstname}
@@ -69,7 +70,7 @@ function AuthorProfilePage() {
                                             </Link>
                                         </OwnerCheck>
                                         </div>
-                                    </>
+                                    </div>
                                 }
                             </div>
                             <div className="profile-photo-container">
@@ -86,12 +87,8 @@ function AuthorProfilePage() {
                                     </div>
                                 ) : (
                                     <div className="photo-container">
-                                        {/*<img src={UserIcon}*/}
-                                        {/*     alt='no profile photo'*/}
-                                        {/*     className='profile-picture-empty'/>*/}
                                         <OwnerCheck username={username}>
                                             <Link to={`/authors/${username}/photo`}>Add Photo</Link>
-                                            <Link to={`/authors/${username}/edit`}>Edit Profile</Link>
                                         </OwnerCheck>
                                     </div>
                                 )}
@@ -120,9 +117,12 @@ function AuthorProfilePage() {
 
                         <OwnerCheck username={username}>
                             <div>
-                                <button onClick={handleShowUnpublishedStories}>
-                                    {showUnpublishedStories ? 'Hide Unpublished Stories' : 'Show Unpublished Stories'}
-                                </button>
+                                <Button onClick={handleShowUnpublishedStories}
+                                        buttonText={showUnpublishedStories ? 'Hide Unpublished Stories' : 'Show Unpublished Stories'}
+                                        buttonType="button"
+                                        className="show-button"
+                                />
+
                                 <div>
                                     {error && <p>{error.message}</p>}
                                     {showUnpublishedStories && (
@@ -130,15 +130,16 @@ function AuthorProfilePage() {
                                             unpublishedStories.map((story) => (
                                                 <div className="stories-container-author" key={story.id}>
                                                     <div className="author-story-container">
-                                                        <p>Title: {story.title}</p>
-                                                        <p>Content: {story.content}</p>
-                                                        <p>Theme: {story.themeName}</p>
-                                                        <p>Status: {story.status}</p>
+                                                        <p><strong>Current status:</strong> {story.status}</p>
+                                                        <p><strong>Theme:</strong> {story.themeName}</p>
+                                                        <p><strong>Title:</strong> {story.title}</p>
+                                                        <p><strong>Content:</strong> {story.content}</p>
                                                     </div>
                                                 </div>
                                             ))))}
                                 </div>
                             </div>
+                            <Link to={`/authors/${username}/download`} className="link-button-style">Download Stories</Link>
                         </OwnerCheck>
                     </div>
                     <AsideMenu/>

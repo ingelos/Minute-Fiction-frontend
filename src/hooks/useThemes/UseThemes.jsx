@@ -37,7 +37,7 @@ function UseThemes() {
         }
     }, []);
 
-    return { themes, loading, error};
+    return { themes, loading, error, setThemes };
 }
 
 export default UseThemes;

@@ -91,12 +91,12 @@ function ManageThemes() {
                             <div className='mailings-container'>
                                 <h3 className="mailing-overview overviews">Mailings:</h3>
                                 {loading && <p>Loading...</p>}
-                                <ul>
+                                <div>
                                     {error && <p>{error.message}</p>}
                                     {mailings.length > 0 &&
                                         mailings.map((mailing) => (
-                                            <li className="list-edit mailing-specific" key={mailing.id}>
-                                                <div className="editor-container">
+                                            <div key={mailing.id} className="action-container">
+                                                <div className="story-container">
                                                     <p><strong>Id: </strong>{mailing.id}</p>
                                                     <p><strong>Subject: </strong>{mailing.subject}</p>
                                                     <p><strong>Body: </strong>{mailing.body}</p>
@@ -115,11 +115,10 @@ function ManageThemes() {
                                                     <Button
                                                         buttonType="submit"
                                                         buttonText="Delete"
+                                                        className="delete-button"
                                                         onClick={() => openModal(mailing)}
                                                     />
-
                                                 </div>
-
                                                 {isModalOpen && mailingToDelete?.id === mailing.id && (
                                                     <Confirmation
                                                         isOpen={isModalOpen}
@@ -129,9 +128,9 @@ function ManageThemes() {
                                                         message="Are you sure you want to delete this Mailing?"
                                                     />
                                                 )}
-                                            </li>
+                                            </div>
                                         ))}
-                                </ul>
+                                </div>
                             </div>
                         </div>
                         <AsideEditorMenu/>

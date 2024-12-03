@@ -3,11 +3,47 @@ import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.js
 import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import {Link} from "react-router-dom";
 import useAuthors from "../../hooks/useAuthors/UseAuthors.jsx";
+import Button from "../../components/button/Button.jsx";
+import Confirmation from "../../components/confirmation/Confirmation.jsx";
+import {useState} from "react";
+import axios from "axios";
 
 
 function ManageAuthorsPage() {
+    const {authors, setAuthors} = useAuthors();
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [authorToDelete, setAuthorToDelete] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(false);
+    const token = localStorage.getItem('token');
 
-    const {authors} = useAuthors();
+
+    async function handleDeleteAuthorProfile(username) {
+        console.log("deleting user: " + username);
+        try {
+            await axios.delete(`http://localhost:8080/authorprofiles/${username}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            console.log('Author profile deleted.');
+            setErrorMessage(null);
+            setAuthors((prevAuthors) => prevAuthors.filter(author => author.username !== username));
+        } catch (error) {
+            if (error.response) {
+                console.error("Error deleting profile: ", error.response.data);
+                setErrorMessage(error.response.data);
+            } else {
+                console.error('Error deleting this profile', error.message);
+            }
+        } finally {
+            setModalOpen(false);
+        }
+    }
+
+    async function openModal(author) {
+        setAuthorToDelete(author);
+        setModalOpen(true);
+    }
 
     return (
 
@@ -33,6 +69,7 @@ function ManageAuthorsPage() {
                                                 <th>Bio</th>
                                                 <th>Profile Photo</th>
                                                 <th>See Profile</th>
+                                                <th>Delete</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -50,6 +87,15 @@ function ManageAuthorsPage() {
                                                                 profile
                                                             </Link>
                                                         </td>
+                                                        <td>
+                                                            <div className="delete-container">
+                                                                <Button onClick={() => openModal(author)}
+                                                                        className="delete-button"
+                                                                        buttonText="Delete"
+                                                                        buttonType="submit"
+                                                                />
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 )))}
                                             </tbody>
@@ -57,6 +103,16 @@ function ManageAuthorsPage() {
                                     </div>
                                 </li>
                             </ul>
+                            {errorMessage && <p className="error-message">{errorMessage}</p>}
+                            {isModalOpen && (
+                                <Confirmation
+                                    isOpen={isModalOpen}
+                                    onClose={() => setModalOpen(false)}
+                                    onConfirm={() => handleDeleteAuthorProfile(authorToDelete.username)}
+                                    title={`Confirm Delete Profile ${authorToDelete?.username || ''}`}
+                                    message="Please be certain."
+                                />
+                            )}
                         </div>
                         <AsideEditorMenu/>
                     </EditorCheck>

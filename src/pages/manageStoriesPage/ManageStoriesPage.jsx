@@ -5,17 +5,18 @@ import {Link} from "react-router-dom";
 import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import useThemes from "../../hooks/useThemes/UseThemes.jsx";
 import useFetchStories from "../../hooks/useFetchStories/UseFetchStories.jsx";
-import Button from "../../components/button/Button.jsx";
+import FilterPanel from "../../components/filterPanel/FilterPanel.jsx";
 
 
 function ManageStoriesPage() {
     const [filter, setFilter] = useState({status: '', theme: ''});
     const [searchClicked, setSearchClicked] = useState(false);
-    const { themes } = useThemes();
-    const { stories, loading, error, fetchStories} = useFetchStories({
+    const {themes} = useThemes();
+    const {stories, loading, error, fetchStories} = useFetchStories({
         status: filter.status,
         themeId: filter.themeId,
     })
+
 
     async function handleFilterChange(field, value) {
         setFilter((prev) => ({...prev, [field]: value}));
@@ -33,40 +34,13 @@ function ManageStoriesPage() {
                     <EditorCheck>
                         <div className="featured-section">
                             <h2 className="stories-title titles">Manage Stories</h2>
-                            {error && <p>{error}</p>}
-                            <div className='stories-container'>
-                                <div className="filter-panel">
-                                    <div>
-                                        <label>Status:</label>
-                                        <select onChange={(e) => handleFilterChange('status', e.target.value)}
-                                                value={filter.status}>
-                                            <option value="">All</option>
-                                            <option value="SUBMITTED">Submitted</option>
-                                            <option value="ACCEPTED">Accepted</option>
-                                            <option value="PUBLISHED">Published</option>
-                                            <option value="DECLINED">Declined</option>
-                                        </select>
-                                        <label>Theme:</label>
-                                        <select onChange={(e) => handleFilterChange('themeId', e.target.value)}
-                                                value={filter.themeId}>
-                                            <option value="">All</option>
-                                            {themes.map((theme) => (
-                                                <option key={theme.id} value={theme.id}>
-                                                    {theme.name} ({theme.id})
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                    <Button
-                                        buttonType="button"
-                                        onClick={handleSearch}
-                                        className="button"
-                                        buttonText="Search">
-                                    </Button>
-
-                                </div>
-
-                            </div>
+                            {error && <p>{error.message}</p>}
+                            <FilterPanel
+                                handleFilterChange={handleFilterChange}
+                                handleSearch={handleSearch}
+                                themes={themes}
+                                filter={filter}
+                            />
                             <div className="relevant-stories-container">
                                 <div className="relevant-stories-list">
                                     {loading && <p>Loading...</p>}

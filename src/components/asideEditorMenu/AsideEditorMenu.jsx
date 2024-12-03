@@ -6,9 +6,9 @@ function AsideEditorMenu() {
     return (
         <aside className="aside-menu">
             <div className="manage-stories editor-card">
-                <h3 className="aside-title dashboard">
+                <h2 className="aside-title dashboard">
                     <NavLink to={'/editor/dashboard'}>Editor Dashboard</NavLink>
-                </h3>
+                </h2>
                 <br></br>
             </div>
             <div className="manage-stories editor-card">
