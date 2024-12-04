@@ -44,7 +44,7 @@ function ManageStoriesPage() {
                             <div className="relevant-stories-container">
                                 <div className="relevant-stories-list">
                                     {loading && <p>Loading...</p>}
-                                    <h3>Relevant Stories</h3>
+                                    {stories.length > 0 && <h3>Relevant Stories</h3>}
                                     {searchClicked && (
                                         stories.length > 0 ? (
                                             stories.map((story) => (
@@ -58,12 +58,12 @@ function ManageStoriesPage() {
                                                         </div>
                                                         <div>
                                                             <Link to={`/editor/stories/${story.id}/edit`}
-                                                                  className="button">View/ Edit</Link>
+                                                                  className="edit-link">View/ Edit</Link>
                                                         </div>
                                                     </div>
                                                 </div>
                                             ))) : (
-                                            <p className="no-stories-container">No stories with the selected status</p>
+                                            <p className="no-stories-container">No stories available with the selected status</p>
                                         ))}
                                 </div>
                             </div>

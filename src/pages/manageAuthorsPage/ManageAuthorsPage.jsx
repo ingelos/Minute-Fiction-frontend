@@ -11,11 +11,35 @@ import axios from "axios";
 
 function ManageAuthorsPage() {
     const {authors, setAuthors} = useAuthors();
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [imageData, setImageData] = useState('');
     const [isModalOpen, setModalOpen] = useState(false);
     const [authorToDelete, setAuthorToDelete] = useState(null);
     const [errorMessage, setErrorMessage] = useState(false);
     const token = localStorage.getItem('token');
 
+
+    async function fetchData(username, path) {
+        setError(null);
+
+        try {
+            setLoading(true);
+            const download = await axios.get(`http://localhost:8080/authorprofiles/${username}/${path}`, {
+                responseType: 'arraybuffer'
+            });
+
+            const blob = new Blob([download.data], {type: 'image/png'});
+            console.log("blob:", blob);
+            const dataUrl = URL.createObjectURL(blob);
+            setImageData(dataUrl);
+
+        } catch (error) {
+            setError(true);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     async function handleDeleteAuthorProfile(username) {
         console.log("deleting user: " + username);
@@ -80,7 +104,17 @@ function ManageAuthorsPage() {
                                                         <td>{author.firstname}</td>
                                                         <td>{author.lastname}</td>
                                                         <td>{author.bio}</td>
-                                                        <td>{author.profilePhoto}</td>
+                                                        <td>{author.profilePhoto ? (
+                                                            <img
+                                                                src={`http://localhost:8080/authorprofiles/${author.username}/photo`}
+                                                                alt={`${author.username}'s photo`}
+                                                                className="author-thumbnail"
+                                                                onClick={() => fetchData(author.username, 'photo')}
+                                                            />
+                                                        ) : (
+                                                            <span>No photo</span>
+                                                        )}</td>
+
                                                         <td>
                                                             <Link to={`/authors/${author.username}`}
                                                                   className="link-button-style">
@@ -100,6 +134,15 @@ function ManageAuthorsPage() {
                                                 )))}
                                             </tbody>
                                         </table>
+                                    </div>
+                                    <div>
+                                        {loading ? <p>Loading...</p> : imageData &&
+                                            <div  className="image-container">
+                                                <h4>Detailed author photo:</h4>
+                                                <img src={imageData} alt="blob" className="image-detail"/>
+                                            </div>
+                                        }
+                                        {error && <p>Something went wrong!</p>}
                                     </div>
                                 </li>
                             </ul>

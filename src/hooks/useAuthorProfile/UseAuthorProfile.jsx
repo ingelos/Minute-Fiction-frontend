@@ -28,13 +28,13 @@ function UseAuthorProfile(username) {
                     );
                     const photoUrl = URL.createObjectURL(photoResponse.data);
                     setProfilePhoto(photoUrl);
+
                 } catch (photoError) {
                     if (photoError.response && photoError.response.status === 404) {
                         console.log("No profile photo found");
                         setProfilePhoto(null);
                     } else {
                         console.log("Error fetching photo")
-                        // throw photoError;
                     }
                 }
 

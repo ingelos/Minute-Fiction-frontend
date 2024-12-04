@@ -7,9 +7,7 @@ function AuthorProfileCard({firstname, lastname, username, bio, dob}) {
 
     return (
         <div className="profile-detail-container">
-            <div className="profile-author-name">
-                <h2 className="profile-author-name">{firstname} {lastname}</h2>
-            </div>
+            <h2 className="profile-author-name">{firstname} {lastname}</h2>
             <h3>Username: {username}</h3>
             <h3 className="author-dob">{dob ? `Born: ${formattedDate}` : ""}</h3>
             <h4 className="author-bio">{bio ? `Bio: ${bio}` : ""}</h4>

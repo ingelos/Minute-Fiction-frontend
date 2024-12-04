@@ -88,10 +88,10 @@ export function AuthContextProvider({children}) {
                 status: 'done',
             });
             localStorage.removeItem('token');
-            console.log('token expired, log in again');
-            navigate('/authenticate');
+            console.log('token expired, redirecting to authenticate page');
+            navigate('/authenticate', { replace: true });
         }
-    }, [login]);
+    }, []);
 
     const contextData = {
         isAuth: auth.isAuth,

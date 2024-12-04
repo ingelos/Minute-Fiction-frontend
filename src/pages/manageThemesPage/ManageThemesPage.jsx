@@ -11,7 +11,6 @@ import Button from "../../components/button/Button.jsx";
 
 function ManageThemesPage() {
     const [isModalOpen, setModalOpen] = useState(false);
-    // const [deleteSuccess, setDeleteSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
     const {themes, loading, error, setThemes} = useThemes();
     const [themeToDelete, setThemeToDelete] = useState(null);
@@ -56,6 +55,7 @@ function ManageThemesPage() {
                                 <div className="theme-container">
                                     <h3 className="all-themes overviews">All Themes:</h3>
                                     {loading && <p>Loading...</p>}
+                                    {error && <p>Error fetching themes...</p>}
                                     <div>
                                         {errorMessage && <p className="error-message">{errorMessage}</p>}
                                         {themes.length > 0 &&

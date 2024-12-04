@@ -21,8 +21,10 @@ function UseAuthors() {
                 const {data} = await axios.get(`http://localhost:8080/authorprofiles`, {
                     signal: signal,
                 });
-                console.log(data);
+
                 setAuthors(data);
+                console.log("data", data);
+
 
             } catch (error) {
                 if (axios.isCancel(error)) {

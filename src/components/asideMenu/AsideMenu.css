@@ -5,6 +5,10 @@
     flex-shrink: 0;
 }
 
+.aside-container {
+    border-bottom: 2px solid black;
+}
+
 .aside-card {
     border-top: 2px solid var(--color-primary);
     padding-top: 0.6em;
@@ -61,20 +65,6 @@
     border: 1px solid var(--color-primary);
 }
 
-.register-nav {
-    border-bottom: 2px solid var(--color-primary);
-}
-
 .no-open-themes {
     margin: 10px 20px;
 }
-
-/*.theme-aside-nav {*/
-/*    margin-top: 2em;*/
-/*}*/
-
-/*.theme-aside-nav li {*/
-/*    list-style: none;*/
-/*    margin-bottom: 0.3em;*/
-/*}*/
-

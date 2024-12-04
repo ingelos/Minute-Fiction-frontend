@@ -6,6 +6,7 @@ import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import useThemes from "../../hooks/useThemes/UseThemes.jsx";
 import useFetchStories from "../../hooks/useFetchStories/UseFetchStories.jsx";
 import Button from "../../components/button/Button.jsx";
+import {Link} from "react-router-dom";
 
 
 function PublishStoriesPage() {
@@ -46,8 +47,13 @@ function PublishStoriesPage() {
         }
     }
 
-    async function handleBulkPublishByTheme(themeId, themeName) {
-        if (!themeId || !themeName) return;
+    async function handleBulkPublishByTheme(themeId) {
+        if (!themeId ) return;
+        const theme = themes.find((theme) => theme.id === themeId);
+        if (!theme) {
+            return;
+        }
+
         try {
             const {data} = await axios.patch(`http://localhost:8080/stories/editor/themes/${themeId}/publish`, {}, {
                 headers: {
@@ -56,7 +62,7 @@ function PublishStoriesPage() {
                 },
             })
             console.log('Bulk publishing successful', data);
-            setStories((prevStories) => prevStories.filter(story => story.themeName !== themeName));
+            setStories((prevStories) => prevStories.filter(story => story.themeName !== theme.name));
 
         } catch (error) {
             console.error('Error publishing stories for this theme', error);
@@ -70,6 +76,7 @@ function PublishStoriesPage() {
                     <div className="featured-section">
                         <EditorCheck>
                             <h2 className="publish-title titles">Publish Accepted Stories</h2>
+                            <Link to={'/editor/stories'} className="link-button-style">Manage Stories</Link>
                             <div className='accepted-stories-container'>
                                 <div className="theme-selection">
                                     <label htmlFor="themeSelect">Select a Theme:</label>
@@ -88,13 +95,13 @@ function PublishStoriesPage() {
                                         buttonText="Search">
                                     </Button>
                                 </div>
-
                                 {error && <p>{error.message}</p>}
                                 {loading && <p>Loading stories...</p>}
                                 {searchClicked && (
                                     stories.length > 0 ? (
                                         stories.map((story) => (
                                             <div key={story.id} className="story-actions">
+                                                <div className="publish-story-container">
                                                 <div className="story-container">
                                                     <p>Id: {story.id}</p>
                                                     <p>Status: {story.status}</p>
@@ -102,24 +109,32 @@ function PublishStoriesPage() {
                                                     <p>By: {story.username}</p>
                                                     <p>Content: {story.content}</p>
                                                 </div>
-                                                <button
-                                                    onClick={() => handlePublishByStory(story.id)}>
-                                                    Publish
-                                                </button>
+                                                <div>
+                                                <Button
+                                                    onClick={() => handlePublishByStory(story.id)}
+                                                    buttonText="Publish"
+                                                    buttonType="button"
+                                                    className="publish-button"
+                                                />
+                                                </div>
+                                                </div>
                                             </div>
                                         ))) : (
                                         <p className="no-stories-container">No stories with status ACCEPTED for this
                                             theme</p>
                                     ))}
-                                <div className="bulk-publish-container">
-                                    <h4>Bulk Publish Stories for Selected Theme:</h4>
-                                    <button
-                                        onClick={() => handleBulkPublishByTheme(selectedTheme)}
-                                        disabled={!selectedTheme}>
-                                        Bulk Publish
-                                    </button>
-                                </div>
-
+                                {stories.length > 0 && (
+                                    <div className="bulk-publish-container">
+                                        <h4>Bulk Publish Stories for Selected Theme:</h4>
+                                        <Button
+                                            onClick={() => handleBulkPublishByTheme(selectedTheme)}
+                                            disabled={!selectedTheme}
+                                            buttonText="Bulk Publish"
+                                            buttonType="button"
+                                            className="bulk-publish-button"
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </EditorCheck>
                     </div>

@@ -4,7 +4,7 @@ import {useContext, useState} from "react";
 import axios from "axios";
 import Input from "../../components/input/Input.jsx";
 import {Link} from "react-router-dom";
-import {FaLongArrowAltRight} from "react-icons/fa";
+import {FaLongArrowAltLeft, FaLongArrowAltRight} from "react-icons/fa";
 import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
 import AuthContext from "../../context/AuthContext.jsx";
 
@@ -74,7 +74,7 @@ function EditEmailPage() {
                                         inputType='password'
                                         inputName='currentPassword'
                                         inputId='currentPassword-field'
-                                        inputLabel='Current password: *'
+                                        inputLabel='Password: *'
                                         validationRules={{
                                             required: 'Password is required',
                                             minLength: {
@@ -88,7 +88,7 @@ function EditEmailPage() {
                                     <button type='submit'>Save</button>
                                 </form>
                                 <div className='back-link'>
-                                    <FaLongArrowAltRight className="arrow-icon"/>
+                                    <FaLongArrowAltLeft className="arrow-icon"/>
                                     <Link to={`/user/${user.username}`}>Back to account</Link>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@ function EditEmailPage() {
                             <div className='account-settings-succes'>
                                 <p>You have successfully updated your email!</p>
                                 <div className='back-link'>
-                                    <FaLongArrowAltRight className="arrow-icon"/>
+                                    <FaLongArrowAltLeft className="arrow-icon"/>
                                     <Link to={`/user/${user.username}`}>Back to account</Link>
                                 </div>
                             </div>

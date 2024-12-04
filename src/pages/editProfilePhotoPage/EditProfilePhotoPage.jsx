@@ -9,8 +9,6 @@ import {Link} from "react-router-dom";
 
 
 function EditProfilePhotoPage() {
-    // const {register, handleSubmit, formState: {errors}} = useForm();
-    // const [uploadStatus, setUploadStatus] = useState('');
     const {user, username} = useContext(AuthContext);
     const { profilePhoto } = useAuthorProfile(username);
     const [file, setFile] = useState([]);
@@ -77,11 +75,12 @@ function EditProfilePhotoPage() {
                                     <h2 className='add-photo titles'>Add / Edit Photo</h2>
                                     {uploadSuccess ?
                                         <div>
-                                            <p>Successfully added a photo to your profile!</p>
+
                                             <div className="back-link">
                                                 <FaLongArrowAltRight className="arrow-icon"/>
                                                 <Link to={`/authors/${username}`}>Back to profile</Link>
                                             </div>
+                                            <p>Successfully added a photo to your profile!</p>
                                         </div>
                                         :
                                         <div className="profile-photo-content-container">
@@ -107,15 +106,7 @@ function EditProfilePhotoPage() {
                             <div>
                                 {profilePhoto && (
                                     <div>
-                                        {deleteSuccess ?
-                                            <div>
-                                                <p>Successfully deleted your photo!</p>
-                                                <div className="back-link">
-                                                    <FaLongArrowAltRight className="arrow-icon"/>
-                                                    <Link to={`/authors/${username}`}>Back to profile</Link>
-                                                </div>
-                                            </div>
-                                            :
+                                        {!deleteSuccess ?
                                             <div>
                                                 <h2 className='add-photo titles'>Delete Photo</h2>
                                                 <div className="delete-photo-container">
@@ -126,6 +117,14 @@ function EditProfilePhotoPage() {
                                                         Photo
                                                     </button>
                                                 </div>
+                                            </div>
+                                            :
+                                            <div>
+                                                <div className="back-link">
+                                                    <FaLongArrowAltRight className="arrow-icon"/>
+                                                    <Link to={`/authors/${username}`}>Back to profile</Link>
+                                                </div>
+                                                <p>Successfully deleted your photo!</p>
                                             </div>
                                         }
                                     </div>

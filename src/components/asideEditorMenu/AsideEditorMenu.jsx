@@ -46,7 +46,6 @@ function AsideEditorMenu() {
                 <div className="sub-links">
                     <Link to={'/editor/users'}><p>Manage Users</p></Link>
                     <Link to={'/register'}><p>Create New User</p></Link>
-                    <Link to={`/editor/users/:userId/authorities`}><p>Manage Authorities</p></Link>
                 </div>
             </div>
         </aside>

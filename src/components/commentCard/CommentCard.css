@@ -8,12 +8,6 @@
     width: 100%;
 }
 
-/*.content-container {*/
-/*    !*display: flex;*!*/
-/*    !*flex-direction: column;*!*/
-/*    margin-bottom: 5px;*/
-/*}*/
-
 .comment-data {
     display: flex;
     flex-direction: row;

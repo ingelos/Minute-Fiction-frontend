@@ -10,3 +10,15 @@
     flex-basis: 525px;
     flex-direction: column;
 }
+
+.author-thumbnail {
+    max-width: 50px;
+}
+
+.image-container {
+    margin-top: 50px;
+}
+
+.image-detail {
+    max-width: 300px;
+}

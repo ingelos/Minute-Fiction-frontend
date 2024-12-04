@@ -21,7 +21,7 @@ function CommentCard({commentOwner, commentCreated, content, currentUsername, st
             <div>
                 {isOwner && (
                     <div className="edit-comment-links">
-                        <Link to={`/stories/${storyId}/comments/${commentId}/edit`}>Edit / Delete</Link>
+                        <Link to={`/stories/${storyId}/comments/${commentId}/edit`} className="edit-link">Edit</Link>
                     </div>
                 )}
             </div>

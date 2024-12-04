@@ -65,7 +65,7 @@ function AuthorProfilePage() {
                                         />
                                         <div className="edit-link">
                                         <OwnerCheck username={username}>
-                                            <Link to={`/authors/${username}/edit`}>
+                                            <Link to={`/authors/${username}/edit`} className="edit-link">
                                                 Edit Profile
                                             </Link>
                                         </OwnerCheck>
@@ -88,7 +88,9 @@ function AuthorProfilePage() {
                                 ) : (
                                     <div className="photo-container">
                                         <OwnerCheck username={username}>
-                                            <Link to={`/authors/${username}/photo`}>Add Photo</Link>
+                                            <Link to={`/authors/${username}/photo`} className="edit-link">
+                                                Add Photo
+                                            </Link>
                                         </OwnerCheck>
                                     </div>
                                 )}
@@ -114,7 +116,6 @@ function AuthorProfilePage() {
                                     </div>
                                 )))}
                         </div>
-
                         <OwnerCheck username={username}>
                             <div>
                                 <Button onClick={handleShowUnpublishedStories}
@@ -122,7 +123,6 @@ function AuthorProfilePage() {
                                         buttonType="button"
                                         className="show-button"
                                 />
-
                                 <div>
                                     {error && <p>{error.message}</p>}
                                     {showUnpublishedStories && (

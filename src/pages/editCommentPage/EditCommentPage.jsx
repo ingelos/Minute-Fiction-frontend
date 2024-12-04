@@ -5,7 +5,7 @@ import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import CommentForm from "../../components/commentForm/CommentForm.jsx";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import Button from "../../components/button/Button.jsx";
-import {FaLongArrowAltRight} from "react-icons/fa";
+import {FaLongArrowAltLeft, FaLongArrowAltRight} from "react-icons/fa";
 
 
 function EditCommentPage() {
@@ -77,7 +77,7 @@ function EditCommentPage() {
                             <div className='themes-container'>
                                 <h2 className="comment-title titles">Edit Comment</h2>
                                 <h4 className="back-link">
-                                    <FaLongArrowAltRight className="arrow-icon"/>
+                                    <FaLongArrowAltLeft className="arrow-icon"/>
                                     <Link to={`/stories/${storyId}`}>Back to Story</Link>
                                 </h4>
                                 {!deleteSuccess && !updateSuccess ? (
@@ -106,7 +106,7 @@ function EditCommentPage() {
                                         </div>
                                     </>
                                 ) : (
-                                    <h4>Done!</h4>
+                                        <p>Done!</p>
                                 )}
                             </div>
                         </div>

@@ -2,13 +2,14 @@ import axios from "axios";
 import ThemeForm from "../../components/themeForm/ThemeForm.jsx";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
 import {useContext, useState} from "react";
-import {AuthContextProvider} from "../../context/AuthContextProvider.jsx";
 import {Link} from "react-router-dom";
 import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
+import AuthContext from "../../context/AuthContext.jsx";
+import {FaLongArrowAltLeft} from "react-icons/fa";
 
 
 function CreateThemePage() {
-    const {user, authorities} = useContext(AuthContextProvider);
+    const {user, authorities} = useContext(AuthContext);
     const [createSuccess, setCreateSuccess] = useState(null);
 
 
@@ -37,22 +38,23 @@ function CreateThemePage() {
             <div className='editor-themes-section inner-content-container'>
                 <div className='main-container'>
                     <EditorCheck>
-                    <div className="featured-section">
-                        <h2 className="themes-title titles">Create Theme</h2>
-                        <div className='themes-container'>
-                            {/*<p>Go back to <Link to="/editor/themesPage"><strong>Manage ThemesPage</strong></Link></p>*/}
-                            {!createSuccess ?
-                                <ThemeForm onSubmit={handleCreateTheme} isEditing={false}/>
-                                :
-                                <div >
-                                    <p>Successfully Created a New Theme!</p>
-                                    <Link to={"/editor/themes"} className='back-link'>Go to Themes Overview</Link>
-                                </div>
-                            }
-
+                        <div className="featured-section">
+                            <h2 className="themes-title titles">Create Theme</h2>
+                            <div className='themes-container'>
+                                {!createSuccess ? (
+                                    <ThemeForm onSubmit={handleCreateTheme} isEditing={false}/>
+                                    ) : (
+                                    <div>
+                                        <p>Successfully Created a New Theme!</p>
+                                        <div className='back-link'>
+                                            <FaLongArrowAltLeft className="arrow-icon"/>
+                                            <Link to={"/editor/themes"}>Themes Overview</Link>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                    <AsideEditorMenu/>
+                        <AsideEditorMenu/>
                     </EditorCheck>
                 </div>
             </div>

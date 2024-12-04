@@ -5,7 +5,8 @@ import {useContext, useState} from "react";
 import {Link} from "react-router-dom";
 import AuthContext from "../../context/AuthContext.jsx";
 import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
-import {FaLongArrowAltRight} from "react-icons/fa";
+import {FaLongArrowAltLeft} from "react-icons/fa";
+import Button from "../../components/button/Button.jsx";
 
 
 function DeleteAccountPage() {
@@ -39,20 +40,21 @@ function DeleteAccountPage() {
                         <OwnerCheck username={user.username}>
                             {error && <p>{error.message}</p>}
                             <h2 className='delete-title titles'>Delete account</h2>
-
                             {!deleteSuccess ? (
                                 <>
                                     <div className='back-link'>
-                                        <FaLongArrowAltRight className="arrow-icon"/>
-                                        <Link to={`/user/${user.username}`}>Go back to Account</Link>
+                                        <FaLongArrowAltLeft className="arrow-icon"/>
+                                        <Link to={`/user/${user.username}`}>Back to Account</Link>
                                     </div>
-                                    <h4>Keep in mind, deleting your account is permanent and cannot be reversed. </h4>
-                                    <h4>If you have an author profile and published/submitted stories delete these
-                                        first.</h4>
+                                    <p>Keep in mind, deleting your account is permanent and cannot be reversed.</p>
+                                    <p>If you have an author profile you need to delete this first.</p>
+                                    <p>If you have submitted/published stories you need to delete these before deleting your author profile.</p>
                                     <div className="delete-section">
-                                        <button onClick={() => setModalOpen(true)} className="delete-account-button">
-                                            Delete My Account
-                                        </button>
+                                        <Button onClick={() => setModalOpen(true)}
+                                                className="delete-account-button"
+                                                buttonText="Delete My Account"
+                                                buttonType="button"
+                                        />
                                         <Confirmation
                                             isOpen={isModalOpen}
                                             onClose={() => setModalOpen(false)}

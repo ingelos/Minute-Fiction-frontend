@@ -3,9 +3,10 @@ import {useContext, useState} from "react";
 import axios from "axios";
 import Input from "../../components/input/Input.jsx";
 import {Link} from "react-router-dom";
-import {FaLongArrowAltRight} from "react-icons/fa";
+import {FaLongArrowAltLeft, FaLongArrowAltRight} from "react-icons/fa";
 import AuthContext from "../../context/AuthContext.jsx";
 import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
+import Button from "../../components/button/Button.jsx";
 
 
 function EditPasswordPage() {
@@ -76,21 +77,23 @@ function EditPasswordPage() {
                                             register={register}
                                             errors={errors}
                                         />
-                                        {/*{errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}*/}
-
-                                        <button type='submit'>Save password</button>
+                                        <Button
+                                            buttonType="submit"
+                                            buttonText="Save password"
+                                            className="button"
+                                        />
                                     </form>
                                     <div className="back-link">
-                                        <FaLongArrowAltRight className="arrow-icon"/>
+                                        <FaLongArrowAltLeft className="arrow-icon"/>
                                         <Link to={`/user/${user.username}`}>Back to Account</Link>
                                     </div>
                                 </div>
                                 :
                                 <div className='account-settings-succes'>
-                                    <h4 className="success-message">You have successfully updated your password!</h4>
+                                    <p className="success-message">You have successfully updated your password!</p>
                                     <div className="back-link">
-                                        <FaLongArrowAltRight className="arrow-icon"/>
-                                        <Link to={`/user/${user.username}`}>Go back to account</Link>
+                                        <FaLongArrowAltLeft className="arrow-icon"/>
+                                        <Link to={`/user/${user.username}`}>Back to account</Link>
                                     </div>
                                 </div>
                             }
