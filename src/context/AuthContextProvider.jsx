@@ -87,6 +87,9 @@ export function AuthContextProvider({children}) {
                 authorities: [],
                 status: 'done',
             });
+            localStorage.removeItem('token');
+            console.log('token expired, log in again');
+            navigate('/authenticate');
         }
     }, [login]);
 

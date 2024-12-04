@@ -1,12 +1,13 @@
-import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
+import "./DownloadStoriesPage.css";
 import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import AuthContext from "../../context/AuthContext.jsx";
 import axios from "axios";
 import Button from "../../components/button/Button.jsx";
 
 function DownloadStoriesPage() {
     const { user } = useContext(AuthContext);
+    const [filter, setFilter] = useState('all');
 
     async function downloadStories() {
         const token = localStorage.getItem('token');
@@ -16,6 +17,7 @@ function DownloadStoriesPage() {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
+                params: {filter},
                 responseType: 'blob',
             });
 
@@ -23,7 +25,7 @@ function DownloadStoriesPage() {
             const url = URL.createObjectURL(file);
             const link = document.createElement('a');
             link.href = url;
-            link.download = 'stories.pdf';
+            link.download = `stories-${filter}.pdf`;
             link.click();
             URL.revokeObjectURL(url);
 
@@ -33,6 +35,10 @@ function DownloadStoriesPage() {
         }
     }
 
+    async function handleFilterChange(e) {
+        setFilter(e.target.value);
+    }
+
     return (
         <section className='download-stories-section outer-content-container'>
             <div className='download-stories-section inner-content-container'>
@@ -40,16 +46,38 @@ function DownloadStoriesPage() {
                     <div className="featured-section">
                         <OwnerCheck username={user.username}>
                             <h2 className="download-title titles">Download Your Stories</h2>
+                            <div className="filter-container">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="filter"
+                                        value="all"
+                                        checked={filter === 'all'}
+                                        onChange={handleFilterChange}
+                                    />
+                                    All stories
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="filter"
+                                        value="published"
+                                        checked={filter === 'published'}
+                                        onChange={handleFilterChange}
+                                    />
+                                    Published stories
+                                </label>
+                            </div>
                             <div className="download-container">
-                                <Button buttonType="button"
-                                        buttonText="Download"
-                                        className="submit"
-                                        onClick={downloadStories}
+                                <Button
+                                    buttonType="button"
+                                    buttonText="Download"
+                                    className="submit"
+                                    onClick={downloadStories}
                                 />
                             </div>
                         </OwnerCheck>
                     </div>
-                    <AsideEditorMenu/>
                 </div>
             </div>
         </section>

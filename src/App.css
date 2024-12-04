@@ -41,14 +41,12 @@
   margin-top: 20px;
 }
 
-
 form {
   margin-top: 0.5em;
   display: flex;
   flex-direction: column;
   max-width: 500px;
 }
-
 
 button {
   border-radius: 25px;
@@ -78,8 +76,6 @@ label {
   display: flex;
   flex-direction: column;
 }
-
-
 
 .active-menu-link {
   text-decoration: underline;
