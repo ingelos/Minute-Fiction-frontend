@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {formatDate} from "../../helpers/dateFormatter.js";
 
 
-function ThemeCard({themeName, description, openDate, closingDate, overview = false}) {
+function ThemeCard({themeId, themeName, description, openDate, closingDate, overview = false}) {
 
     const formattedDateOpens = formatDate(openDate);
     const formattedDateCloses = formatDate(closingDate);
@@ -11,7 +11,7 @@ function ThemeCard({themeName, description, openDate, closingDate, overview = fa
 
     return (
         <div>
-            <h3><Link to={`/submit/${themeName}`}>{themeName}</Link></h3>
+            <h3><Link to={`/submit/${themeId}`}>{themeName}</Link></h3>
             {overview &&
                 <div>
                     <p>{description}</p>

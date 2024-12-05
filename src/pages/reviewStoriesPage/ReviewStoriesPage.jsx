@@ -11,6 +11,8 @@ import Button from "../../components/button/Button.jsx";
 function ReviewStoriesPage() {
     const [selectedTheme, setSelectedTheme] = useState('');
     const [searchClicked, setSearchClicked] = useState(false);
+    const [acceptSuccess, setAcceptSuccess] = useState(false);
+    const [deleteSuccess, setDeleteSuccess] = useState(false);
     const { themes} = useThemes();
     const { stories, loading, error, setStories, fetchStories} = useFetchStories({
         status: 'SUBMITTED',
@@ -42,6 +44,7 @@ function ReviewStoriesPage() {
                 },
             });
             console.log(data);
+            setAcceptSuccess(true);
             setStories((prevStories) => prevStories.filter(story => story.id !== storyId));
         } catch (error) {
             console.error("Error accepting story:", error);
@@ -61,6 +64,7 @@ function ReviewStoriesPage() {
                 },
             });
             console.log(data);
+            setDeleteSuccess(true);
             setStories((prevStories) => prevStories.filter(story => story.id !== storyId));
 
         } catch (error) {
@@ -117,9 +121,11 @@ function ReviewStoriesPage() {
                                                 </div>
                                             ))
                                         ) : (
-                                            <p>No stories with status SUBMITTED</p>
+                                            <p>No stories available with status SUBMITTED</p>
                                         ))}
                                 </div>
+                                {acceptSuccess && <h5 className="success-message">Story successfully accepted!</h5>}
+                                {deleteSuccess && <h5 className="success-message">Story successfully declined!</h5>}
                             </div>
                         </div>
                         <AsideEditorMenu/>

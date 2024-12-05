@@ -2,10 +2,6 @@
     padding: 10px 0;
 }
 
-.dashboard {
-    margin-bottom: 10px;
-}
-
 .editor-card {
     display: flex;
     flex-direction: column;

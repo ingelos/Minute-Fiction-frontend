@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import UseOpenThemes from "../../hooks/useOpenThemes/UseOpenThemes.jsx";
 
 
+
 function OpenThemes({showSubmitButton, overview, variant}) {
     const {openThemes, loading, error} = UseOpenThemes();
     const containerClassName = variant === 'aside' ? 'themes-container-aside' : 'themes-container-page';
@@ -27,6 +28,7 @@ function OpenThemes({showSubmitButton, overview, variant}) {
                                 <Link to={`/submit/${theme.id}`}>
                                     <h4 className="link-button-style">Submit</h4>
                                 </Link>
+
                             )}
                         </div>
                     ))) : (

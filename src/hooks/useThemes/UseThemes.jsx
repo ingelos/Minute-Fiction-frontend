@@ -22,9 +22,14 @@ function UseThemes() {
                     });
                console.log(data);
                setThemes(data);
+               setError(false);
             } catch (error) {
-                console.error("Error fetching themes", error)
-                setError(true);
+                if (axios.isCancel(error)) {
+                    console.error("Request cancelled", error.message)
+                } else {
+                    setError(true);
+                    console.log("Error fetching themes", error)
+                }
             } finally {
                 setLoading(false);
             }

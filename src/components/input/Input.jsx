@@ -1,6 +1,6 @@
 import './Input.css';
 
-function Input({inputId, inputLabel, inputType, inputName, validationRules, rows, register, errors}) {
+function Input({inputId, inputLabel, inputType, inputName, validationRules, rows, min, max, register, errors}) {
     return (
         <>
             <label htmlFor={inputId}>{inputLabel}
@@ -16,6 +16,8 @@ function Input({inputId, inputLabel, inputType, inputName, validationRules, rows
                         id={inputId}
                         type={inputType}
                         {...register(inputName, validationRules)}
+                        min={min}
+                        max={max}
                     />
                 )}
 

@@ -1,3 +1,4 @@
+import "./AuthenticatePage.css";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import axios from "axios";
 import {useForm} from "react-hook-form";
@@ -6,6 +7,7 @@ import Input from "../../components/input/Input.jsx";
 import Button from "../../components/button/Button.jsx";
 import AuthContext from "../../context/AuthContext.jsx";
 import {Link} from "react-router-dom";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 
 function AuthenticatePage() {
 
@@ -92,7 +94,10 @@ function AuthenticatePage() {
                         ) : (
                             <div>
                                 <h3 className='login-title titles'>Successfully logged in!</h3>
-                                <Link to={`/user/${user.username}`} className='link-button-style'>Go to account</Link>
+                                <Link to={`/user/${user.username}`} className='link-button-style'>My account</Link>
+                                <EditorCheck editorOnly={true}>
+                                    <Link to={"/editor/dashboard"} className="link-button-style dashboard-link">Editor Dashboard</Link>
+                                </EditorCheck>
                             </div>
                         )}
 

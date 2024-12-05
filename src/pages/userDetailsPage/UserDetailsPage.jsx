@@ -90,7 +90,7 @@ function UserDetailsPage() {
                                         </div>
                                         <div className="subscription-container">
                                             <p className="subscription-status">
-                                                Subscribed: {userData.subscribedToMailing ? "Yes" : "No"}</p>
+                                                Subscribed to Mailing: {userData.subscribedToMailing ? "Yes" : "No"}</p>
                                             <Button
                                                 onClick={handleSubscriptionChange}
                                                 buttonType="submit"

@@ -15,9 +15,6 @@ function ManageThemes() {
     const [loading, setLoading] = useState(false);
     const [mailingToDelete, setMailingToDelete] = useState(null);
     const [isModalOpen, setModalOpen] = useState(false);
-    // const [deleteSuccess, setDeleteSuccess] = useState(false);
-
-    // const {mailingId} = useParams();
 
     useEffect(() => {
         const controller = new AbortController();
@@ -86,10 +83,11 @@ function ManageThemes() {
                     <EditorCheck>
                         <div className="featured-section">
                             <h2 className="mailings-title titles">Manage Mailings</h2>
-                            <p className="link-button-style titles"><Link to="/editor/mailings/new">Create New
-                                Mailing</Link></p>
+                            <p className="link-button-style titles">
+                                <Link to="/editor/mailings/new">Create New Mailing</Link>
+                            </p>
                             <div className='mailings-container'>
-                                <h3 className="mailing-overview overviews">Mailings:</h3>
+                                <h3 className="mailing-overview overviews">All Mailings:</h3>
                                 {loading && <p>Loading...</p>}
                                 <div>
                                     {error && <p>{error.message}</p>}

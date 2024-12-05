@@ -52,6 +52,7 @@ function ManageAuthorsPage() {
             console.log('Author profile deleted.');
             setErrorMessage(null);
             setAuthors((prevAuthors) => prevAuthors.filter(author => author.username !== username));
+
         } catch (error) {
             if (error.response) {
                 console.error("Error deleting profile: ", error.response.data);
@@ -112,7 +113,7 @@ function ManageAuthorsPage() {
                                                                 onClick={() => fetchData(author.username, 'photo')}
                                                             />
                                                         ) : (
-                                                            <span>No photo</span>
+                                                            <span>N/A</span>
                                                         )}</td>
 
                                                         <td>

@@ -40,6 +40,13 @@ function ManageThemesPage() {
         setModalOpen(true);
     }
 
+    if (loading) {
+        return <p>Loading themes...</p>
+    }
+    if (error) {
+        return <p>Error fetching themes. Please try again later.</p>
+    }
+
 
     return (
         <section className='editor-themes-section outer-content-container'>
@@ -48,14 +55,12 @@ function ManageThemesPage() {
                     <EditorCheck>
                         <div className="featured-section">
                             <h2 className="themes-title titles">Manage themes</h2>
-                            <div className='themes-container'>
                                 <p className="link-button-style titles">
                                     <Link to="/editor/themes/new">Create New Theme</Link>
                                 </p>
-                                <div className="theme-container">
+                                <div className="themes-container">
                                     <h3 className="all-themes overviews">All Themes:</h3>
                                     {loading && <p>Loading...</p>}
-                                    {error && <p>Error fetching themes...</p>}
                                     <div>
                                         {errorMessage && <p className="error-message">{errorMessage}</p>}
                                         {themes.length > 0 &&
@@ -77,7 +82,6 @@ function ManageThemesPage() {
                                                                 buttonText="Delete"
                                                                 buttonType="button"
                                                         />
-
                                                     </div>
                                                     {isModalOpen && themeToDelete === theme.id && (
                                                         <Confirmation
@@ -92,7 +96,6 @@ function ManageThemesPage() {
                                             ))}
                                     </div>
                                 </div>
-                            </div>
                         </div>
                         <AsideEditorMenu/>
                     </EditorCheck>

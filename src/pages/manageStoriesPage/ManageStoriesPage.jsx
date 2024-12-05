@@ -34,6 +34,11 @@ function ManageStoriesPage() {
                     <EditorCheck>
                         <div className="featured-section">
                             <h2 className="stories-title titles">Manage Stories</h2>
+                            <div className="link-container">
+                                <Link to={'/editor/stories/review'} className="link-button-style">Review Stories</Link>
+                                <Link to={'/editor/stories/publish'} className="link-button-style">Publish
+                                    Stories</Link>
+                            </div>
                             {error && <p>{error.message}</p>}
                             <FilterPanel
                                 handleFilterChange={handleFilterChange}
@@ -49,12 +54,12 @@ function ManageStoriesPage() {
                                         stories.length > 0 ? (
                                             stories.map((story) => (
                                                 <div key={story.id}>
-                                                    <div className="stories-info">
+                                                    <div className="action-container">
                                                         <div>
-                                                            <p>Title: {story.title}</p>
-                                                            <p>By: {story.username}</p>
-                                                            <p>Theme: {story.themeName}</p>
-                                                            <p>Status: {story.status}</p>
+                                                            <p><strong>Status:</strong> {story.status}</p>
+                                                            <p><strong>Theme:</strong> {story.themeName}</p>
+                                                            <p><strong>Title:</strong> {story.title}</p>
+                                                            <p><strong>Username:</strong> {story.username}</p>
                                                         </div>
                                                         <div>
                                                             <Link to={`/editor/stories/${story.id}/edit`}
@@ -63,7 +68,8 @@ function ManageStoriesPage() {
                                                     </div>
                                                 </div>
                                             ))) : (
-                                            <p className="no-stories-container">No stories available with the selected status</p>
+                                            <p className="no-stories-container">No stories available with the selected
+                                                status</p>
                                         ))}
                                 </div>
                             </div>

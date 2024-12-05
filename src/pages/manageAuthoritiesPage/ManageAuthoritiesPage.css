@@ -3,7 +3,8 @@
     padding: 10px;
     border: 1px dotted var(--color-primary);
     border-radius: 10px;
-    min-width: 250px;
+    min-width: 10em;
+    flex-shrink: 0;
 }
 
 .authorities-list {
@@ -12,7 +13,7 @@
 }
 
 .authorities-list button {
-    margin-right: 20px;
+    margin-right: 1em;
 }
 
 .authority-list {
@@ -26,7 +27,9 @@
 }
 
 .current-authorities {
-    min-height: 100px;
+    margin-top: 2em;
+    min-height: 8em;
+    flex-shrink: 0;
 }
 
 .current-authorities h3 {

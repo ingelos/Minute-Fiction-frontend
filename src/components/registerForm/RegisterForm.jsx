@@ -1,3 +1,4 @@
+import "./RegisterForm.css";
 import Input from "../input/Input.jsx";
 import {useForm} from "react-hook-form";
 import Button from "../button/Button.jsx";
@@ -19,10 +20,10 @@ function RegisterForm({onSubmit, error}) {
     return (
         <form className='register-form' onSubmit={handleSubmit(handleRegistration)}>
             {error && <p>{error.message}</p>}
-            <br></br>
-            <h3>Username is unchangeable after creation.</h3>
-            <h3>Choose with care.</h3>
-            <br></br>
+            <div className="username-notice">
+                <h3>Username is unchangeable after creation</h3>
+                <h3>Choose with care</h3>
+            </div>
             <Input
                 inputType='text'
                 inputName='username'
@@ -68,7 +69,6 @@ function RegisterForm({onSubmit, error}) {
                 register={register}
                 errors={errors}
             />
-            <p>* required</p>
             <div className='checkbox-container'>
                 <Input
                     inputType="checkbox"

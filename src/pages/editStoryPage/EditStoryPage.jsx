@@ -7,8 +7,9 @@ import {useForm} from "react-hook-form";
 import Input from "../../components/input/Input.jsx";
 import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
-import {FaLongArrowAltRight} from "react-icons/fa";
+import {FaLongArrowAltLeft} from "react-icons/fa";
 import Button from "../../components/button/Button.jsx";
+import useDeleteStory from "../../hooks/useDeleteStory/UseDeleteStory.jsx";
 
 function EditStoryPage() {
     const {storyId} = useParams();
@@ -17,13 +18,10 @@ function EditStoryPage() {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const [updateSuccess, setUpdateSuccess] = useState(false);
-    const [deleteSuccess, setDeleteSuccess] = useState(false);
-    const [isModalOpen, setModalOpen] = useState(false);
-    const [storyToDelete, setStoryToDelete] = useState(null);
+    const { error: deleteError, loading: deleteLoading, deleteSuccess, modalOpen, setModalOpen, storyToDelete, openModal, handleDeleteStory} = useDeleteStory();
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
 
         async function fetchStory() {
             try {
@@ -91,29 +89,6 @@ function EditStoryPage() {
     }
 
 
-    async function handleDeleteStory(storyId) {
-        try {
-            await axios.delete(`http://localhost:8080/stories/${storyId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            console.log('Story deleted.');
-            setDeleteSuccess(true);
-        } catch (error) {
-            setError(true);
-            console.error('Error deleting the story', error);
-        } finally {
-            setModalOpen(false);
-        }
-    }
-
-    async function openModal(storyId) {
-        setStoryToDelete(storyId);
-        setModalOpen(true);
-    }
-
-
     return (
         <section className='editor-stories-section outer-content-container'>
             <div className='editor-stories-section inner-content-container'>
@@ -123,12 +98,8 @@ function EditStoryPage() {
                             <h2 className="edit-story titles">Edit Story</h2>
                             <div className="back-links">
                                 <div className="back-link">
-                                    <FaLongArrowAltRight className='arrow-icon'/>
+                                    <FaLongArrowAltLeft className='arrow-icon'/>
                                     <Link to="/editor/stories">Manage Stories</Link>
-                                </div>
-                                <div className="back-link">
-                                    <FaLongArrowAltRight className='arrow-icon'/>
-                                    <Link to="/editor/authors/search">Search By Author</Link>
                                 </div>
                             </div>
 
@@ -136,7 +107,14 @@ function EditStoryPage() {
                                 <div className='update-form-container'>
                                     {!updateSuccess ? (
                                         <>
-                                            <form onSubmit={handleSubmit(handleUpdatingStory)}>
+                                            {story && (
+                                                <div>
+                                                    <h5>Username: {story.username}</h5>
+                                                    <h5>Theme: {story.themeName}</h5>
+                                                </div>
+                                            )}
+
+                                            <form onSubmit={handleSubmit(handleUpdatingStory)} className="text-form">
                                                 <Input
                                                     inputType='text'
                                                     inputName='title'
@@ -164,9 +142,10 @@ function EditStoryPage() {
                                                     register={register}
                                                     errors={errors}
                                                 />
-                                                <button type='submit' className='submit-story-button'>
-                                                    Update Story
-                                                </button>
+                                                <Button buttonType="submit"
+                                                        buttonText="Update Story"
+                                                        className="submit-story-button"
+                                                />
                                             </form>
 
                                             {loading && <p>Loading...</p>}
@@ -176,11 +155,14 @@ function EditStoryPage() {
                                                 <div className="status-content-container">
                                                     <label htmlFor="status-select">Change Status to:</label>
                                                     <select id="status-select"
-                                                            value={story?.status || 'SUBMITTED'}
+                                                            value={story?.status}
                                                             onChange={(e) => handleStatusChange(e.target.value)}>
                                                         <option value="SUBMITTED">Submitted</option>
                                                         <option value="ACCEPTED">Accepted</option>
                                                         <option value="DECLINED">Declined</option>
+                                                        {story?.status === "PUBLISHED" && (
+                                                            <option value="SUBMITTED">Unpublish</option>
+                                                        )}
                                                     </select>
                                                 </div>
                                             </div>
@@ -188,17 +170,13 @@ function EditStoryPage() {
                                         </>
                                     ) : (
                                         <div>
-                                            <p>Story Updated Successfully!</p>
-                                            <div className="back-link">
-                                                <FaLongArrowAltRight className='arrow-icon'/>
-                                                <Link to="/editor/stories">Back to stories overview</Link>
-                                            </div>
+                                            <h5>Successfully Updated Story!</h5>
                                         </div>
                                     )}
                                 </div>
                             )}
                             <div>
-                                {!deleteSuccess ? (
+                                {!deleteSuccess && !updateSuccess ? (
                                     <div className="delete-container">
                                         <Button onClick={() => openModal(story.id)}
                                                 className="delete-button"
@@ -206,22 +184,19 @@ function EditStoryPage() {
                                                 buttonType="button"
                                         />
                                         <Confirmation
-                                            isOpen={isModalOpen}
+                                            isOpen={modalOpen}
                                             onClose={() => setModalOpen(false)}
                                             onConfirm={() => handleDeleteStory(storyToDelete)}
                                             title="Confirm Deletion"
                                             message="Are you sure you want to delete this story? Please be certain."
                                         />
                                     </div>
-                                ) : (
-                                    <div>
-                                        <p>Successfully Deleted Story!</p>
-
-                                    </div>
+                                ) : (!updateSuccess &&
+                                        <h5>Successfully Deleted Story!</h5>
                                 )}
-
+                                {deleteError && <p>Error deleting story.</p>}
+                                {deleteLoading && <p>Deleting story...</p>}
                             </div>
-
                         </div>
                         <AsideEditorMenu/>
                     </EditorCheck>

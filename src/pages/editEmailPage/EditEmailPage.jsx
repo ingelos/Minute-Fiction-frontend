@@ -4,14 +4,16 @@ import {useContext, useState} from "react";
 import axios from "axios";
 import Input from "../../components/input/Input.jsx";
 import {Link} from "react-router-dom";
-import {FaLongArrowAltLeft, FaLongArrowAltRight} from "react-icons/fa";
+import {FaLongArrowAltLeft} from "react-icons/fa";
 import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
 import AuthContext from "../../context/AuthContext.jsx";
+import Button from "../../components/button/Button.jsx";
 
 function EditEmailPage() {
 
     const {register, handleSubmit, formState: {errors}} = useForm()
     const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
     const [submitSuccess, setSubmitSuccess] = useState(null);
     const { user } = useContext(AuthContext);
 
@@ -31,8 +33,11 @@ function EditEmailPage() {
             });
             setSubmitSuccess(true);
             console.log(`Account details successfully updated`, data);
-        } catch (e) {
-            console.error(e);
+        } catch (error) {
+            if (error.response && error.response.status === 400) {
+                setErrorMessage("Invalid password");
+            }
+            console.error(error);
             setError(true);
         }
     }
@@ -44,13 +49,12 @@ function EditEmailPage() {
                 <div className='main-container'>
                     <OwnerCheck username={user.username}>
                     <div className='featured-section'>
-                        <h2 className='edit-account-title titles'>Account Settings</h2>
+                        <h2 className='edit-account-title titles'>Change Email</h2>
                         <div className="account-details">
                             <h4>Username: {user.username}</h4>
                             <h4>Current email: {user.email}</h4>
                         </div>
-
-                        {error && <p>{error.message}</p>}
+                        {error && <p>{error}</p>}
                         {!submitSuccess ?
                             <div>
                                 <form className='edit-account-settings-form'
@@ -85,7 +89,11 @@ function EditEmailPage() {
                                         register={register}
                                         errors={errors}
                                     />
-                                    <button type='submit'>Save</button>
+                                    {errorMessage && <p className="error-message">{errorMessage}</p>}
+                                    <Button
+                                        buttonType="submit"
+                                        buttonText="Save"
+                                    />
                                 </form>
                                 <div className='back-link'>
                                     <FaLongArrowAltLeft className="arrow-icon"/>

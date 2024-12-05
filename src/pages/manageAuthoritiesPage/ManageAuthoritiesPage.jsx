@@ -4,29 +4,30 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import Button from "../../components/button/Button.jsx";
-import {useParams} from "react-router-dom";
-// import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import {FaLongArrowAltLeft} from "react-icons/fa";
 
 const allAuthorities = ["AUTHOR", "EDITOR"];
+
 
 function ManageAuthoritiesPage() {
     const {username} = useParams();
     const [userAuthorities, setUserAuthorities] = useState([]);
     const [error, setError] = useState(null);
+    const controller = new AbortController();
+    const signal = controller.signal;
     const token = localStorage.getItem('token');
 
 
+
     async function fetchUserAuthorities() {
-
-        // const signal = controller.signal;
-
         try {
             const {data} = await axios.get(`http://localhost:8080/users/${username}/authorities`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                // signal: signal,
+                signal: signal,
             });
             console.log(data);
             setUserAuthorities(data || []);
@@ -36,13 +37,17 @@ function ManageAuthoritiesPage() {
         }
     }
 
+
     useEffect(() => {
 
         fetchUserAuthorities();
 
     }, [username]);
 
+
+
     async function handleAddAuthority(authority) {
+        setError(false);
         const token = localStorage.getItem('token');
         try {
             await axios.post(`http://localhost:8080/users/${username}/authorities`, {
@@ -53,6 +58,7 @@ function ManageAuthoritiesPage() {
                     'Content-Type': 'application/json',
                 }
             });
+
             fetchUserAuthorities();
 
             console.log(`Authority ${authority} added successfully.`);
@@ -63,6 +69,7 @@ function ManageAuthoritiesPage() {
     }
 
     async function handleDeleteAuthority(authority) {
+        setError(false);
         const token = localStorage.getItem('token');
         if (authority === "reader") return;
         try {
@@ -88,11 +95,16 @@ function ManageAuthoritiesPage() {
                 <div className='main-container'>
                     <EditorCheck>
                         <div className="featured-section">
-                            <h2 className="user-title titles">Manage Authorities for {username}</h2>
+                            <h2 className="user-title titles">Manage Authorities</h2>
+                            <div className='back-link'>
+                                <FaLongArrowAltLeft className="arrow-icon"/>
+                                <Link to="/editor/users">Back to Manage Users</Link>
+                            </div>
                             {error && <p className="error">Error...</p>}
                             <div className='authorities-container'>
                                 <div className="current-authorities">
-                                    <h3>Current authorities:</h3>
+                                    <h5>User: {username}</h5>
+                                    <h5>Current authorities:</h5>
                                     {userAuthorities.length > 0 && (
                                         <ul>
                                             {userAuthorities.map((authority) => (

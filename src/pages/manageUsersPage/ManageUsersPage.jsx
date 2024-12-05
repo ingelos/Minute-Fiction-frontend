@@ -27,6 +27,7 @@ function ManageUsersPage() {
             console.log('User deleted.');
             setErrorMessage(null);
             setUsers((prevUsers) => prevUsers.filter(user => user.username !== username));
+
         } catch (error) {
             if (error.response) {
                 console.error("Error deleting user: ", error.response.data);
@@ -34,11 +35,13 @@ function ManageUsersPage() {
             } else {
                 console.error('Error deleting this user', error.message);
             }
+        } finally {
+            setModalOpen(false);
         }
     }
 
-    async function openModal(username) {
-        setUserToDelete(username);
+    async function openModal(user) {
+        setUserToDelete(user);
         setModalOpen(true);
     }
 
@@ -66,8 +69,8 @@ function ManageUsersPage() {
                                                         <th>Username</th>
                                                         <th>Email</th>
                                                         <th>Authorities</th>
-                                                        <th>Author</th>
                                                         <th>Edit Authorities</th>
+                                                        <th>Author</th>
                                                         <th>Delete</th>
                                                     </tr>
                                                     </thead>
@@ -78,30 +81,25 @@ function ManageUsersPage() {
                                                                 <td>{user.username}</td>
                                                                 <td>{user.email}</td>
                                                                 <td>{user.authorities.join(', ')}</td>
-                                                                <td>{user.hasAuthorProfile ? "Yes" : "No"}</td>
                                                                 <td>
                                                                     <Link
                                                                         to={`/editor/users/${user.username}/authorities`}
                                                                         className="link-button-style">Edit
                                                                     </Link>
                                                                 </td>
+                                                                <td>{user.hasAuthorProfile ? <Link
+                                                                    to={`/authors/${user.username}`}
+                                                                    className="link-button-style">Profile
+                                                                </Link> : "No"}</td>
                                                                 <td>
                                                                     <div className="delete-container">
-                                                                        <Button onClick={() => openModal(user.username)}
+                                                                        <Button onClick={() => openModal(user)}
                                                                                 className="delete-button"
                                                                                 buttonText="Delete"
                                                                                 buttonType="submit"
                                                                         />
 
-                                                                        {isModalOpen && userToDelete === user.username && (
-                                                                            <Confirmation
-                                                                                isOpen={isModalOpen}
-                                                                                onClose={() => setModalOpen(false)}
-                                                                                onConfirm={() => handleDeleteUser(userToDelete)}
-                                                                                title="Confirm User Deletion"
-                                                                                message="Are you sure you want to delete this User? Deletion cannot be undone."
-                                                                            />
-                                                                        )}
+
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -111,6 +109,15 @@ function ManageUsersPage() {
                                             </div>
                                         </li>
                                     </ul>
+                                    {isModalOpen && (
+                                        <Confirmation
+                                            isOpen={isModalOpen}
+                                            onClose={() => setModalOpen(false)}
+                                            onConfirm={() => handleDeleteUser(userToDelete.username)}
+                                            title={`Confirm Delete User: ${userToDelete?.username || ''}`}
+                                            message="Are you sure you want to delete this User?"
+                                        />
+                                    )}
                                 </div>
                             </div>
                         </div>

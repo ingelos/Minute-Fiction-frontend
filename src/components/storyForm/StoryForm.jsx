@@ -1,6 +1,7 @@
 import {useForm} from "react-hook-form";
 import Input from "../input/Input.jsx";
 import {useEffect} from "react";
+import Button from "../button/Button.jsx";
 
 
 function StoryForm({onSubmit, isEditing, initialData, error}) {
@@ -17,8 +18,7 @@ function StoryForm({onSubmit, isEditing, initialData, error}) {
     }
 
     return (
-        <div>
-                <form className='subit-form' onSubmit={handleSubmit(handleSubmitStory)}>
+                <form className='subit-form text-form' onSubmit={handleSubmit(handleSubmitStory)}>
                     <Input
                         inputType='text'
                         inputName='title'
@@ -42,25 +42,17 @@ function StoryForm({onSubmit, isEditing, initialData, error}) {
                                 return wordCount <= 100 || `Content exceeds the max word limit of a 100 words.`
                             },
                         }}
-                        rows={14}
+                        rows={15}
                         register={register}
                         errors={errors}
                     />
-                    <button type='submit' className='update-story-button'>
-                        Submit Story
-                    </button>
-                    {/*<AuthenticateCheck>*/}
-                    {/*    <Button*/}
-                    {/*        buttonType="submit"*/}
-                    {/*        className="submit-button"*/}
-                    {/*        buttonText="Submit Story"*/}
-                    {/*        onClick={handleSubmit}*/}
-                    {/*    />*/}
-                    {/*</AuthenticateCheck>*/}
-                    {error && <p>Something went wrong submitting the form, please try again.</p>}
+                    <Button
+                        buttonText="Submit Story"
+                        buttonType="submit"
+                        classname="update-story-button"
+                    />
+                    {error && <p className="error-message">Something went wrong submitting the form, please try again.</p>}
                 </form>
-        </div>
-
     )
 }
 

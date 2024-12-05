@@ -59,7 +59,7 @@ function UseAuthorProfile(username) {
 
     }, [username]);
 
-    return {authorProfile,profilePhoto, loading, error};
+    return {authorProfile, profilePhoto, loading, error};
 }
 
 export default UseAuthorProfile;

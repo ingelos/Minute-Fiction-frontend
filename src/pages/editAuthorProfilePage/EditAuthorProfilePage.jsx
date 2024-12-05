@@ -5,7 +5,7 @@ import AuthorProfileForm from "../../components/authorProfileForm/AuthorProfileF
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import useAuthorProfile from "../../hooks/useAuthorProfile/UseAuthorProfile.jsx";
 import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
-import {FaLongArrowAltRight} from "react-icons/fa";
+import {FaLongArrowAltLeft} from "react-icons/fa";
 
 
 function EditAuthorProfilePage() {
@@ -40,7 +40,7 @@ function EditAuthorProfilePage() {
                         <div className='authorprofile-contianer'>
                             <h2 className="mailings-title titles">Edit Author Profile</h2>
                             <div className="back-link">
-                                <FaLongArrowAltRight className="arrow-icon"/>
+                                <FaLongArrowAltLeft className="arrow-icon"/>
                                 <Link to={`/authors/${username}`}>Back to Author Profile</Link>
                             </div>
                             <OwnerCheck username={username}>

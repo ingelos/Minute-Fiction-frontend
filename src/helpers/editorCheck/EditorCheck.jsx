@@ -2,19 +2,23 @@ import "./EditorCheck.css";
 import {useContext} from "react";
 import AuthContext from "../../context/AuthContext.jsx";
 
-function EditorCheck({children}) {
+function EditorCheck({children, editorOnly = false}) {
 
     const {isAuth, authorities} = useContext(AuthContext);
 
     const isEditor = isAuth && authorities?.includes?.('EDITOR');
 
-    return isEditor ? children :
+    if (isEditor) {
+        return children;
+    }
+
+    return editorOnly ? null : (
         <div>
-            <h3 className="authority-check">This area is accessible only to editors.</h3>
+            <h3 className="authority-check">This area is accessible only to editors</h3>
             <p>Want to apply as editor?</p>
             <p>Contact us at <strong>editor@minutefiction.com</strong></p>
         </div>
-
+    )
 }
 
 export default EditorCheck;

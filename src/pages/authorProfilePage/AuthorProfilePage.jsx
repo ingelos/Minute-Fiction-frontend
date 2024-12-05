@@ -9,6 +9,8 @@ import {useState} from "react";
 import axios from "axios";
 import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
 import Button from "../../components/button/Button.jsx";
+import Confirmation from "../../components/confirmation/Confirmation.jsx";
+import useDeleteStory from "../../hooks/useDeleteStory/UseDeleteStory.jsx";
 
 
 function AuthorProfilePage() {
@@ -18,7 +20,7 @@ function AuthorProfilePage() {
     const [error, setError] = useState(null);
     const [unpublishedStories, setUnpublishedStories] = useState([]);
     const [showUnpublishedStories, setShowUnpublishedStories] = useState(false);
-
+    const { error: deleteError, loading, modalOpen, setModalOpen, storyToDelete, openModal, handleDeleteStory} = useDeleteStory(refreshUnpublishedStories);
 
     async function getUnpublishedStories() {
         const token = localStorage.getItem('token');
@@ -37,12 +39,19 @@ function AuthorProfilePage() {
         }
     }
 
+    async function refreshUnpublishedStories(deletedStoryId) {
+        setUnpublishedStories((prevStories) =>
+        prevStories.filter((story) => story.id !== deletedStoryId));
+    }
+
     async function handleShowUnpublishedStories() {
         if (!showUnpublishedStories) {
             getUnpublishedStories();
         }
         setShowUnpublishedStories(!showUnpublishedStories);
     }
+
+
 
 
     return (
@@ -99,6 +108,7 @@ function AuthorProfilePage() {
                         <div className="stories-section">
                             {storiesLoading && <p>Loading stories...</p>}
                             {storiesError && <p>{storiesError.message}</p>}
+
                             {stories.length > 0 && (
                                 stories.map((story) => (
                                     <div className="story-container" key={story.id}>
@@ -135,11 +145,34 @@ function AuthorProfilePage() {
                                                         <p><strong>Title:</strong> {story.title}</p>
                                                         <p><strong>Content:</strong> {story.content}</p>
                                                     </div>
+                                                    <div className="delete-section">
+                                                        <Button onClick={() => openModal(story.id)}
+                                                                className="delete-button"
+                                                                buttonText="Delete"
+                                                                buttonType="button"
+                                                        />
+
+                                                        {loading ? 'Deleting...' : ''}
+                                                        {deleteError && <p>Error deleting story.</p>}
+                                                    </div>
+
                                                 </div>
+
                                             ))))}
                                 </div>
+                                {modalOpen && (
+                                    <Confirmation
+                                        isOpen={modalOpen}
+                                        onClose={() => setModalOpen(false)}
+                                        onConfirm={() => handleDeleteStory(storyToDelete)}
+                                        title="Confirm Deletion"
+                                        message="Are you sure you want to delete this story? Please be certain."
+                                    />
+                                )}
                             </div>
-                            <Link to={`/authors/${username}/download`} className="link-button-style">Download Stories</Link>
+                            <Link to={`/authors/${username}/download`} className="link-button-style downloads">
+                                Download Stories
+                            </Link>
                         </OwnerCheck>
                     </div>
                     <AsideMenu/>
