@@ -41,14 +41,16 @@
   margin-top: 20px;
 }
 
-
 form {
   margin-top: 0.5em;
   display: flex;
   flex-direction: column;
-  max-width: 500px;
+  max-width: 300px;
 }
 
+.text-form {
+  max-width: 600px;
+}
 
 button {
   border-radius: 25px;
@@ -63,6 +65,9 @@ button {
   cursor: pointer;
 }
 
+.search-button {
+  margin-left: 15px;
+}
 
 .link-button-style {
   font-family: 'Oswald', sans-serif;
@@ -70,19 +75,14 @@ button {
   border: 1px solid var(--color-primary);
   width: fit-content;
   padding: 0.2em 0.5em;
-  margin-top: 10px;
+  margin: 10px 0 20px;
   cursor: pointer;
 }
-
 
 label {
   padding: 5px 0 5px;
   display: flex;
   flex-direction: column;
-}
-
-.back-link {
-  padding-bottom: 20px;
 }
 
 .active-menu-link {
@@ -101,7 +101,50 @@ label {
   margin: 20px 0;
 }
 
-.pagination {
-  margin-top: 20px;
+.error-message {
+  color: red;
+  margin: 15px 0;
 }
 
+.delete-button {
+  background-color: lightslategrey;
+  border: none;
+}
+
+.pagination-buttons {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.button-actions {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-around;
+  margin-left: 50px;
+}
+
+
+.action-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  border: 1px dotted var(--color-primary);
+  padding: 10px;
+  margin: 20px 0;
+}
+
+.back-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  padding: 20px 0;
+}
+
+.arrow-icon {
+  margin-right: 5px;
+}

@@ -5,6 +5,10 @@
     flex-shrink: 0;
 }
 
+.aside-container {
+    border-bottom: 2px solid black;
+}
+
 .aside-card {
     border-top: 2px solid var(--color-primary);
     padding-top: 0.6em;
@@ -16,6 +20,15 @@
     display: flex;
     justify-content: center;
 }
+
+.list-recent-stories {
+    padding: 15px;
+}
+
+.list-recent-stories p {
+    padding: 5px 0;
+}
+
 
 .theme-menu-aside {
     padding: 20px 0;
@@ -52,20 +65,6 @@
     border: 1px solid var(--color-primary);
 }
 
-.aside-themes-nav {
-    border-bottom: 2px solid var(--color-primary);
-}
-
 .no-open-themes {
     margin: 10px 20px;
 }
-
-/*.theme-aside-nav {*/
-/*    margin-top: 2em;*/
-/*}*/
-
-/*.theme-aside-nav li {*/
-/*    list-style: none;*/
-/*    margin-bottom: 0.3em;*/
-/*}*/
-

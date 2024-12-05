@@ -11,3 +11,7 @@
 .authorities-link {
     margin: 20px 0;
 }
+
+#account-list {
+    list-style: inside;
+}

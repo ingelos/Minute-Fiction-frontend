@@ -21,10 +21,15 @@ function UseThemes() {
                         signal: signal,
                     });
                console.log(data);
-                setThemes(data);
+               setThemes(data);
+               setError(false);
             } catch (error) {
-                console.error("Error fetching themes", error)
-                setError(true);
+                if (axios.isCancel(error)) {
+                    console.error("Request cancelled", error.message)
+                } else {
+                    setError(true);
+                    console.log("Error fetching themes", error)
+                }
             } finally {
                 setLoading(false);
             }
@@ -37,7 +42,7 @@ function UseThemes() {
         }
     }, []);
 
-    return { themes, loading, error};
+    return { themes, loading, error, setThemes };
 }
 
 export default UseThemes;

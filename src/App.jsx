@@ -39,6 +39,7 @@ import EditCommentPage from "./pages/editCommentPage/EditCommentPage.jsx";
 import EditAuthorProfilePage from "./pages/editAuthorProfilePage/EditAuthorProfilePage.jsx";
 import ManageAuthorsPage from "./pages/manageAuthorsPage/ManageAuthorsPage.jsx";
 import SearchByAuthorPage from "./pages/searchByAuthorPage/SearchByAuthorPage.jsx";
+import DownloadStoriesPage from "./pages/downloadStoriesPage/DownloadStoriesPage.jsx";
 
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
                     <Route path="/authors/:username" element={<AuthorProfilePage/>}/>
                     <Route path="/authors/:username/edit" element={<EditAuthorProfilePage/>}/>
                     <Route path="/authors/:username/photo" element={<EditProfilePhotoPage/>}/>
+                    <Route path="/authors/:username/download" element={<DownloadStoriesPage/>}/>
 
                     <Route path="/editor/dashboard" element={<EditorDashboardPage/>}/>
                     <Route path="/editor/stories" element={<ManageStoriesPage/>}/>
@@ -90,7 +92,7 @@ function App() {
                     <Route path="/submit" element={<SubmitPage/>}/>
                     <Route path="/submit/:themeId" element={<SubmitToThemePage/>}/>
                     <Route path="/stories/:storyId" element={<StoryDetailsPage/>}/>
-                    <Route path="/comments/:commentId/edit" element={<EditCommentPage/>}/>
+                    <Route path="/stories/:storyId/comments/:commentId/edit" element={<EditCommentPage/>}/>
 
                     <Route path="/about" element={<AboutPage/>}/>
                     <Route path="*" element={<NotFound/>}/>

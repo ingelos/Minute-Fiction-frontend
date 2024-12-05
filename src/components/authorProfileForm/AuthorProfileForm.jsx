@@ -1,6 +1,7 @@
 import {useForm} from "react-hook-form";
 import {useEffect} from "react";
 import Input from "../input/Input.jsx";
+import Button from "../button/Button.jsx";
 
 function AuthorProfileForm({onSubmit, initialData, isEditing, error}) {
     const {register, handleSubmit, reset, formState: {errors}} = useForm();
@@ -69,17 +70,22 @@ function AuthorProfileForm({onSubmit, initialData, isEditing, error}) {
                 inputId='dob-field'
                 inputLabel='Date of birth:'
                 validationRules={{
-                    // validate: {
-                    //     isValidDate: (value) => !isNaN(Date.parse(value)) || 'Invalid date format',
-                    // }
+                    validate: {
+                        isPastDate: (value) =>
+                            value ? new Date(value) < new Date() || 'Birth date must be in the past' : true,
+                    }
                 }}
                 register={register}
                 errors={errors}
+                min="1900-01-01"
+                max={new Date().toISOString().split('T')[0]}
             />
             <p>* required</p>
-            <button type='submit' className='update-profile-button'>
-                {isEditing ? 'Update Author Profile' : 'Create Author Profile'}
-            </button>
+            <Button
+                buttonType="submit"
+                buttonText={isEditing ? 'Update Author Profile' : 'Create Author Profile'}
+                className="update-profile-button"
+            />
             {error && <p>Something went wrong submitting the form, please try again.</p>}
         </form>
     )

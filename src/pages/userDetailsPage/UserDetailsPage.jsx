@@ -4,7 +4,7 @@ import {useContext, useEffect, useState} from "react";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import axios from "axios";
 import Button from "../../components/button/Button.jsx";
-import OwnerCheck from "../../components/ownerCheck/OwnerCheck.jsx";
+import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
 import AuthContext from "../../context/AuthContext.jsx";
 
 
@@ -17,6 +17,7 @@ function UserDetailsPage() {
 
     useEffect(() => {
         const controller = new AbortController();
+        console.log(userData);
 
         async function fetchUserData() {
             try {
@@ -28,6 +29,7 @@ function UserDetailsPage() {
                     signal: controller.signal,
                 });
                 setUserData(data);
+                console.log(data);
             } catch (error) {
                 console.error("error fetching user data", error);
             } finally {
@@ -48,15 +50,23 @@ function UserDetailsPage() {
 
     async function handleSubscriptionChange() {
         try {
+            const newSubscriptionStatus = !userData.subscribedToMailing;
+
             await axios.patch(`http://localhost:8080/users/${username}/subscription`,
-                {subscribedToMailing: !user.subscribedToMailing},
+                {subscribedToMailing: newSubscriptionStatus},
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
                     },
                 });
 
-            updateUser({ ...user, subscribedToMailing: !user.subscribedToMailing })
+            setUserData((prevData) => ({
+                    ...prevData,
+                    subscribedToMailing: newSubscriptionStatus,
+                }));
+
+            updateUser({ ...user, subscribedToMailing: newSubscriptionStatus });
+
             console.log("Subscription updated successfully");
         } catch (error) {
             console.error("Error updating subscription:", error);
@@ -73,7 +83,6 @@ function UserDetailsPage() {
                             <div>
                                 {loading && <p>Loading...</p>}
                                 <h2 className="section-title titles">Welcome back {user.username}!</h2>
-                                {/*{userData && (*/}
                                     <div>
                                         <div className="account-container">
                                             <p>Username: {userData.username}</p>
@@ -81,12 +90,12 @@ function UserDetailsPage() {
                                         </div>
                                         <div className="subscription-container">
                                             <p className="subscription-status">
-                                                Subscribed: {user.subscribedToMailing ? "Yes" : "No"}</p>
+                                                Subscribed to Mailing: {userData.subscribedToMailing ? "Yes" : "No"}</p>
                                             <Button
                                                 onClick={handleSubscriptionChange}
                                                 buttonType="submit"
                                                 classname="submit-button"
-                                                buttonText={user.subscribedToMailing ? "Unsubscribe" : "Subscribe"}
+                                                buttonText={userData.subscribedToMailing ? "Unsubscribe" : "Subscribe"}
                                                 />
                                         </div>
                                         <div className="profile-link">

@@ -20,7 +20,7 @@ function MailingForm({onSubmit, initialData, isEditing}) {
 
     return (
 
-        <form className='subit-form' onSubmit={handleSubmit(handleUpdatingMailing)}>
+        <form className='subit-form text-form' onSubmit={handleSubmit(handleUpdatingMailing)}>
             <Input
                 inputType='text'
                 inputName='subject'

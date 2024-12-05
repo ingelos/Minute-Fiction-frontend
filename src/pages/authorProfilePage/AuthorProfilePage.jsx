@@ -1,28 +1,29 @@
 import "./AuthorProfilePage.css";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
-import useAuthorProfile from "../../components/useAuthorProfile/UseAuthorProfile.jsx";
+import useAuthorProfile from "../../hooks/useAuthorProfile/UseAuthorProfile.jsx";
 import AuthorProfileCard from "../../components/authorProfileCard/AuthorProfileCard.jsx";
 import {Link, useParams} from "react-router-dom";
-import UserIcon from "../../assets/icons/user-circle.svg";
 import StoryDetailsCard from "../../components/storyDetailsCard/StoryDetailsCard.jsx";
-import useAuthorPublishedStories from "../../components/useAuthorPublishedStories/UseAuthorPublishedStories.jsx";
+import useAuthorPublishedStories from "../../hooks/useAuthorPublishedStories/UseAuthorPublishedStories.jsx";
 import {useState} from "react";
 import axios from "axios";
-import OwnerCheck from "../../components/ownerCheck/OwnerCheck.jsx";
+import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
+import Button from "../../components/button/Button.jsx";
+import Confirmation from "../../components/confirmation/Confirmation.jsx";
+import useDeleteStory from "../../hooks/useDeleteStory/UseDeleteStory.jsx";
+
 
 function AuthorProfilePage() {
     const {username} = useParams();
-    // const {user} = useContext(AuthContext);
     const {authorProfile, profilePhoto, loading: profileLoading, error: profileError} = useAuthorProfile(username);
     const {stories, loading: storiesLoading, error: storiesError} = useAuthorPublishedStories(username);
     const [error, setError] = useState(null);
     const [unpublishedStories, setUnpublishedStories] = useState([]);
     const [showUnpublishedStories, setShowUnpublishedStories] = useState(false);
-
+    const { error: deleteError, loading, modalOpen, setModalOpen, storyToDelete, openModal, handleDeleteStory} = useDeleteStory(refreshUnpublishedStories);
 
     async function getUnpublishedStories() {
         const token = localStorage.getItem('token');
-
         try {
             const {data} = await axios.get(`http://localhost:8080/authorprofiles/${username}/unpublished`, {
                 headers: {
@@ -38,12 +39,19 @@ function AuthorProfilePage() {
         }
     }
 
+    async function refreshUnpublishedStories(deletedStoryId) {
+        setUnpublishedStories((prevStories) =>
+        prevStories.filter((story) => story.id !== deletedStoryId));
+    }
+
     async function handleShowUnpublishedStories() {
         if (!showUnpublishedStories) {
             getUnpublishedStories();
         }
         setShowUnpublishedStories(!showUnpublishedStories);
     }
+
+
 
 
     return (
@@ -56,7 +64,7 @@ function AuthorProfilePage() {
                                 {profileLoading && <p>Loading...</p>}
                                 {profileError && <p>{profileError.message}</p>}
                                 {authorProfile &&
-                                    <>
+                                    <div className="author-profile-container">
                                         <AuthorProfileCard
                                             username={authorProfile.username}
                                             firstname={authorProfile.firstname}
@@ -66,12 +74,12 @@ function AuthorProfilePage() {
                                         />
                                         <div className="edit-link">
                                         <OwnerCheck username={username}>
-                                            <Link to={`/authors/${username}/edit`}>
+                                            <Link to={`/authors/${username}/edit`} className="edit-link">
                                                 Edit Profile
                                             </Link>
                                         </OwnerCheck>
                                         </div>
-                                    </>
+                                    </div>
                                 }
                             </div>
                             <div className="profile-photo-container">
@@ -88,12 +96,10 @@ function AuthorProfilePage() {
                                     </div>
                                 ) : (
                                     <div className="photo-container">
-                                        <img src={UserIcon}
-                                             alt='no profile photo'
-                                             className='profile-picture-empty'/>
                                         <OwnerCheck username={username}>
-                                            <Link to={`/authors/${username}/photo`}>Add Photo</Link>
-                                            <Link to={`/authors/${username}/edit`}>Edit Profile</Link>
+                                            <Link to={`/authors/${username}/photo`} className="edit-link">
+                                                Add Photo
+                                            </Link>
                                         </OwnerCheck>
                                     </div>
                                 )}
@@ -102,14 +108,16 @@ function AuthorProfilePage() {
                         <div className="stories-section">
                             {storiesLoading && <p>Loading stories...</p>}
                             {storiesError && <p>{storiesError.message}</p>}
+
                             {stories.length > 0 && (
                                 stories.map((story) => (
                                     <div className="story-container" key={story.id}>
                                         <StoryDetailsCard
-                                            title={story.title}
+                                            storyTitle={story.title}
                                             storyContent={story.content}
                                             authorFirstname={story.authorFirstname}
                                             authorLastname={story.authorLastname}
+                                            username={story.username}
                                             themeName={story.themeName}
                                             publishDate={story.publishDate}
                                             storyId={story.id}
@@ -118,12 +126,13 @@ function AuthorProfilePage() {
                                     </div>
                                 )))}
                         </div>
-
                         <OwnerCheck username={username}>
                             <div>
-                                <button onClick={handleShowUnpublishedStories}>
-                                    {showUnpublishedStories ? 'Hide Unpublished Stories' : 'Show Unpublished Stories'}
-                                </button>
+                                <Button onClick={handleShowUnpublishedStories}
+                                        buttonText={showUnpublishedStories ? 'Hide Unpublished Stories' : 'Show Unpublished Stories'}
+                                        buttonType="button"
+                                        className="show-button"
+                                />
                                 <div>
                                     {error && <p>{error.message}</p>}
                                     {showUnpublishedStories && (
@@ -131,15 +140,39 @@ function AuthorProfilePage() {
                                             unpublishedStories.map((story) => (
                                                 <div className="stories-container-author" key={story.id}>
                                                     <div className="author-story-container">
-                                                        <p>Title: {story.title}</p>
-                                                        <p>Content: {story.content}</p>
-                                                        <p>Theme: {story.themeName}</p>
-                                                        <p>Status: {story.status}</p>
+                                                        <p><strong>Current status:</strong> {story.status}</p>
+                                                        <p><strong>Theme:</strong> {story.themeName}</p>
+                                                        <p><strong>Title:</strong> {story.title}</p>
+                                                        <p><strong>Content:</strong> {story.content}</p>
                                                     </div>
+                                                    <div className="delete-section">
+                                                        <Button onClick={() => openModal(story.id)}
+                                                                className="delete-button"
+                                                                buttonText="Delete"
+                                                                buttonType="button"
+                                                        />
+
+                                                        {loading ? 'Deleting...' : ''}
+                                                        {deleteError && <p>Error deleting story.</p>}
+                                                    </div>
+
                                                 </div>
+
                                             ))))}
                                 </div>
+                                {modalOpen && (
+                                    <Confirmation
+                                        isOpen={modalOpen}
+                                        onClose={() => setModalOpen(false)}
+                                        onConfirm={() => handleDeleteStory(storyToDelete)}
+                                        title="Confirm Deletion"
+                                        message="Are you sure you want to delete this story? Please be certain."
+                                    />
+                                )}
                             </div>
+                            <Link to={`/authors/${username}/download`} className="link-button-style downloads">
+                                Download Stories
+                            </Link>
                         </OwnerCheck>
                     </div>
                     <AsideMenu/>

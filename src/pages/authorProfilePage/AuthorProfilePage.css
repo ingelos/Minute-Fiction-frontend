@@ -48,4 +48,13 @@
 
 .edit-link {
     margin-top: 15px;
+    color: lightslategrey
+}
+
+.show-button {
+    margin: 40px 0 20px;
+}
+
+.downloads {
+    margin-top: 2em;
 }

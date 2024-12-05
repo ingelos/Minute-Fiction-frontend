@@ -1,0 +1,16 @@
+.filter-container {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.filter-container label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 2em;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    accent-color: var(--color-primary);
+}

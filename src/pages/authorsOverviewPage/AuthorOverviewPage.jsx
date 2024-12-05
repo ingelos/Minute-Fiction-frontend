@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
-import useAuthors from "../../components/useAuthors/UseAuthors.jsx";
+import useAuthors from "../../hooks/useAuthors/UseAuthors.jsx";
 
 function AuthorOverviewPage() {
     const { authors, loading, error} = useAuthors();

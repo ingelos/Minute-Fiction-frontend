@@ -1,32 +1,27 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-
-function UseAuthors() {
-
-    const [authors, setAuthors] = useState([]);
+export function UseRecentStories({ limit, offset = 0}) {
+    const [stories, setStories] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
-
     useEffect(() => {
         const controller = new AbortController();
-        const signal = controller.signal;
 
-        async function fetchAuthors() {
-            setError(false);
+        async function fetchRecentStories() {
             setLoading(true);
+            setError(false);
 
             try {
-                const {data} = await axios.get(`http://localhost:8080/authorprofiles`, {
-                    signal: signal,
+                const {data} = await axios.get(`http://localhost:8080/stories/published`, {
+                    params: { limit, offset },
+                    signal: controller.signal,
                 });
-                console.log(data);
-                setAuthors(data);
-
+                setStories(data);
             } catch (error) {
                 if (axios.isCancel(error)) {
-                    console.error('Request is cancelled');
+                    console.error('Request is cancelled', error);
                 } else {
                     console.error(error);
                     setError(true);
@@ -36,15 +31,15 @@ function UseAuthors() {
             }
         }
 
-        fetchAuthors();
+        fetchRecentStories();
 
         return function cleanup() {
             controller.abort();
         }
+    }, [limit, offset]);
 
-    }, []);
+    return { stories, loading, error };
 
-    return {authors, loading, error};
 }
 
-export default UseAuthors;
+export default UseRecentStories;

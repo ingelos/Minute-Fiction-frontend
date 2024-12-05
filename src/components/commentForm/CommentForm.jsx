@@ -2,11 +2,10 @@ import {useForm} from "react-hook-form";
 import {useEffect} from "react";
 import Input from "../input/Input.jsx";
 import Button from "../button/Button.jsx";
-import AuthenticateCheck from "../authenticateCheck/AuthenticateCheck.jsx";
-// import AuthenticateCheck from "../authenticateCheck/AuthenticateCheck.jsx";
+import AuthenticateCheck from "../../helpers/authenticateCheck/AuthenticateCheck.jsx";
 
 
-function CommentForm({onSubmit, isEditing, initialData}) {
+function CommentForm({onSubmit, isEditing= false, initialData}) {
     const {register, handleSubmit, reset, formState: {errors}} = useForm();
 
     useEffect(() => {
@@ -16,7 +15,8 @@ function CommentForm({onSubmit, isEditing, initialData}) {
     }, [isEditing, initialData, reset]);
 
     async function handleSubmitComment(commentData) {
-        onSubmit(commentData);
+        await onSubmit(commentData);
+        reset();
     }
 
 
@@ -26,7 +26,7 @@ function CommentForm({onSubmit, isEditing, initialData}) {
                 inputType='textarea'
                 inputName='content'
                 inputId='comment-field'
-                inputLabel='Your comment:'
+                inputLabel={isEditing ? 'Update comment:' : 'Add comment:'}
                 validationRules={{
                     required: 'Content is required'
                 }}

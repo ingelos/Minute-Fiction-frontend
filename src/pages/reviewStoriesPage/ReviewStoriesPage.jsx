@@ -1,38 +1,23 @@
 import "./ReviewStoriesPage.css";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
+import useThemes from "../../hooks/useThemes/UseThemes.jsx";
+import useFetchStories from "../../hooks/useFetchStories/UseFetchStories.jsx";
+import Button from "../../components/button/Button.jsx";
 
 
 function ReviewStoriesPage() {
-    const [themes, setThemes] = useState([]);
     const [selectedTheme, setSelectedTheme] = useState('');
-    const [stories, setStories] = useState([]);
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        const controller = new AbortController();
-        const {signal} = controller;
-
-        async function fetchThemes() {
-            try {
-                const {data} = await axios.get(`http://localhost:8080/themes`, {signal});
-                setThemes(data);
-            } catch (error) {
-                console.error('Error fetching themesPage:', error);
-                setError(true);
-            }
-        }
-
-        fetchThemes();
-
-        return function cleanup() {
-            controller.abort();
-        }
-
-    }, []);
+    const [searchClicked, setSearchClicked] = useState(false);
+    const [acceptSuccess, setAcceptSuccess] = useState(false);
+    const [deleteSuccess, setDeleteSuccess] = useState(false);
+    const { themes} = useThemes();
+    const { stories, loading, error, setStories, fetchStories} = useFetchStories({
+        status: 'SUBMITTED',
+        themeId: selectedTheme,
+    })
 
 
     async function handleThemeChange(event) {
@@ -40,51 +25,10 @@ function ReviewStoriesPage() {
         setSelectedTheme(themeId);
     }
 
-
-    useEffect(() => {
-        const controller = new AbortController();
-        const {signal} = controller;
-
-        if (!selectedTheme) return;
-
-        async function fetchSubmittedStoriesByTheme(themeId) {
-            const token = localStorage.getItem('token');
-            setLoading(true);
-            setStories([]);
-
-            try {
-                const {data} = await axios.get(`http://localhost:8080/stories/editor/overview`, {
-                    params: {
-                        status: 'SUBMITTED',
-                        themeId
-                    },
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    signal
-                });
-                setStories(data);
-            } catch (error) {
-                if (axios.isCancel(error)) {
-                    console.log('Request cancelled');
-                } else {
-                    console.error('Error fetching submitted stories:', error);
-                    setError(true);
-                }
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchSubmittedStoriesByTheme(selectedTheme);
-
-        return function cleanup() {
-            controller.abort();
-        };
-    }, [selectedTheme]);
-
-
+    async function handleSearch() {
+        setSearchClicked(true);
+        fetchStories();
+    }
 
 
     async function handleAcceptStory(storyId) {
@@ -100,6 +44,7 @@ function ReviewStoriesPage() {
                 },
             });
             console.log(data);
+            setAcceptSuccess(true);
             setStories((prevStories) => prevStories.filter(story => story.id !== storyId));
         } catch (error) {
             console.error("Error accepting story:", error);
@@ -110,7 +55,7 @@ function ReviewStoriesPage() {
         const token = localStorage.getItem('token');
 
         try {
-            const {data} = await axios.patch(`http://localhost:8080/stories/editors/${storyId}/decline`,
+            const {data} = await axios.patch(`http://localhost:8080/stories/editor/${storyId}/decline`,
                 {},
                 {
                 headers: {
@@ -119,6 +64,7 @@ function ReviewStoriesPage() {
                 },
             });
             console.log(data);
+            setDeleteSuccess(true);
             setStories((prevStories) => prevStories.filter(story => story.id !== storyId));
 
         } catch (error) {
@@ -145,26 +91,28 @@ function ReviewStoriesPage() {
                                             </option>
                                         ))}
                                     </select>
-                                    {/*<Button onClick={fetchSubmittedStoriesByTheme}*/}
-                                    {/*        buttonType="button"*/}
-                                    {/*        buttonText="Show Stories"*/}
-                                    {/*        className="show-button"/>*/}
+                                    <Button
+                                        buttonType="button"
+                                        onClick={handleSearch}
+                                        className="search-button"
+                                        buttonText="Search">
+                                    </Button>
                                 </div>
                                 <br></br>
                                 {loading && <p>Loading stories...</p>}
                                 {error && <p>{error.message}</p>}
 
                                 <div className="story-list">
-                                    {selectedTheme && (
+                                    {searchClicked && selectedTheme && (
                                         stories.length > 0 ? (
                                             stories.map((story) => (
-                                                <div key={story.id} className="story-actions">
+                                                <div key={story.id} className="action-container">
                                                     <div className="story-container">
-                                                        <p>Id: {story.id}</p>
-                                                        <p>Status: {story.status}</p>
-                                                        <p>Title: {story.title}</p>
-                                                        <p>By: {story.username}</p>
-                                                        <p>Content: {story.content}</p>
+                                                        <p><strong>Id:</strong> {story.id}</p>
+                                                        <p><strong>Status:</strong> {story.status}</p>
+                                                        <p><strong>Title:</strong> {story.title}</p>
+                                                        <p><strong>Username:</strong> {story.username}</p>
+                                                        <p><strong>Content:</strong> {story.content}</p>
                                                     </div>
                                                     <div className="button-actions">
                                                         <button onClick={() => handleAcceptStory(story.id)}>Accept</button>
@@ -173,9 +121,11 @@ function ReviewStoriesPage() {
                                                 </div>
                                             ))
                                         ) : (
-                                            <p>No Submitted stories available for the selected theme.</p>
+                                            <p>No stories available with status SUBMITTED</p>
                                         ))}
                                 </div>
+                                {acceptSuccess && <h5 className="success-message">Story successfully accepted!</h5>}
+                                {deleteSuccess && <h5 className="success-message">Story successfully declined!</h5>}
                             </div>
                         </div>
                         <AsideEditorMenu/>

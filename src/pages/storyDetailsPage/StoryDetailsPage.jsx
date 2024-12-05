@@ -6,17 +6,15 @@ import axios from "axios";
 import CommentCard from "../../components/commentCard/CommentCard.jsx";
 import StoryDetailsCard from "../../components/storyDetailsCard/StoryDetailsCard.jsx";
 import CommentForm from "../../components/commentForm/CommentForm.jsx";
-import {AuthContextProvider} from "../../context/AuthContextProvider.jsx";
-import {formatDateTime} from "../../helpers/dateFormatter.js";
+import AuthContext from "../../context/AuthContext.jsx";
 
-// import AuthenticateCheck from "../../components/authenticateCheck/AuthenticateCheck.jsx";
 
 function StoryDetailsPage() {
     const [story, setStory] = useState({});
     const [comments, setComments] = useState({})
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-    const {user} = useContext(AuthContextProvider);
+    const {user} = useContext(AuthContext);
     const currentUsername = user?.username;
     const {storyId} = useParams();
 
@@ -90,6 +88,7 @@ function StoryDetailsPage() {
                     }
                 });
             console.log('Comment created:', data);
+            setComments((prev) => [...prev, data]);
         } catch (error) {
             if (error.response) {
                 console.error('Error creating comment:', error.response.data);
@@ -114,10 +113,12 @@ function StoryDetailsPage() {
                             <div className="story-card">
                                 {Object.keys(story).length > 0 &&
                                     <StoryDetailsCard
-                                        title={story.title}
+                                        storyId={story.id}
+                                        storyTitle={story.title}
                                         storyContent={story.content}
                                         authorFirstname={story.authorFirstname}
                                         authorLastname={story.authorLastname}
+                                        username={story.username}
                                         themeName={story.themeName}
                                         publishDate={story.publishDate}
                                         preview={false}
@@ -143,7 +144,8 @@ function StoryDetailsPage() {
                             </div>
                             <CommentForm
                                 onSubmit={handleSubmitComment}
-                                isEditing={false}/>
+                                isEditing={false}
+                            />
                         </div>
                     </div>
                     <AsideMenu/>

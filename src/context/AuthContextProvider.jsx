@@ -78,22 +78,33 @@ export function AuthContextProvider({children}) {
         const token = localStorage.getItem('token');
         console.log("Token retrieved:", token);
 
-        // if (!token) {
-        //     console.error("Token is undefined or null.");
-        // }
-
         if (token && isTokenValid(token)) {
             void login(token);
         } else {
-            // console.log("no valid token found. Setting default auth state..")
             setAuth({
                 isAuth: false,
                 user: null,
                 authorities: [],
                 status: 'done',
             });
+            localStorage.removeItem('token');
         }
-    }, [login]);
+
+        const intervalId = setInterval(() => {
+            if (token && !isTokenValid(token)) {
+                setAuth({
+                    isAuth: false,
+                    user: null,
+                    authorities: [],
+                    status: 'done',
+                });
+                localStorage.removeItem('token');
+                navigate('/authenticate', { replace: true });
+            }
+        }, 60000);
+        return () => clearInterval(intervalId);
+
+    }, [login, navigate]);
 
     const contextData = {
         isAuth: auth.isAuth,

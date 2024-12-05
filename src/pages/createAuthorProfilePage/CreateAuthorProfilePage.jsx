@@ -2,7 +2,7 @@ import {useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
-import AuthenticateCheck from "../../components/authenticateCheck/AuthenticateCheck.jsx";
+import AuthenticateCheck from "../../helpers/authenticateCheck/AuthenticateCheck.jsx";
 import AuthorProfileForm from "../../components/authorProfileForm/AuthorProfileForm.jsx";
 import AuthContext from "../../context/AuthContext.jsx";
 

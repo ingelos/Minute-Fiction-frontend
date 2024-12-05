@@ -1,6 +1,6 @@
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {Link} from "react-router-dom";
-import useClosedThemes from "../../components/useClosedThemes/UseClosedThemes.jsx";
+import useClosedThemes from "../../hooks/useClosedThemes/UseClosedThemes.jsx";
 
 
 function ThemesPage() {

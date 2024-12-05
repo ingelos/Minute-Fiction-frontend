@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import useClosedThemes from "../useClosedThemes/UseClosedThemes.jsx";
+import useClosedThemes from "../../hooks/useClosedThemes/UseClosedThemes.jsx";
 
 function ThemesOverview() {
     const {closedThemes, loading, error} = useClosedThemes();
@@ -17,7 +17,7 @@ function ThemesOverview() {
                         </Link>
                     </div>
                 ))) : (
-                    <p>None</p>
+                    <p className="no-themes"></p>
             )}
         </div>
     );

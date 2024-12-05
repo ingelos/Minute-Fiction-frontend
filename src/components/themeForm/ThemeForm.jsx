@@ -41,6 +41,7 @@ function ThemeForm({onSubmit, initialData, isEditing}) {
                 }}
                 register={register}
                 errors={errors}
+                rows={4}
             />
             <Input
                 inputType='date'

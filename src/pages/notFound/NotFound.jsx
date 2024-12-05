@@ -1,4 +1,3 @@
-import "./NotFound.css"
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import {Link} from "react-router-dom";
 

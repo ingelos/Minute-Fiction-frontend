@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import AsideEditorMenu from "../../components/asideEditorMenu/AsideEditorMenu.jsx";
-import EditorCheck from "../../components/editorCheck/EditorCheck.jsx";
+import EditorCheck from "../../helpers/editorCheck/EditorCheck.jsx";
 import Button from "../../components/button/Button.jsx";
 import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import {formatDate} from "../../helpers/dateFormatter.js";
@@ -15,9 +15,6 @@ function ManageThemes() {
     const [loading, setLoading] = useState(false);
     const [mailingToDelete, setMailingToDelete] = useState(null);
     const [isModalOpen, setModalOpen] = useState(false);
-    // const [deleteSuccess, setDeleteSuccess] = useState(false);
-
-    // const {mailingId} = useParams();
 
     useEffect(() => {
         const controller = new AbortController();
@@ -86,17 +83,18 @@ function ManageThemes() {
                     <EditorCheck>
                         <div className="featured-section">
                             <h2 className="mailings-title titles">Manage Mailings</h2>
-                            <p className="link-button-style titles"><Link to="/editor/mailings/new">Create New
-                                Mailing</Link></p>
+                            <p className="link-button-style titles">
+                                <Link to="/editor/mailings/new">Create New Mailing</Link>
+                            </p>
                             <div className='mailings-container'>
-                                <h3 className="mailing-overview overviews">Mailings:</h3>
+                                <h3 className="mailing-overview overviews">All Mailings:</h3>
                                 {loading && <p>Loading...</p>}
-                                <ul>
+                                <div>
                                     {error && <p>{error.message}</p>}
                                     {mailings.length > 0 &&
                                         mailings.map((mailing) => (
-                                            <li className="list-edit mailing-specific" key={mailing.id}>
-                                                <div className="editor-container">
+                                            <div key={mailing.id} className="action-container">
+                                                <div className="story-container">
                                                     <p><strong>Id: </strong>{mailing.id}</p>
                                                     <p><strong>Subject: </strong>{mailing.subject}</p>
                                                     <p><strong>Body: </strong>{mailing.body}</p>
@@ -115,11 +113,10 @@ function ManageThemes() {
                                                     <Button
                                                         buttonType="submit"
                                                         buttonText="Delete"
+                                                        className="delete-button"
                                                         onClick={() => openModal(mailing)}
                                                     />
-
                                                 </div>
-
                                                 {isModalOpen && mailingToDelete?.id === mailing.id && (
                                                     <Confirmation
                                                         isOpen={isModalOpen}
@@ -129,9 +126,9 @@ function ManageThemes() {
                                                         message="Are you sure you want to delete this Mailing?"
                                                     />
                                                 )}
-                                            </li>
+                                            </div>
                                         ))}
-                                </ul>
+                                </div>
                             </div>
                         </div>
                         <AsideEditorMenu/>

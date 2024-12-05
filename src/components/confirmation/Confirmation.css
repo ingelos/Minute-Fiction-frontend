@@ -2,12 +2,19 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
 
+.check-button {
+    margin-right: 15px;
+    background-color: lightslategrey;
+    border: lightslategrey;
 }
 
 .confirmation {
-    margin: 10px 0;
-    padding: 0 10px;
-    border: 1px solid lightslategrey;
-    max-width: 250px;
+    margin: 20px 0;
+    padding: 10px;
+    border: 2px dotted lightslategrey;
+    border-radius: 5px;
+    max-width: 300px;
+    color: lightslategrey;
 }

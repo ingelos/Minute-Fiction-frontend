@@ -6,10 +6,9 @@ function AsideEditorMenu() {
     return (
         <aside className="aside-menu">
             <div className="manage-stories editor-card">
-                <h3 className="aside-title dashboard">
+                <h2 className="aside-title dashboard">
                     <NavLink to={'/editor/dashboard'}>Editor Dashboard</NavLink>
-                </h3>
-                <br></br>
+                </h2>
             </div>
             <div className="manage-stories editor-card">
                 <h3 className="aside-title">Stories</h3>
@@ -17,13 +16,6 @@ function AsideEditorMenu() {
                     <NavLink to={'/editor/stories'}><p>Manage Stories</p></NavLink>
                     <NavLink to={'/editor/stories/review'}><p>Review Stories</p></NavLink>
                     <NavLink to={'/editor/stories/publish'}><p>Publish Stories</p></NavLink>
-                </div>
-            </div>
-            <div className="manage-authors editor-card">
-                <h3 className="aside-title">Authors</h3>
-                <div className="sub-links">
-                    <NavLink to={'/editor/authors'}><p>Manage Authors</p></NavLink>
-                    <NavLink to={'/editor/authors/search'}><p>Search Author</p></NavLink>
                 </div>
             </div>
             <div className="manage-themes editor-card">
@@ -41,12 +33,18 @@ function AsideEditorMenu() {
 
                 </div>
             </div>
+            <div className="manage-authors editor-card">
+                <h3 className="aside-title">Authors</h3>
+                <div className="sub-links">
+                    <NavLink to={'/editor/authors'}><p>Manage Authors</p></NavLink>
+                    <NavLink to={'/editor/authors/search'}><p>Search Author</p></NavLink>
+                </div>
+            </div>
             <div className="manage-users editor-card">
                 <h3 className="aside-title">Users</h3>
                 <div className="sub-links">
                     <Link to={'/editor/users'}><p>Manage Users</p></Link>
                     <Link to={'/register'}><p>Create New User</p></Link>
-                    <Link to={`/editor/users/:userId/authorities`}><p>Manage Authorities</p></Link>
                 </div>
             </div>
         </aside>
