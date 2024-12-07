@@ -1,4 +1,3 @@
-import "./Button.css";
 
 function Button({ buttonType, onClick, className, buttonText }) {
     return (

@@ -17,7 +17,6 @@ function ManageStoriesPage() {
         themeId: filter.themeId,
     })
 
-
     async function handleFilterChange(field, value) {
         setFilter((prev) => ({...prev, [field]: value}));
     }

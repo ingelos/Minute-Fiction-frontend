@@ -28,6 +28,7 @@ function ReviewStoriesPage() {
     async function handleSearch() {
         setSearchClicked(true);
         fetchStories();
+        setAcceptSuccess(false);
     }
 
 

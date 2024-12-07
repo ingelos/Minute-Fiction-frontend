@@ -28,6 +28,7 @@ function PublishStoriesPage() {
     async function handleSearch() {
         setSearchClicked(true);
         fetchStories();
+        setPublishSuccess(false);
     }
 
     async function handlePublishByStory(storyId) {

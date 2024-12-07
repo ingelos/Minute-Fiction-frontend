@@ -32,12 +32,10 @@ function UseAuthorProfile(username) {
                 } catch (photoError) {
                     if (photoError.response && photoError.response.status === 404) {
                         console.log("No profile photo found");
-                        setProfilePhoto(null);
                     } else {
                         console.log("Error fetching photo")
                     }
                 }
-
 
             } catch (error) {
                 if (axios.isCancel(error)) {

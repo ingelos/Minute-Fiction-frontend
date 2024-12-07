@@ -36,9 +36,13 @@ function AuthenticatePage() {
             if (error.response) {
                 if (error.response.status === 401) {
                     console.error('Authentication failed: Invalid username or password', error);
-                    setErrorMessage('Authentication failed: Invalid username or password');
+                    setErrorMessage("Authentication failed: Invalid username or password");
+                } else if (error.response.status === 404) {
+                    console.error('No user found with this username');
+                    setErrorMessage(error.response.data);
                 } else {
                     console.error('Error:', error.response.data.message);
+                    setError(true);
                 }
             } else if (error.request) {
                 console.error('Network error or server is down', error.message);
@@ -100,7 +104,6 @@ function AuthenticatePage() {
                                 </EditorCheck>
                             </div>
                         )}
-
                     </div>
                     <AsideMenu/>
                 </div>

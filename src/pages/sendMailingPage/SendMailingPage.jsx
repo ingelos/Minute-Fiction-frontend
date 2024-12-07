@@ -118,7 +118,6 @@ function SendMailingPage() {
                             ) : (
                                 <p>Successfully Send Mailing!</p>
                             )}
-
                         </div>
                         <AsideEditorMenu/>
                     </EditorCheck>

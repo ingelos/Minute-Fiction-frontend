@@ -1,7 +1,6 @@
 .story-detail-container {
     display: flex;
     flex-direction: column;
-    /*border-top: 1px solid var(--color-primary);*/
     border-bottom: 2px solid var(--color-primary);
 }
 

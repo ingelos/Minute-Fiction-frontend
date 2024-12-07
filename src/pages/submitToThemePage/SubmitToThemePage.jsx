@@ -79,7 +79,7 @@ function SubmitToThemePage() {
                                 {!success ? (
                                     <StoryForm themeId={themeId} onSubmit={handleSubmitStory} isEditing={false}/>
                                 ) : (
-                                    <h5 className="success-message">You have successfully submitted your story!</h5>
+                                    <p className="success-message">You have successfully submitted your story!</p>
                                 )}
                                 {error && <p className="error-message">Error submitting form. Please try again.</p>}
                             </AuthorCheck>

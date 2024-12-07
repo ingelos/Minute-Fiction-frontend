@@ -25,9 +25,8 @@ function UseAuthorPublishedStories(username) {
                 if (axios.isCancel(error)) {
                     console.error('Request is cancelled');
                 } else if (error.response) {
-                    if (error.response.status === 404) {
-                        console.error('No published stories exist for this author');
-                        setError(true);
+                    if (error.response && error.response.status === 404) {
+                        console.error('Author has no published stories');
                     } else {
                         console.error('Error:', error)
                         setError(true);

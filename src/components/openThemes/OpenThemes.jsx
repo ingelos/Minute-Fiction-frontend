@@ -32,7 +32,7 @@ function OpenThemes({showSubmitButton, overview, variant}) {
                             )}
                         </div>
                     ))) : (
-                        <p className="no-themes"></p>
+                        <p className="no-themes">No open themes</p>
             )}
         </div>
     )

@@ -22,10 +22,9 @@ function CreateAuthorProfilePage() {
                     },
                 }
             );
-            // const { data: updatedUser } = await axios.get(`http://localhost:8080/users/${user.username}`)
-            // updateUser(updatedUser);
             console.log('Profile created successfully', data);
             navigate(`/authors/${user.username}`);
+
         } catch (error) {
             console.error('Error creating profile ', error);
         }
@@ -40,12 +39,6 @@ function CreateAuthorProfilePage() {
                         <AuthenticateCheck>
                             <AuthorProfileForm onSubmit={handleCreateProfile} isEditing={false}/>
                         </AuthenticateCheck>
-
-                        {/*{isAuth ? (*/}
-                        {/*    <AuthorProfileForm onSubmit={handleCreateProfile} isEditing={false}/>*/}
-                        {/*) : (*/}
-                        {/*    <p>Log in</p>*/}
-                        {/*)}*/}
                     </div>
                     <AsideMenu/>
                 </div>

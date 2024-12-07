@@ -86,7 +86,7 @@ function SearchByAuthorPage() {
                                                     <p><strong>Theme:</strong> {story.themeName}</p>
                                                     <p><strong>Content:</strong> {story.content}</p>
                                                 </div>
-                                                <Link to={`/editor/stories/${story.id}/edit`} className="button">View/
+                                                <Link to={`/editor/stories/${story.id}/edit`} className="edit-link edit-editor">
                                                     Edit</Link>
                                             </div>
                                         ))}

@@ -40,7 +40,6 @@ function MainNavigation() {
                                 direct="Editor"
                                 navDirect={'/editor/dashboard'}
                             />
-
                             {isAuth ? (
                                 <>
                                     <NavigationLink

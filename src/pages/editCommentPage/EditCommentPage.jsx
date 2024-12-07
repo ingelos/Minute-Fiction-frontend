@@ -5,7 +5,7 @@ import Confirmation from "../../components/confirmation/Confirmation.jsx";
 import CommentForm from "../../components/commentForm/CommentForm.jsx";
 import AsideMenu from "../../components/asideMenu/AsideMenu.jsx";
 import Button from "../../components/button/Button.jsx";
-import {FaLongArrowAltLeft, FaLongArrowAltRight} from "react-icons/fa";
+import {FaLongArrowAltLeft} from "react-icons/fa";
 
 
 function EditCommentPage() {

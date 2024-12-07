@@ -1,4 +1,3 @@
-import "./EditMailingPage.css";
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
@@ -120,7 +119,6 @@ function EditMailingPage() {
                                                         message="Are you sure you want to delete this mailing?"
                                                     />
                                                 </div>
-
                                             </div>
                                         ) : (
                                             <p>Successfully Updated Mailing!</p>

@@ -3,7 +3,7 @@ import {useContext, useState} from "react";
 import axios from "axios";
 import Input from "../../components/input/Input.jsx";
 import {Link} from "react-router-dom";
-import {FaLongArrowAltLeft, FaLongArrowAltRight} from "react-icons/fa";
+import {FaLongArrowAltLeft} from "react-icons/fa";
 import AuthContext from "../../context/AuthContext.jsx";
 import OwnerCheck from "../../helpers/ownerCheck/OwnerCheck.jsx";
 import Button from "../../components/button/Button.jsx";

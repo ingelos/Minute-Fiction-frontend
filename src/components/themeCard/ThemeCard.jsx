@@ -1,4 +1,3 @@
-import "./ThemeCard.css"
 import {Link} from "react-router-dom";
 import {formatDate} from "../../helpers/dateFormatter.js";
 

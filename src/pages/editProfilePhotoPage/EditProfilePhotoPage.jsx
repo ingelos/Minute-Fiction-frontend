@@ -4,13 +4,13 @@ import axios from "axios";
 import AuthenticateCheck from "../../helpers/authenticateCheck/AuthenticateCheck.jsx";
 import useAuthorProfile from "../../hooks/useAuthorProfile/UseAuthorProfile.jsx";
 import AuthContext from "../../context/AuthContext.jsx";
-import {FaLongArrowAltRight} from "react-icons/fa";
+import {FaLongArrowAltLeft} from "react-icons/fa";
 import {Link} from "react-router-dom";
 
 
 function EditProfilePhotoPage() {
     const {user, username} = useContext(AuthContext);
-    const { profilePhoto } = useAuthorProfile(username);
+    const {profilePhoto} = useAuthorProfile(username);
     const [file, setFile] = useState([]);
     const [previewUrl, setPreviewUrl] = useState('');
     const [uploadSuccess, setUploadSuccess] = useState(false);
@@ -75,9 +75,8 @@ function EditProfilePhotoPage() {
                                     <h2 className='add-photo titles'>Add / Edit Photo</h2>
                                     {uploadSuccess ?
                                         <div>
-
                                             <div className="back-link">
-                                                <FaLongArrowAltRight className="arrow-icon"/>
+                                                <FaLongArrowAltLeft className="arrow-icon"/>
                                                 <Link to={`/authors/${username}`}>Back to profile</Link>
                                             </div>
                                             <p>Successfully added a photo to your profile!</p>
@@ -100,33 +99,27 @@ function EditProfilePhotoPage() {
                                             </form>
                                         </div>
                                     }
-
                                 </div>
                             )}
                             <div>
                                 {profilePhoto && (
                                     <div>
+                                        <h2 className='add-photo titles'>Delete Photo</h2>
+                                        <div className="back-link">
+                                            <FaLongArrowAltLeft className="arrow-icon"/>
+                                            <Link to={`/authors/${username}`}>Back to profile</Link>
+                                        </div>
                                         {!deleteSuccess ?
-                                            <div>
-                                                <h2 className='add-photo titles'>Delete Photo</h2>
-                                                <div className="delete-photo-container">
-                                                    <img src={profilePhoto} alt='Profile Photo'
-                                                         className='profile-photo'/>
-                                                    <button onClick={handleDeleteProfilePhoto}
-                                                            className="delete-button">Delete
-                                                        Photo
-                                                    </button>
-                                                </div>
+                                            <div className="delete-photo-container">
+                                                <img src={profilePhoto} alt='Profile Photo'
+                                                     className='profile-photo'/>
+                                                <button onClick={handleDeleteProfilePhoto}
+                                                        className="delete-button">Delete
+                                                    Photo
+                                                </button>
                                             </div>
                                             :
-                                            <div>
-                                                <div className="back-link">
-                                                    <FaLongArrowAltRight className="arrow-icon"/>
-                                                    <Link to={`/authors/${username}`}>Back to profile</Link>
-                                                </div>
-                                                <p>Successfully deleted your photo!</p>
-                                            </div>
-                                        }
+                                            <p>Successfully deleted your photo!</p>}
                                     </div>
                                 )}
                             </div>

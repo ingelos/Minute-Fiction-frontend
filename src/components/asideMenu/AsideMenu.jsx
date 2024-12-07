@@ -9,7 +9,7 @@ import AuthContext from "../../context/AuthContext.jsx";
 
 function AsideMenu() {
     const { isAuth } = useContext(AuthContext);
-    const { stories } = useRecentStories({ limit: 4});
+    const { stories } = useRecentStories({ limit: 5});
 
     return (
         <aside className="aside-menu">
@@ -42,7 +42,7 @@ function AsideMenu() {
                     <h3 className="aside-title">Register</h3>
                     <div className="register-menu">
                         <h4>New here?</h4>
-                        <p>Want to submit your own stories and/or comment on stories?</p>
+                        <p>Want to comment on and/or submit your own stories?</p>
                         <p className="link-button-style">
                             <Link to='/register'>Create account</Link>
                         </p>

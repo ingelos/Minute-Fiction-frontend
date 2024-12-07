@@ -5,8 +5,7 @@ function Confirmation({isOpen, title, message, onConfirm, onClose}) {
     if (!isOpen) return null;
 
     return (
-        <div className="confirmation">
-            <div className="confirmation-content">
+        <div className="confirmation-container">
                 <div>
                     <h3>{title}</h3>
                     <p>{message}</p>
@@ -23,7 +22,6 @@ function Confirmation({isOpen, title, message, onConfirm, onClose}) {
                             className="check-button"
                     />
                 </div>
-            </div>
         </div>
     )
 }

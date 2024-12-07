@@ -5,9 +5,9 @@ import useRecentStories from "../../hooks/useRecentStories/UseRecentStories.jsx"
 
 function HomePage() {
     const [page, setPage] = useState(0);
-    const limit = 20;
+    const limit = 10;
     const offset = page * limit;
-    const {stories, loading, error} = useRecentStories({limit, offset});
+    const {stories, loading, error} = useRecentStories({limit, offset });
 
     const handleNextPage = () => setPage((prev) => prev + 1);
     const handlePreviousPage = () => setPage((prev) => Math.max(prev - 1, 0));

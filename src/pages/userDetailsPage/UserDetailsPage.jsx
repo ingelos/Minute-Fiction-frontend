@@ -9,8 +9,8 @@ import AuthContext from "../../context/AuthContext.jsx";
 
 
 function UserDetailsPage() {
-    const { user, isAuth, updateUser } = useContext(AuthContext);
-    const { username} = useParams();
+    const {user, isAuth, updateUser} = useContext(AuthContext);
+    const {username} = useParams();
     const [userData, setUserData] = useState({});
     const [loading, setLoading] = useState(true);
     const token = localStorage.getItem('token');
@@ -61,11 +61,11 @@ function UserDetailsPage() {
                 });
 
             setUserData((prevData) => ({
-                    ...prevData,
-                    subscribedToMailing: newSubscriptionStatus,
-                }));
+                ...prevData,
+                subscribedToMailing: newSubscriptionStatus,
+            }));
 
-            updateUser({ ...user, subscribedToMailing: newSubscriptionStatus });
+            updateUser({...user, subscribedToMailing: newSubscriptionStatus});
 
             console.log("Subscription updated successfully");
         } catch (error) {
@@ -78,11 +78,11 @@ function UserDetailsPage() {
             <div className='user-account inner-content-container'>
                 <div className='main-container'>
                     <OwnerCheck username={username}>
-                    <div className="featured-section">
-                        {isAuth ? (
-                            <div>
-                                {loading && <p>Loading...</p>}
-                                <h2 className="section-title titles">Welcome back {user.username}!</h2>
+                        <div className="featured-section">
+                            {isAuth ? (
+                                <div>
+                                    {loading && <p>Loading...</p>}
+                                    <h2 className="section-title titles">Welcome back {user.username}!</h2>
                                     <div>
                                         <div className="account-container">
                                             <p>Username: {userData.username}</p>
@@ -96,7 +96,7 @@ function UserDetailsPage() {
                                                 buttonType="submit"
                                                 classname="submit-button"
                                                 buttonText={userData.subscribedToMailing ? "Unsubscribe" : "Subscribe"}
-                                                />
+                                            />
                                         </div>
                                         <div className="profile-link">
                                             {userData.hasAuthorProfile ? (
@@ -114,12 +114,13 @@ function UserDetailsPage() {
                                                 Account</Link>
                                         </div>
                                     </div>
-                            </div>
-                        ) : (
-                            <h3 className='log-in-again-title titles'>You are logged out. Please log in again to access your account.</h3>
-                        )}
-                    </div>
-                    <AsideMenu/>
+                                </div>
+                            ) : (
+                                <h3 className='log-in-again-title titles'>You are logged out. Please log in again to
+                                    access your account.</h3>
+                            )}
+                        </div>
+                        <AsideMenu/>
                     </OwnerCheck>
                 </div>
             </div>

@@ -20,7 +20,15 @@ function AuthorProfilePage() {
     const [error, setError] = useState(null);
     const [unpublishedStories, setUnpublishedStories] = useState([]);
     const [showUnpublishedStories, setShowUnpublishedStories] = useState(false);
-    const { error: deleteError, loading, modalOpen, setModalOpen, storyToDelete, openModal, handleDeleteStory} = useDeleteStory(refreshUnpublishedStories);
+    const {
+        error: deleteError,
+        loading,
+        modalOpen,
+        setModalOpen,
+        storyToDelete,
+        openModal,
+        handleDeleteStory
+    } = useDeleteStory(refreshUnpublishedStories);
 
     async function getUnpublishedStories() {
         const token = localStorage.getItem('token');
@@ -34,14 +42,18 @@ function AuthorProfilePage() {
             setUnpublishedStories(data);
             console.log(data);
         } catch (error) {
-            console.error('Error fetching unpublished stories:', error);
-            setError(true);
+            if (error.response && error.response.status === 404) {
+                console.log("Author has no unpublished stories");
+            } else {
+                console.error('Error fetching unpublished stories:', error);
+                setError(true);
+            }
         }
     }
 
     async function refreshUnpublishedStories(deletedStoryId) {
         setUnpublishedStories((prevStories) =>
-        prevStories.filter((story) => story.id !== deletedStoryId));
+            prevStories.filter((story) => story.id !== deletedStoryId));
     }
 
     async function handleShowUnpublishedStories() {
@@ -50,8 +62,6 @@ function AuthorProfilePage() {
         }
         setShowUnpublishedStories(!showUnpublishedStories);
     }
-
-
 
 
     return (
@@ -73,42 +83,34 @@ function AuthorProfilePage() {
                                             dob={authorProfile.dob}
                                         />
                                         <div className="edit-link">
-                                        <OwnerCheck username={username}>
-                                            <Link to={`/authors/${username}/edit`} className="edit-link">
-                                                Edit Profile
-                                            </Link>
-                                        </OwnerCheck>
+                                            <OwnerCheck username={username}>
+                                                <Link to={`/authors/${username}/edit`} className="edit-link">
+                                                    Edit Profile
+                                                </Link>
+                                            </OwnerCheck>
                                         </div>
                                     </div>
                                 }
                             </div>
                             <div className="profile-photo-container">
-                                {profilePhoto ? (
-                                    <div className="photo-container">
+                                <div className="photo-container">
+                                    {profilePhoto && (
                                         <img src={profilePhoto}
                                              alt='Profile Photo'
                                              className='profile-photo'/>
-                                        <OwnerCheck username={username}>
-                                            <Link to={`/authors/${username}/photo`} className="edit-link">
-                                                Edit Photo
-                                            </Link>
-                                        </OwnerCheck>
-                                    </div>
-                                ) : (
-                                    <div className="photo-container">
-                                        <OwnerCheck username={username}>
-                                            <Link to={`/authors/${username}/photo`} className="edit-link">
-                                                Add Photo
-                                            </Link>
-                                        </OwnerCheck>
-                                    </div>
-                                )}
+                                    )}
+                                    <OwnerCheck username={username}>
+                                        <Link to={`/authors/${username}/photo`} className="edit-link">
+                                            {profilePhoto ? 'Edit Photo' : 'Add Photo'}
+                                        </Link>
+                                    </OwnerCheck>
+                                </div>
+
                             </div>
                         </div>
                         <div className="stories-section">
                             {storiesLoading && <p>Loading stories...</p>}
                             {storiesError && <p>{storiesError.message}</p>}
-
                             {stories.length > 0 && (
                                 stories.map((story) => (
                                     <div className="story-container" key={story.id}>
@@ -128,10 +130,11 @@ function AuthorProfilePage() {
                         </div>
                         <OwnerCheck username={username}>
                             <div>
-                                <Button onClick={handleShowUnpublishedStories}
-                                        buttonText={showUnpublishedStories ? 'Hide Unpublished Stories' : 'Show Unpublished Stories'}
-                                        buttonType="button"
-                                        className="show-button"
+                                <Button
+                                    onClick={handleShowUnpublishedStories}
+                                    buttonText={showUnpublishedStories ? 'Hide Unpublished Stories' : 'Show Unpublished Stories'}
+                                    buttonType="button"
+                                    className="show-button"
                                 />
                                 <div>
                                     {error && <p>{error.message}</p>}
@@ -151,13 +154,9 @@ function AuthorProfilePage() {
                                                                 buttonText="Delete"
                                                                 buttonType="button"
                                                         />
-
-                                                        {loading ? 'Deleting...' : ''}
-                                                        {deleteError && <p>Error deleting story.</p>}
+                                                        {!loading && deleteError && <p>{error}</p>}
                                                     </div>
-
                                                 </div>
-
                                             ))))}
                                 </div>
                                 {modalOpen && (
@@ -166,7 +165,7 @@ function AuthorProfilePage() {
                                         onClose={() => setModalOpen(false)}
                                         onConfirm={() => handleDeleteStory(storyToDelete)}
                                         title="Confirm Deletion"
-                                        message="Are you sure you want to delete this story? Please be certain."
+                                        message="Are you sure you want to delete this story?"
                                     />
                                 )}
                             </div>

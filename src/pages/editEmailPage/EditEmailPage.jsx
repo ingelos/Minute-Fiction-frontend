@@ -1,4 +1,3 @@
-import "./EditEmailPage.css";
 import {useForm} from "react-hook-form";
 import {useContext, useState} from "react";
 import axios from "axios";
