@@ -26,7 +26,7 @@ import EditorDashboard from "./pages/editorDashboard/EditorDashboard.jsx";
 import SendMailing from "./pages/sendMailing/SendMailing.jsx";
 import EditStory from "./pages/editStory/EditStory.jsx";
 import ManageStories from "./pages/manageStories/ManageStories.jsx";
-import UserDetails from "./pages/userDetailsPage/UserDetails.jsx";
+import UserDetails from "./pages/userDetails/UserDetails.jsx";
 import DeleteAccount from "./pages/deleteAccount/DeleteAccount.jsx";
 import EditProfilePhoto from "./pages/editProfilePhoto/EditProfilePhoto.jsx";
 import ManageUsers from "./pages/manageUsers/ManageUsers.jsx";

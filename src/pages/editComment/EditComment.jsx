@@ -37,8 +37,6 @@ function EditComment() {
 
 
     async function handleUpdatingComment(commentId, updatedData) {
-        console.log("Received commentId:", commentId);
-
         try {
             const {data} = await axios.patch(`http://localhost:8080/comments/${commentId}`,
                 updatedData,
@@ -49,7 +47,6 @@ function EditComment() {
                     },
                 });
             setUpdateSuccess(true);
-            console.log('Comment form data:', data);
         } catch (error) {
             if (error.response && error.response.status === 403) {
                 console.error('You are not authorized to edit this comment');
@@ -68,7 +65,6 @@ function EditComment() {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log('Comment deleted.');
             setDeleteSuccess(true);
         } catch (error) {
             if (error.response && error.response.status === 403) {

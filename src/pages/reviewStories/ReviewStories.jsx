@@ -1,4 +1,3 @@
-import "./ReviewStories.css";
 import {useState} from "react";
 import axios from "axios";
 import AsideEditorMenu from "../../components/layout/asideEditorMenu/AsideEditorMenu.jsx";

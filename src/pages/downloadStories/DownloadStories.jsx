@@ -4,7 +4,8 @@ import {useContext, useState} from "react";
 import AuthContext from "../../context/AuthContext.jsx";
 import axios from "axios";
 import Button from "../../components/common/button/Button.jsx";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import {FaLongArrowAltLeft} from "react-icons/fa";
 
 function DownloadStories() {
     const { user } = useContext(AuthContext);
@@ -30,7 +31,6 @@ function DownloadStories() {
             link.download = `stories-${filter}.pdf`;
             link.click();
             URL.revokeObjectURL(url);
-
             console.log("Pdf downloaded successfully")
         } catch (error) {
             console.error('Error downloading stories:', error);
@@ -48,6 +48,10 @@ function DownloadStories() {
                     <div className="featured-section">
                         <OwnerCheck username={username}>
                             <h2 className="download-title titles">Download Your Stories</h2>
+                            <div className="back-link">
+                                <FaLongArrowAltLeft className="arrow-icon"/>
+                                <Link to={`/authors/${username}`}>Back to Author Profile</Link>
+                            </div>
                             <div className="filter-container">
                                 <label>
                                     <input

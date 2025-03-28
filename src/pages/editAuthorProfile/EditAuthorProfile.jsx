@@ -49,7 +49,6 @@ function EditAuthorProfile() {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            console.log('Author profile deleted.');
             setDeleteSuccess(true);
         } catch (error) {
             if (error.response && error.response.status === 400) {
@@ -71,8 +70,6 @@ function EditAuthorProfile() {
                         <OwnerCheck username={username}>
                             <div className='authorprofile-container'>
                                 <h2 className="mailings-title titles">Edit Author Profile</h2>
-
-
                                 {!updateSuccess && !deleteSuccess ? (
                                     <div>
                                         <div className="back-link">

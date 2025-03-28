@@ -1,7 +1,6 @@
 .stories-container {
     display: flex;
     flex-direction: row;
-
 }
 
 .relevant-stories-container {
@@ -14,9 +13,6 @@
     justify-content: space-between;
     margin: 25px 0;
     max-width: 300px;
-}
-
-@media screen and (max-width: 768px) {
 }
 
 

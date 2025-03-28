@@ -6,7 +6,7 @@ import AsideEditorMenu from "../../components/layout/asideEditorMenu/AsideEditor
 import EditorCheck from "../../helpers/userChecks/EditorCheck.jsx";
 import Button from "../../components/common/button/Button.jsx";
 import Confirmation from "../../components/layout/confirmation/Confirmation.jsx";
-import {FaLongArrowAltLeft, FaLongArrowAltRight} from "react-icons/fa";
+import {FaLongArrowAltLeft} from "react-icons/fa";
 
 function SendMailing() {
     const {mailingId} = useParams();

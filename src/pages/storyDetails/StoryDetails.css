@@ -1,9 +1,3 @@
-
-.story-detailed-container {
-    /*min-width: 400px;*/
-
-}
-
 .story-container {
     flex-basis: 700px;
     flex-grow: 0;

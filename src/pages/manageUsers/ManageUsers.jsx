@@ -56,9 +56,7 @@ function ManageUsers() {
                                 </p>
                                 <div>
                                     <h3 className="sub-titles">All Users</h3>
-                                    {/*<ul>*/}
                                     {errorMessage && <p className="error-message">{errorMessage}</p>}
-                                    {/*<li className="user-container">*/}
                                     <div className="user-container">
                                         <div className='user-list'>
                                             <table className="user-table">

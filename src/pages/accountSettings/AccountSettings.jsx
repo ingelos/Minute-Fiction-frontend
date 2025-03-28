@@ -21,7 +21,6 @@ function AccountSettings() {
 
     async function editEmail(formData) {
         setError(false);
-        const token = localStorage.getItem('token');
 
         try {
             const {data} = await axios.patch(`http://localhost:8080/users/${user.username}/email`, {

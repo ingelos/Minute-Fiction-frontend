@@ -42,14 +42,12 @@ function ManageAuthors() {
     }
 
     async function handleDeleteAuthorProfile(username) {
-        console.log("deleting user: " + username);
         try {
             await axios.delete(`http://localhost:8080/authorprofiles/${username}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            console.log('Author profile deleted.');
             setErrorMessage(null);
             setAuthors((prevAuthors) => prevAuthors.filter(author => author.username !== username));
 
@@ -83,7 +81,6 @@ function ManageAuthors() {
                             </p>
                             <h3 className="sub-titles">All Authors</h3>
                             <div className="author-container">
-                                {/*<li>*/}
                                     <div className="author-list">
                                         <table className="author-table">
                                             <thead>
@@ -145,7 +142,6 @@ function ManageAuthors() {
                                         }
                                         {error && <p>Something went wrong!</p>}
                                     </div>
-                                {/*</li>*/}
                             </div>
                             {errorMessage && <p className="error-message">{errorMessage}</p>}
                             {isModalOpen && (

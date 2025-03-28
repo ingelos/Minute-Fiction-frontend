@@ -54,7 +54,7 @@ function EditMailing() {
                         Authorization: `Bearer ${token}`,
                     }
                 });
-            console.log('Mailing updated data:', data);
+            console.log('Updated mailing: ', data)
             setUpdateSuccess(true);
         } catch (error) {
             console.error('Error updating mailing:', error);
@@ -70,7 +70,6 @@ function EditMailing() {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            console.log('Mailing deleted.');
             setDeleteSuccess(true);
         } catch (error) {
             console.error('Error deleting mailing', error);

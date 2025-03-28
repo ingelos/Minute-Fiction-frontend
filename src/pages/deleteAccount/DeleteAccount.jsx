@@ -25,7 +25,6 @@ function DeleteAccount() {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            console.log('Account deleted.');
             setDeleteSuccess(true);
             logout();
         } catch (error) {

@@ -135,12 +135,18 @@ label {
   margin: 20px 0;
 }
 
+.story-container {
+  flex-basis: 500px;
+  flex-shrink: 1;
+}
+
 .back-link {
   display: flex;
   flex-direction: row;
   align-items: center;
   align-content: center;
   padding: 20px 0;
+  border-bottom: 1px dotted black;
 }
 
 .arrow-icon {
