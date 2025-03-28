@@ -21,12 +21,10 @@ function UseDeleteStory(onDeleteSuccess) {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log('Story deleted.');
             setDeleteSuccess(true);
             if (onDeleteSuccess) {
                 onDeleteSuccess(storyId);
             }
-
         } catch (error) {
             setError(error.response?.data || "An error occurred while deleting the story");
             console.error('Error deleting the story', error);

@@ -1,0 +1,97 @@
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--color-primary);
+    min-width: 500px;
+    margin: 10px 0;
+    padding: 10px 0 50px;
+}
+
+.author-info-container {
+    flex-basis: 400px;
+}
+
+.published-title {
+    border-top: 1px solid var(--color-primary);
+    border-bottom: 1px solid var(--color-primary);
+    padding: 10px 0;
+}
+
+.profile-photo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    max-width: 225px;
+    flex-grow: 0;
+    padding-left: 20px;
+}
+
+.photo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.profile-photo {
+    max-width: 200px;
+}
+
+.profile-picture-empty {
+    height: 50px;
+    width: 50px;
+}
+
+.edit-link {
+    margin-top: 15px;
+    color: lightslategrey
+}
+
+.show-button {
+    margin: 40px 0 20px;
+}
+
+.downloads {
+    margin-top: 2em;
+}
+
+.author-stories {
+    margin: 40px 0;
+}
+
+@media screen and (max-width: 1024px) {
+    .profile-container {
+        display: flex;
+        min-width: 350px;
+    }
+    .author-info-container {
+        flex-basis: 300px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .main-container.author-profile-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 0;
+    }
+    .aside-menu {
+        min-width: 350px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+    .author-info-container {
+        flex-basis: 0;
+        padding-bottom: 20px;
+    }
+}

@@ -3,31 +3,30 @@ import axios from "axios";
 
 function UseUsers() {
     const [users, setUsers] = useState([]);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const controller = new AbortController();
-        const signal = controller.signal;
 
         async function fetchAllUsers() {
             const token = localStorage.getItem('token');
             setLoading(true);
+            setError(null);
 
             try {
                 const {data} = await axios.get(`http://localhost:8080/users`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
-
                 },
-                    signal: signal,
+                    signal: controller.signal,
                 });
-                console.log(data);
                 setUsers(data);
+
             } catch (error) {
-                console.log(error);
-                setError(true);
+                console.error(error);
+                setError('Error fetching users');
             }
         }
 

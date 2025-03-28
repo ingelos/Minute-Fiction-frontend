@@ -1,0 +1,14 @@
+.edit-containers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.edit-password-container, .edit-email-container {
+    width: 350px;
+    border: 1px dotted black;
+    padding: 20px;
+    margin: 20px 0;
+    flex: 0 0 330px;
+}

@@ -3,7 +3,7 @@ import axios from "axios";
 
 export function UseRecentStories({ limit, offset = 0}) {
     const [stories, setStories] = useState([]);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -11,7 +11,7 @@ export function UseRecentStories({ limit, offset = 0}) {
 
         async function fetchRecentStories() {
             setLoading(true);
-            setError(false);
+            setError(null);
 
             try {
                 const {data} = await axios.get(`http://localhost:8080/stories/published`, {
@@ -19,13 +19,11 @@ export function UseRecentStories({ limit, offset = 0}) {
                     signal: controller.signal,
                 });
                 setStories(data);
+
             } catch (error) {
-                if (axios.isCancel(error)) {
-                    console.error('Request is cancelled', error);
-                } else {
+                if (axios.isCancel(error)) return;
                     console.error(error);
-                    setError(true);
-                }
+                    setError('Error fetching published stories');
             } finally {
                 setLoading(false);
             }

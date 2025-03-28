@@ -1,15 +1,15 @@
 import {useState} from "react";
 import axios from "axios";
 
-function UseFetchStories({ status, themeId}) {
+function UseFetchStories({status, themeId}) {
     const [stories, setStories] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const controller = new AbortController();
+    const token = localStorage.getItem('token');
 
     async function fetchStories() {
-        const controller = new AbortController();
-        const {signal} = controller;
-        const token = localStorage.getItem('token');
+        setError(null);
         setLoading(true);
         setStories([]);
 
@@ -20,26 +20,24 @@ function UseFetchStories({ status, themeId}) {
                     themeId,
                 },
                 headers: {
-                    "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                signal
+                signal: controller.signal,
             });
             setStories(data);
+
         } catch (error) {
-            if (axios.isCancel(error)) {
-                console.log('Request cancelled');
-            } else {
-                console.error('Error fetching submitted stories:', error);
-                setError(true);
-            }
+            if (axios.isCancel(error)) return;
+            console.error(error);
+            setError('Error fetching submitted stories');
         } finally {
             setLoading(false);
         }
-        return () => controller.abort();
-}
 
-return { stories, loading, error, setStories, fetchStories}
+        return () => controller.abort();
+    }
+
+    return {stories, loading, error, setStories, fetchStories}
 
 }
 

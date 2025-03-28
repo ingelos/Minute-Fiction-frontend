@@ -1,0 +1,20 @@
+.extra-check-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.check-button {
+    margin-right: 15px;
+    background-color: lightslategrey;
+    border: lightslategrey;
+}
+
+.confirmation-container {
+    margin-top: 20px;
+    padding: 10px;
+    border: 2px dotted lightslategrey;
+    border-radius: 5px;
+    max-width:300px;
+    color: lightslategrey;
+}

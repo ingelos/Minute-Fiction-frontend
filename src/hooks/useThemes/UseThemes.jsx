@@ -2,34 +2,28 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 
-function UseThemes() {
+function UseThemes(url) {
     const [themes, setThemes] = useState([]);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
         const controller = new AbortController();
-        const {signal} = controller;
 
         async function fetchThemes() {
-            setError(false);
+            setError(null);
             setLoading(true);
 
             try {
-               const {data}  = await axios.get(`http://localhost:8080/themes`, {
-                        signal: signal,
-                    });
-               console.log(data);
-               setThemes(data);
-               setError(false);
+                const {data} = await axios.get((url), {
+                    signal: controller.signal,
+                });
+                setThemes(data);
+
             } catch (error) {
-                if (axios.isCancel(error)) {
-                    console.error("Request cancelled", error.message)
-                } else {
-                    setError(true);
-                    console.log("Error fetching themes", error)
-                }
+                if (axios.isCancel(error)) return;
+                setError("Error fetching themes");
             } finally {
                 setLoading(false);
             }
@@ -40,9 +34,9 @@ function UseThemes() {
         return function cleanup() {
             controller.abort();
         }
-    }, []);
+    }, [url]);
 
-    return { themes, loading, error, setThemes };
+    return {themes, loading, error, setThemes};
 }
 
 export default UseThemes;
