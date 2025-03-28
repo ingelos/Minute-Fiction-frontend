@@ -6,7 +6,6 @@ import AuthContext from "./AuthContext.jsx";
 import {jwtDecode} from "jwt-decode";
 
 
-
 export function AuthContextProvider({children}) {
     const [auth, setAuth] = useState({
         isAuth: false,
@@ -14,8 +13,6 @@ export function AuthContextProvider({children}) {
         authorities: [],
         status: 'pending',
     });
-
-
 
     const navigate = useNavigate();
 
@@ -27,13 +24,10 @@ export function AuthContextProvider({children}) {
     }));
 };
 
-
-
     const login = useCallback(async(token) => {
         localStorage.setItem('token', token);
         const decodedToken = jwtDecode(token);
         const username = decodedToken.sub;
-        console.log("Decoded username", username);
 
         try {
             const response = await axios.get(`http://localhost:8080/users/${username}`, {
@@ -42,7 +36,6 @@ export function AuthContextProvider({children}) {
                     "Authorization": `Bearer ${token}`,
                 }
             });
-            console.log(response.data);
 
             setAuth({
                 isAuth: true,
@@ -53,12 +46,12 @@ export function AuthContextProvider({children}) {
                 authorities: response.data.authorities || [],
                 status: 'done',
             });
-            console.log('user is authenticated!');
         } catch (error) {
             console.error("Error fetching user data:", error);
             logout();
         }
     }, []);
+
 
     const logout = useCallback(() =>  {
         localStorage.removeItem('token');
@@ -69,14 +62,12 @@ export function AuthContextProvider({children}) {
             status: 'done',
         });
 
-        console.log('User has been logged out');
         navigate('/');
     }, [navigate]);
 
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        console.log("Token retrieved:", token);
 
         if (token && isTokenValid(token)) {
             void login(token);

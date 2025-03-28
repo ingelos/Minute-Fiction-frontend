@@ -1,23 +1,23 @@
 import {Link} from "react-router-dom";
-import useClosedThemes from "../../hooks/useClosedThemes/UseClosedThemes.jsx";
+import UseThemes from "../../hooks/useThemes/UseThemes.jsx";
 
 function ThemesOverview() {
-    const {closedThemes, loading, error} = useClosedThemes();
+    const {themes, loading, error} = UseThemes(`http://localhost:8080/themes/closed`);
 
 
     return (
         <div className="themes-menu-component">
             {loading && <p>Loading...</p>}
             {error && <p>{error.message}</p>}
-            {closedThemes.length > 0 ? (
-                closedThemes.map((theme) => (
+            {themes.length > 0 ? (
+                themes.map((theme) => (
                     <div className="themes-list" key={theme.id}>
                         <Link to={`/themes/${theme.name}`}>
                             <h4>{theme.name}</h4>
                         </Link>
                     </div>
                 ))) : (
-                    <p className="no-themes"></p>
+                    <p className="no-themes">No themes available</p>
             )}
         </div>
     );

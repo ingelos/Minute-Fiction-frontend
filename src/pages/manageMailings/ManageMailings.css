@@ -1,0 +1,16 @@
+.action-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.edit-send-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 10px 0 10px 20px;
+}
+
+.edit-send-container p:first-child {
+    margin: 15px 0;
+}

@@ -1,20 +1,20 @@
 import "./OpenThemes.css";
-import ThemeCard from "../themeCard/ThemeCard.jsx";
+import ThemeCard from "../common/themeCard/ThemeCard.jsx";
 import {Link} from "react-router-dom";
-import UseOpenThemes from "../../hooks/useOpenThemes/UseOpenThemes.jsx";
+import UseThemes from "../../hooks/useThemes/UseThemes.jsx";
 
 
 
 function OpenThemes({showSubmitButton, overview, variant}) {
-    const {openThemes, loading, error} = UseOpenThemes();
+    const {themes, loading, error} = UseThemes(`http://localhost:8080/themes/open`);
     const containerClassName = variant === 'aside' ? 'themes-container-aside' : 'themes-container-page';
 
     return (
         <div>
             {loading && <p>Loading...</p>}
             {error && <p>{error.message}</p>}
-            {openThemes.length > 0 ? (
-                openThemes.map((theme) => (
+            {themes.length > 0 && (
+                themes.map((theme) => (
                         <div className={`themes-container ${containerClassName}`} key={theme.id}>
                             <ThemeCard
                                 themeName={theme.name}
@@ -31,9 +31,7 @@ function OpenThemes({showSubmitButton, overview, variant}) {
 
                             )}
                         </div>
-                    ))) : (
-                        <p className="no-themes">No open themes</p>
-            )}
+                    )))}
         </div>
     )
 }

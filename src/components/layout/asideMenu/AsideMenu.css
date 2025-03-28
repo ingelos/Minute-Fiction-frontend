@@ -1,0 +1,76 @@
+.aside-menu {
+    flex-basis: 250px;
+    padding: 2.5em 0 0 3em;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.aside-container {
+    border-bottom: 2px solid black;
+}
+
+.aside-card {
+    border-top: 2px solid var(--color-primary);
+    padding-top: 0.6em;
+}
+
+.aside-title {
+    border-bottom: 1px solid var(--color-primary);
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.list-recent-stories {
+    padding: 15px;
+}
+
+.list-recent-stories p {
+    padding: 5px 0;
+}
+
+.theme-menu-aside {
+    padding: 20px 0;
+}
+
+.no-themes {
+    align-items: center;
+    padding: 20px 0;
+}
+
+.register-menu {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-menu h4 {
+    margin-bottom: 5px;
+}
+
+.link-to-register {
+    border: 1px solid var(--color-primary);
+    border-radius: 25px;
+    padding: 0.3em 1em;
+    margin: 1em 0;
+    width: fit-content;
+    cursor: pointer;
+    background-color: #EFEEEE;
+}
+
+.open-themes-container {
+    margin: 20px 15px;
+    border: 1px solid var(--color-primary);
+}
+
+.no-open-themes {
+    margin: 10px 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .aside-menu {
+        padding: 4em 0 1em;
+    }
+
+}

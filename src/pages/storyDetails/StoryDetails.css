@@ -1,0 +1,24 @@
+
+.story-detailed-container {
+    /*min-width: 400px;*/
+
+}
+
+.story-container {
+    flex-basis: 700px;
+    flex-grow: 0;
+}
+
+.comments-section {
+    margin-top: 40px;
+}
+
+.no-comments {
+    margin: 10px 0 20px;
+}
+
+.comment-list-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

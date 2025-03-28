@@ -1,0 +1,22 @@
+.editor-container {
+    list-style: none;
+    max-width: 350px;
+}
+
+/*.edit-container {*/
+/*    !*display: flex;*!*/
+/*    !*flex-direction: column;*!*/
+/*    !*align-items: flex-end;*!*/
+/*    !*flex-shrink: 0;*!*/
+/*}*/
+
+.overviews {
+    margin: 20px 0;
+}
+
+.link-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 260px
+}

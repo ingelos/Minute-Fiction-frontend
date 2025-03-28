@@ -1,0 +1,22 @@
+.stories-container {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.relevant-stories-container {
+    margin-top: 30px;
+}
+
+.stories-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 25px 0;
+    max-width: 300px;
+}
+
+@media screen and (max-width: 768px) {
+}
+
+

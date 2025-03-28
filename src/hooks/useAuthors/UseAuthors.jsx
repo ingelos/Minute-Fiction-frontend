@@ -8,10 +8,8 @@ function UseAuthors() {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
-
     useEffect(() => {
         const controller = new AbortController();
-        const signal = controller.signal;
 
         async function fetchAuthors() {
             setError(false);
@@ -19,20 +17,14 @@ function UseAuthors() {
 
             try {
                 const {data} = await axios.get(`http://localhost:8080/authorprofiles`, {
-                    signal: signal,
+                    signal: controller.signal,
                 });
-
                 setAuthors(data);
-                console.log("data", data);
-
 
             } catch (error) {
-                if (axios.isCancel(error)) {
-                    console.error('Request is cancelled');
-                } else {
+                if (axios.isCancel(error)) return;
                     console.error(error);
-                    setError(true);
-                }
+                    setError(error);
             } finally {
                 setLoading(false);
             }
