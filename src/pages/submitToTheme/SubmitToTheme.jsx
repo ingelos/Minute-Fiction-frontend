@@ -1,3 +1,4 @@
+import './SubmitToTheme.css';
 import {Link, useParams} from "react-router-dom";
 import StoryForm from "../../components/forms/storyForm/StoryForm.jsx";
 import {useContext, useEffect, useState} from "react";
@@ -70,7 +71,7 @@ function SubmitToTheme() {
                             <FaLongArrowAltLeft className="arrow-icon"/>
                             <Link to={`/submit`}>Back to Open Themes</Link>
                         </div>
-                        <h3>Theme: {themeName}</h3>
+                        <h3 className='theme-title'>Theme: {themeName}</h3>
                         <div className="open-themes-submit">
                             {errorMessage && <p className="error-message">{errorMessage}</p>}
                             <AuthorCheck username={user.username}>

@@ -28,6 +28,7 @@
   display: flex;
   flex-direction: column;
   min-width: 300px;
+  max-width: 650px;
   padding: 1em 1em 0 0;
 }
 
@@ -146,7 +147,6 @@ label {
   align-items: center;
   align-content: center;
   padding: 20px 0;
-  border-bottom: 1px dotted black;
 }
 
 .arrow-icon {
