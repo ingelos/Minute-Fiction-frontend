@@ -12,7 +12,7 @@
 
 ## 1. Description
 
-Minute Fiction is an application firstly developed for the Backend module of the Novi Hogeschool Full Stack Developer Bootcamp.
+Minute Fiction is an application firstly developed for the backend module of the Novi Hogeschool Full Stack Developer Bootcamp.
 This frontend was developed to complete the application.
 
 Minute Fiction is a platform for readers, authors and editors. 
@@ -43,7 +43,7 @@ npm -v              // Check NPM version
 ```
 
 ```
-npm install -g nodemon      // Insures application is automatically restarted with file changes
+npm install -g nodemon      // Ensures application is automatically restarted with file changes
 ```
 
 
@@ -61,7 +61,7 @@ npm install
 Step 3: start the application:
 
 ``` 
-npm run dev         // During development
+npm run dev         
 ```
 After running this command, the application will start and be accessible in the browser at http://localhost:5173/
 
