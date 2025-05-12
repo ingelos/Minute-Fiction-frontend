@@ -85,7 +85,7 @@ function EditProfilePhoto() {
                                         :
                                         <div className="editing-photo-container">
                                             <form onSubmit={handleUploadPhoto}>
-                                            <label htmlFor="author-photo">
+                                                <label htmlFor="author-photo">
                                                     Choose image:
                                                     <input type="file" name="file" id="author-photo"
                                                            onChange={handleImageChange}/>
@@ -97,7 +97,8 @@ function EditProfilePhoto() {
                                                             <img src={previewUrl} alt="Example of chosen image"
                                                                  className="profile-photo"/>
                                                         </label>
-                                                    </div>}
+                                                    </div>
+                                                }
                                                 <button type="submit">Upload Photo</button>
                                             </form>
                                         </div>
